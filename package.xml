@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+    <name>XML_Feed_Parser</name>
+    <summary>Providing a somewhat unified API for handling </summary>
+    <description>XML_Feed_Parser is a parser for RSS1, RSS2 and Atom format XML feeds. It attempts to provide a somewhat unified API while still allowing access to the full details of each feed type.</description>
+    <license>PHP License</license>
+    <maintainers>
+        <maintainer>
+            <user>jystewart</user>
+            <role>lead</role>
+            <name>James Stewart</name>
+            <email>james@jystewart.net</email>
+        </maintainer>
+    </maintainers>
+    <release>
+        <version>0.2.4alpha</version>
+        <state>alpha</state>
+        <date>2005-10-10</date>
+        <notes>First release in PEAR
+Added custom exception class (vote condition)
+Moved to single quotes in most cases (vote condition)</notes>
+        <filelist>
+            <dir name="/" baseinstalldir="/XML/Feed">
+                <dir name="Parser" role="php">
+                    <file name="Exception.php">
+                        <replace from="@version" to="version" type="package-info"/>
+                    </file>
+                    <file name="Atom.php">
+                        <replace from="@version@" to="version" type="package-info"/>
+                    </file>
+                    <file name="AtomElement.php">
+                        <replace from="@version@" to="version" type="package-info"/>
+                    </file>
+                    <file name="RSS1.php">
+                        <replace from="@version@" to="version" type="package-info"/>
+                    </file>
+                    <file name="RSS1Element.php">
+                        <replace from="@version@" to="version" type="package-info"/>
+                    </file>
+                    <file name="RSS2.php">
+                        <replace from="@version@" to="version" type="package-info"/>
+                    </file>
+                    <file name="RSS2Element.php">
+                        <replace from="@version@" to="version" type="package-info"/>
+                    </file>
+                    <file name="Type.php">
+                        <replace from="@version@" to="version" type="package-info"/>
+                    </file>
+                </dir>
+                <file role="php" name="Parser.php">
+                    <replace from="@version@" to="version" type="package-info"/>
+                </file>
+                <dir name="tests" role="test">
+                    <file name="accessTypes.php"/>
+                    <file name="atomCompliance.php"/>
+                    <file name="iteration.php"/>
+                    <file name="atomValues.php"/>
+                    <file name="atomEntryOnly.php"/>
+                    <file name="rss1Values.php"/>
+                    <file name="rss2Values.php"/>
+                </dir>
+                <dir name="samples" role="data">
+                    <file name="atom10-example1.xml"/>
+                    <file name="atom10-example2.xml"/>
+                    <file name="atom10-entryonly.xml"/>
+                    <file name="rss10-example1.xml"/>
+                    <file name="rss10-example2.xml"/>
+                    <file name="rss2sample.xml"/>
+                    <file name="delicious.feed"/>
+                    <file name="flickr.feed"/>
+                    <file name="grwifi-atom.xml"/>
+                    <file name="technorati.feed"/>
+                </dir>
+            </dir>
+        </filelist>
+        <deps>
+        </deps>
+    </release>
+    <changelog>
+        <release>
+            <version>0.2.3alpha</version>
+            <state>alpha</state>
+            <date>2005-10-02</date>
+            <notes>Moved to PEAR_Exception
+Fixed RSS1 test to handle entities properly
+Preparing for pepr call for votes</notes>
+        </release>
+        <release>
+            <version>0.2.2alpha</version>
+            <state>alpha</state>
+            <date>2005-09-22</date>
+            <notes>Lots of CS fixes.
+Added @var notes for members, and file level docblocks
+Renamed some member names that were prefixed with underscores
+Cleaned up a few methods' comment blocks
+Moved all require_once calls to appropriate places in Parser.php
+Fix to atom enclosure support
+Added test for entry-only atom feed</notes>
+        </release>
+        <release>
+            <version>0.2.1alpha</version>
+            <state>alpha</state>
+            <date>2005-09-14</date>
+            <notes>Unit tests added
+Various fixes and checks added following testing</notes>
+        </release>
+        <release>
+            <version>0.2.0devel</version>
+            <state>devel</state>
+            <date>2005-09-11</date>
+            <notes>Made DOMDocuments for feed and entries public to allow for extensions that make use of the DOM
+Added functions to handle xml:base and applied to link elements
+Some work on API consistency
+Improved handling of content type="xhtml" for atom feeds
+Fixes to use of __tostring() method</notes>
+        </release>
+        <release>
+            <version>0.1.2devel</version>
+            <state>devel</state>
+            <date>2005-09-10</date>
+            <notes>Added support for RSS1/2 'image' and 'textinput' elements
+    Added category support (dc:subject) for RSS1
+    Added cloud, ttl, skipDays, and skipHours support for RSS2 (completing RSS spec support)
+    Added support for the RSS1 syndication and content modules.
+    Added partial RSS1 Dublin Core support
+    Added support for atom:source support and reworked atom:author support to work with it</notes>
+        </release>
+        <release>
+            <version>0.1.1devel</version>
+            <state>devel</state>
+            <date>2005-09-07</date>
+            <notes>Added Enclosures support
+Fixed up getElementById for RSS1</notes>
+        </release>
+        <release>
+            <version>0.1.0devel</version>
+            <state>devel</state>
+            <date>2005-09-03</date>
+            <notes>Initial rolling</notes>
+        </release>
+    </changelog>
+</package>
