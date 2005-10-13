@@ -90,8 +90,8 @@ class XML_Feed_Parser implements Iterator
     		    require_once 'Parser/AtomElement.php';
     		    $class = 'XML_Feed_Parser_Atom';
     		    trigger_error(
-    		        'Atom 0.3 deprecated, using 1.0 parser which won't provide 
-    		        all options'', E_USER_WARNING);
+    		        'Atom 0.3 deprecated, using 1.0 parser which won\'t provide 
+    		        all options', E_USER_WARNING);
     		    break;
 		    case ($doc_element->childNodes->item(1)->namespaceURI == 
 		        'http://purl.org/rss/1.0/'):
