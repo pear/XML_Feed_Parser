@@ -56,7 +56,7 @@ class XML_Feed_Parser_AtomEntryOnly_TestCase extends PHPUnit_Testcase
 
 	function test_Content()
 	{
-	    $value = trim("<div xmlns=\"http://www.w3.org/1999/xhtml\">  <p><i>[Update: The Atom draft is finished.]</i></p>  </div>");
+	    $value = "<p><i>[Update: The Atom draft is finished.]</i></p>";
 	    $content = trim(preg_replace("/\t/", " ", $this->entry->content));
 	    $content = preg_replace("/(\s\s)+/", " ", $content);
         $this->assertEquals($content, $value);
