@@ -13,12 +13,13 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.2.4alpha</version>
+        <version>0.2.5alpha</version>
         <state>alpha</state>
-        <date>2005-10-10</date>
-        <notes>First release in PEAR
-Added custom exception class (vote condition)
-Moved to single quotes in most cases (vote condition)</notes>
+        <date>2005-10-15</date>
+        <notes>Fixed misplaced single quotes (bug #5677)
+Added samples of feeds in farsi and japanese, with test cases
+Reworked xml:base support - now applies to all appropriate atom text constructs
+Reworked atom text construct handling to obey 'type' attribute</notes>
         <filelist>
             <dir name="/" baseinstalldir="/XML/Feed">
                 <dir name="Parser" role="php">
@@ -58,6 +59,8 @@ Moved to single quotes in most cases (vote condition)</notes>
                     <file name="atomEntryOnly.php"/>
                     <file name="rss1Values.php"/>
                     <file name="rss2Values.php"/>
+                    <file name="japanese.php"/>
+                    <file name="farsi.php"/>
                 </dir>
                 <dir name="samples" role="data">
                     <file name="atom10-example1.xml"/>
@@ -70,6 +73,8 @@ Moved to single quotes in most cases (vote condition)</notes>
                     <file name="flickr.feed"/>
                     <file name="grwifi-atom.xml"/>
                     <file name="technorati.feed"/>
+                    <file name="hoder.xml"/>
+                    <file name="sixapart-jp.xml"/>
                 </dir>
             </dir>
         </filelist>
@@ -77,6 +82,14 @@ Moved to single quotes in most cases (vote condition)</notes>
         </deps>
     </release>
     <changelog>
+        <release>
+            <version>0.2.4alpha</version>
+            <state>alpha</state>
+            <date>2005-10-10</date>
+            <notes>First release in PEAR
+Added custom exception class (vote condition)
+Moved to single quotes in most cases (vote condition)</notes>
+        </release>
         <release>
             <version>0.2.3alpha</version>
             <state>alpha</state>

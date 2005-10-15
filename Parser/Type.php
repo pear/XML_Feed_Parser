@@ -273,6 +273,9 @@ abstract class XML_Feed_Parser_Type
             if ($attribute->name == 'src' or $attribute->name == 'href') {
                 $attribute->value = $this->addBase($attribute->value, $attribute);
             }
+            if ($attribute->name == "base") {
+                continue;
+            }
             $return .= $attribute->name . '="' . $attribute->value .'" ';
         }
         return " " . trim($return);

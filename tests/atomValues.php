@@ -1,6 +1,7 @@
+
 <?php
 
-require_once '../Parser.php';
+require_once 'XML/Feed/Parser.php';
 require_once 'PHPUnit.php';
 
 class XML_Feed_Parser_Atom_valueValidity_TestCase extends PHPUnit_TestCase
@@ -8,7 +9,7 @@ class XML_Feed_Parser_Atom_valueValidity_TestCase extends PHPUnit_TestCase
     function __construct($name)
     {
 	    $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/atom10-example2.xml");
+        $this->file = file_get_contents("../samples/hoder.xml");
         $this->feed = new XML_Feed_Parser($this->file);
         $this->entry = $this->feed->getEntryByOffset(0);
     }
