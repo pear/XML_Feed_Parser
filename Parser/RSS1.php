@@ -25,10 +25,9 @@
  * This class handles RSS1.0 feeds.
  * 
  * @author	James Stewart <james@jystewart.net>
- * @version	0.2.2 22nd September 2005
+ * @version	Release: @package_version@
  * @package XML_Feed_Parser
  * @todo    Find a Relax NG URI we can use
- * @todo    Implement support for namespaces/modules
  */
 class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
 {

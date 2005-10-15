@@ -39,7 +39,7 @@ require_once 'Parser/Exception.php';
  * to the entire feed.
  *
  * @author  James Stewart <james@jystewart.net>
- * @version 0.2.2 - 22nd September 2005
+ * @version Release: @package_version@
  * @package XML_Feed_Parser
  */
 class XML_Feed_Parser implements Iterator
@@ -70,7 +70,6 @@ class XML_Feed_Parser implements Iterator
 	 *
 	 * @param	string	$feed	XML serialization of the feed
 	 * @param	bool	$strict	Whether or not to validate the feed
-	 * @todo	Work out super-extensible way of defining type tests
 	 */
 	function __construct($feed, $strict = false)
 	{

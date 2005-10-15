@@ -24,7 +24,7 @@ Reworked atom text construct handling to obey 'type' attribute</notes>
             <dir name="/" baseinstalldir="/XML/Feed">
                 <dir name="Parser" role="php">
                     <file name="Exception.php">
-                        <replace from="@version" to="version" type="package-info"/>
+                        <replace from="@version@" to="version" type="package-info"/>
                     </file>
                     <file name="Atom.php">
                         <replace from="@version@" to="version" type="package-info"/>

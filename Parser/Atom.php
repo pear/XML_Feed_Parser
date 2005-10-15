@@ -30,7 +30,7 @@
  *  person - defaults to name, but parameter based access
  *
  * @author	James Stewart <james@jystewart.net>
- * @version	0.2.2 22nd September 2005
+ * @version	Release: @package_version@
  * @package XML_Feed_Parser
  * @todo	Improve attribute access
  */

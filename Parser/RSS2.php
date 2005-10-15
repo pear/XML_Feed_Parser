@@ -25,7 +25,7 @@
  * This class handles RSS2 feeds.
  * 
  * @author	James Stewart <james@jystewart.net>
- * @version	0.2.2 22nd September 2005
+ * @version	Release: @package_version@
  * @package XML_Feed_Parser
  */
 class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
@@ -101,7 +101,6 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
 	/**
 	 * Our constructor does nothing more than its parent.
 	 * 
-	 * @todo    map namespaces if required?
 	 * @param	DOMDocument	$xml	A DOM object representing the feed
 	 * @param	bool (optional) $string	Whether or not to validate this feed
 	 */
