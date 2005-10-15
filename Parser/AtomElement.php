@@ -133,33 +133,55 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
 	 * If there is content we return it, if not and there's a 'src' attribute
 	 * we return the value of that instead.
 	 *
-	 * @todo    Be clearer about content types
+	 * @todo    Work out overlap with general text construct
+	 * @todo    Get clarity on what to do with other mime-typed content
 	 * @return  string|false
 	 */
-	function getContent()
-	{
-		$tags = $this->model->getElementsByTagName('content');
-		if ($tags->length > 0) {
-			$value = $tags->item(0);
-    	    if ($value->hasChildNodes()) {
-		        $content = '';
-		        foreach ($value->childNodes as $child) {
-		            if ($child instanceof DOMText) {
-		                $content .= $child->nodeValue;
-		            } else {
-    		            $simple = simplexml_import_dom($child);
-    		            $content .= $simple->asXML();
-		            }
-        	    }
-        	    return $content;
-			} else if ($value->nodeValue) {
-			    return $value->nodeValue;
-			} else if ($value->getAttribute('src')) {
-				return $this->addBase($value->getAttribute('src'), $value);
-			}
-		}
-		return false;
-	}
+	 function getContent()
+     {
+        $tags = $this->model->getElementsByTagName('content');
+        if ($tags->length == 0) {
+            return false;
+        }
+
+        $content = $tags->item(0);
+
+        if ($content->getAttribute('src')) {
+            return $this->addBase($content->getAttribute('src'), $content);
+        }
+        if ($content->hasAttribute("type")) {
+            $type = $content->getAttribute("type");
+        } else {
+            $type = "text";
+        }
+
+        switch ($type) {
+            case 'text':
+                return $content->nodeValue;
+                break;
+            case 'html':
+                return str_replace("&lt;", "<", $content->nodeValue);
+                break;
+            case 'xhtml':
+                $container = $content->getElementsByTagName("div");
+                if ($container->length == 0) {
+                    return false;
+                }
+                $contents = $container->item(0);
+                if ($contents->hasChildNodes()) {
+                    /* Iterate through, applying xml:base and store the result */
+                    $result = "";
+                    foreach ($contents->childNodes as $node) {
+                        $result .= $this->traverseNode($node);
+                    }
+                    return $result;
+                }
+                break;
+            default:
+                break;
+        }
+        return false;
+     }
 
     /**
      * The Atom spec doesn't provide for an enclosure element, but it is

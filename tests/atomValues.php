@@ -1,6 +1,6 @@
 <?php
 
-require_once 'XML/Feed/Parser.php';
+require_once '../Parser.php';
 require_once 'PHPUnit.php';
 
 class XML_Feed_Parser_Atom_valueValidity_TestCase extends PHPUnit_TestCase
@@ -22,7 +22,7 @@ class XML_Feed_Parser_Atom_valueValidity_TestCase extends PHPUnit_TestCase
     function test_FeedTitle()
     {
         $value = "dive into mark";
-        $this->assertEquals($this->feed->title, $value);
+        $this->assertEquals($value, $this->feed->title);
     }
     
     function test_feedSubtitle()
@@ -103,9 +103,7 @@ class XML_Feed_Parser_Atom_valueValidity_TestCase extends PHPUnit_TestCase
     
     function test_entryContent()
     {
-        $value = "<div xmlns=\"http://www.w3.org/1999/xhtml\">
-  <p><i>[Update: The Atom draft is finished.]</i></p>
-  </div>";
+        $value = "<p><i>[Update: The Atom draft is finished.]</i></p>";
         $content = trim($this->entry->content);
         $content = preg_replace("/\t/", " ", $content);
         $content = preg_replace("/(  )+/", " ", $content);

@@ -140,7 +140,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 
 		$entries = $this->xpath->query("//atom:entry[atom:id='$id']");
 		if ($entries->length > 0) {
-		    $xmlBase = $this->getBase($entries->item(0));
+		    $xmlBase = $entries->item(0)->baseURI;
 			$entry = new $this->itemElement($entries->item(0), $this, $xmlBase);
 			return $entry;
 		}
@@ -166,7 +166,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 		if (isset($arguments['param'])) {
 			$parameter = $arguments['param'];
 		} else {
-'			$parameter = 'name';
+			$parameter = 'name';
 		}
 		$param = $section->item($offset)->getElementsByTagName($parameter);
 		if ($param->length == 0) {
@@ -181,27 +181,51 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 	 *
 	 * @todo    Build in attribute support
 	 * @todo    Handle elements that recur
+	 * @todo    Clarify overlap with getContent()
 	 * @param	string	$method	The name of the text construct we want
 	 * @param	array 	$arguments	An array which we hope gives a 'param'
 	 * @return	string
 	 */
 	protected function getText($method, $arguments)
 	{
-		$tags = $this->model->getElementsByTagName($method);
-		if ($tags->length > 0) {
-		    if ($tags->item(0)->hasChildNodes() and
-		     $tags->item(0)->childNodes->length > 1) {
-		        $value = '';
-		        foreach ($tags->item(0)->childNodes as $child) {
-		            $simple = simplexml_import_dom($child);
-		            $value .= $simple->asXML();
-        	    }
-        	    return $value;
-		    } else { 
-    			return $tags->item(0)->nodeValue;
-			}
-		}
-		return false;
+        $tags = $this->model->getElementsByTagName($method);
+        if ($tags->length == 0) {
+            return false;
+        }
+
+        $content = $tags->item(0);
+
+        if ($content->hasAttribute("type")) {
+            $type = $content->getAttribute("type");
+        } else {
+            $type = "text";
+        }
+
+        switch ($type) {
+            case 'text':
+                return $content->nodeValue;
+                break;
+            case 'html':
+                return str_replace("&lt;", "<", $content->nodeValue);
+                break;
+            case 'xhtml':
+                $container = $content->getElementsByTagName("div");
+                if ($container->length == 0) {
+                    return false;
+                }
+                $contents = $container->item(0);
+                if ($contents->hasChildNodes()) {
+                    /* Iterate through, applying xml:base and store the result */
+                    $result = "";
+                    foreach ($contents->childNodes as $node) {
+                        $result .= $this->traverseNode($node);
+                    }
+                    return $result;
+                }
+            break;
+                break;
+        }
+        return false;
 	}
 
 	/**

@@ -39,13 +39,6 @@ abstract class XML_Feed_Parser_Type
     public $model;
 
     /**
-     * We don't particularly need to use this for this class, but it's helpful
-     * to make inheritance work.
-     * @var string
-     */
-    protected $xmlBase;
-
-    /**
      * For iteration we'll want a count of the number of entries 
      * @var int
      */
@@ -109,57 +102,44 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
-     * We will often need to extract the xml:base values that apply to a
-     * link. This method iterates through the heirarchy and extracts the
-     * relevant attributes, and then combines them.
+     * We have other methods which will traverse the DOM and work out the different
+     * xml:base declarations we need to be aware of. We then need to combine them.
+     * If a declaration starts with a protocol then we restart the string. If it 
+     * starts with a / then we add on to the domain name. Otherwise we simply tag 
+     * it on to the end.
      *
-     * @param   DOMElement  The starting node
-     * @return  string
+     * @param   string  $base - the base to add the link to
+     * @param   string  $link
      */
-    function getBase($thisNode)
+    function combineBases($base, $link)
     {
-        /* We'll need some containers and settings */
-        $bases = array();
-        $combinedBase = $this->xmlBase;
-        preg_match('/^([A-Za-z]+:\/\/.*?)\//', $combinedBase, $results);
-        isset($results[1]) ? $firstLayer = $results[1] : $firstLayer = '';
-
-        $nameSpace = 'http://www.w3.org/XML/1998/namespace';
-
-        /* Iterate up the tree and grab all parent xml:bases */
-        while ($thisNode instanceof DOMElement) {
-            if ($thisNode->hasAttributes()) {
-                $test = $thisNode->attributes->getNamedItemNS($nameSpace, 'base');
-                if ($test) {
-                    array_push($bases, $test->nodeValue);
-                }
+        if (preg_match('/^[A-Za-z]+:\/\//', $link)) {
+            return $link;
+        } else if (preg_match('/^\//', $link)) {
+            /* Extract domain and suffix link to that */
+            preg_match('/^([A-Za-z]+:\/\/.*)?\/*/', $base, $results);
+            $firstLayer = $results[0];
+            return $firstLayer . "/" . $link;
+        } else if (preg_match('/^\.\.\//', $base)) {
+            /* Step up link to find place to be */
+            preg_match('/^((\.\.\/)+)(.*)$/', $link, $bases);
+            $suffix = $bases[3];
+            $count = preg_match_all('/\.\.\//', $bases[1], $steps);
+            $url = explode("/", $base);
+            for ($i = 0; $i <= $count; $i++) {
+                array_pop($url);
             }
-            $thisNode = $thisNode->parentNode;
-        }
-
-        /* if starts with a protocol then restart the string. if starts with a / then 
-         * add on to the domain name. otherwise tag on to the end */
-        $bases = array_reverse($bases);
-
-        foreach ($bases as $base) {
-            if (preg_match('/^[A-Za-z]+:\/\//', $base)) {
-                $combinedBase = $base;
-                preg_match('/^([A-Za-z]+:\/\/.*?)\//', $base, $results);
-                $firstLayer = $results[1];
-            } else if (preg_match('/^\//', $base)) {
-                $combinedBase = $firstLayer . $base;
-            } else {
-                $combinedBase .= $base;
-            }
-
+            return implode("/", $url) . "/" . $suffix;
+        } else {
+            /* Just stick it on the end */
+            return $base . $link;
         }
         return $combinedBase;
     }
 
     /**
-     * getBase gets us the xml:base data. We then need to process that with regard
-     * to our current link. This function does that and returns the link in as
-     * complete a form as possible.
+     * Gets us the xml:base data and then processes that with regard
+     * to our current link.
      *
      * @param   string
      * @param   DOMElement
@@ -171,15 +151,7 @@ abstract class XML_Feed_Parser_Type
             return $link;
         }
 
-        $base = $this->getBase($element);
-
-        if (preg_match('/^\//', $link)) {
-            preg_match('/^([A-Za-z]+:\/\/.*?)\//', $base, $results);
-            $root = $results[1];
-            return $root . $link;
-        } else {
-            return $base . $link;
-        }
+        return $this->combineBases($element->baseURI, $link);
     }
 
 	/**
@@ -193,7 +165,7 @@ abstract class XML_Feed_Parser_Type
     	if (! isset($this->entries[$offset])) {
     		$entries = $this->model->getElementsByTagName($this->itemElement);
     		if ($entries->length > 0) {
-			    $xmlBase = $this->getBase($entries->item($offset));
+			    $xmlBase = $entries->item($offset)->baseURI;
 				$this->entries[$offset] = new $this->itemClass(
 				    $entries->item($offset), $this, $xmlBase);
     		} else {
@@ -285,6 +257,63 @@ abstract class XML_Feed_Parser_Type
     		return $tags->length;
     	}
     	return 0;
+    }
+
+    /**
+     * We need a couple of methods to access XHTML content stored in feeds. 
+     * This is because we dereference all xml:base references before returning
+     * the element. This method handles the attributes.
+     *
+     * @param   DOMElement $node
+     * @return  string
+     */
+    function processXHTMLAttributes($node) {
+        $return = '';
+        foreach ($node->attributes as $attribute) {
+            if ($attribute->name == 'src' or $attribute->name == 'href') {
+                $attribute->value = $this->addBase($attribute->value, $attribute);
+            }
+            $return .= $attribute->name . '="' . $attribute->value .'" ';
+        }
+        return " " . trim($return);
+    }
+
+    /**
+     * We need a couple of methods to access XHTML content stored in feeds. 
+     * This is because we dereference all xml:base references before returning
+     * the element. This method recurs through the tree descending from the node
+     * and builds our string
+     *
+     * @param   DOMElement $node
+     * @return   string
+     */
+    function traverseNode($node)
+    {
+        $content = "";
+
+        /* Add the opening of this node to the content */
+        if ($node instanceof DOMElement) {
+            $content .= "<" . $node->tagName . 
+                $this->processAttributes($node) . ">";
+        }
+
+        /* Process children */
+        if ($node->hasChildNodes()) {
+            foreach ($node->childNodes as $child) {
+                $content .= $this->traverseNode($child);
+            }
+        }
+
+        if ($node instanceof DOMText) {
+            $content .= $node->nodeValue;
+        }
+
+        /* Add the closing of this node to the content */
+        if ($node instanceof DOMElement) {
+            $content .= "</" . $node->tagName . ">";
+        }
+
+        return $content;
     }
 
 	/**
