@@ -179,8 +179,6 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 	 * Get a text construct. This is probably our most complex basic type as
 	 * we will want the option to return attributes.
 	 *
-	 * @todo    Build in attribute support
-	 * @todo    Handle elements that recur
 	 * @todo    Clarify overlap with getContent()
 	 * @param	string	$method	The name of the text construct we want
 	 * @param	array 	$arguments	An array which we hope gives a 'param'
@@ -188,17 +186,28 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 	 */
 	protected function getText($method, $arguments)
 	{
+        $offset = empty($arguments[0]) ? 0: $arguments[0];
+        $attribute = empty($arguments[1]) ? false : $arguments[1];
         $tags = $this->model->getElementsByTagName($method);
-        if ($tags->length == 0) {
+
+        if ($tags->length == 0 or $tags->length < $offset) {
             return false;
         }
 
-        $content = $tags->item(0);
+        $content = $tags->item($offset);
 
-        if ($content->hasAttribute("type")) {
-            $type = $content->getAttribute("type");
-        } else {
-            $type = "text";
+        if (! $content->hasAttribute("type")) {
+            $content->setAttribute("type", "text");
+        }
+        $type = $content->getAttribute("type");
+
+        if (! empty($attribute))
+        {
+            if ($content->hasAttribute($attribute))
+            {
+                return $content->getAttribute($attribute)->value;
+            }
+            return false;
         }
 
         switch ($type) {

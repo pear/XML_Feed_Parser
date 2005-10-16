@@ -133,25 +133,35 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
 	 * we return the value of that instead.
 	 *
 	 * @todo    Work out overlap with general text construct
-	 * @todo    Get clarity on what to do with other mime-typed content
 	 * @return  string|false
 	 */
-	 function getContent()
-     {
+	function getContent($method, $arguments = array())
+    {
+
+        $attribute = empty($arguments[0]) ? false : $arguments[0];
         $tags = $this->model->getElementsByTagName('content');
+
         if ($tags->length == 0) {
             return false;
         }
 
         $content = $tags->item(0);
 
-        if ($content->getAttribute('src')) {
-            return $this->addBase($content->getAttribute('src'), $content);
+        if (! $content->hasAttribute("type")) {
+            $content->setAttribute("type", "text");
         }
-        if ($content->hasAttribute("type")) {
-            $type = $content->getAttribute("type");
-        } else {
-            $type = "text";
+        $type = $content->getAttribute("type");
+
+        if (! empty($attribute)) {
+            if ($content->hasAttribute($attribute))
+            {
+                return $content->getAttribute($attribute);
+            }
+            return false;
+        }
+
+        if ($content->hasAttribute("src")) {
+            return $content->getAttribute("src");
         }
 
         switch ($type) {
