@@ -32,7 +32,6 @@
  * @author	James Stewart <james@jystewart.net>
  * @version	Release: @package_version@
  * @package XML_Feed_Parser
- * @todo	Improve attribute access
  */
 class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 {

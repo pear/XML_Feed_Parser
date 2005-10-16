@@ -78,18 +78,29 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
     }
 
     /**
-     * guid is the closest RSS2 has to atom's ID. It is usually but not always a URI.
-     * The one attribute that RSS2 can posess is 'ispermalink' which specifies whether
-     * the guid is itself dereferencable. Use of guid is not obligatory, but is
-     * advisable.
+     * guid is the closest RSS2 has to atom's ID. It is usually but not always a 
+     * URI. The one attribute that RSS2 can posess is 'ispermalink' which specifies 
+     * whether the guid is itself dereferencable. Use of guid is not obligatory, 
+     * but is advisable. To get the guid you would call $item->id() (for atom 
+     * compatibility) or $item->guid(). To check if this guid is a permalink call 
+     * $item->guid("ispermalink").
      *
-     * @todo    Implement ispermalink support
-     * @return  string  the guid
+     * @param   string  $method - the method name being called
+     * @param   array   $params - parameters required
+     * @return  string  the guid or value of ispermalink
      */
-    function getGuid()
+    protected function getGuid($method, $params)
     {
-        if ($this->model->getElementsByTagName('guid')->length > 0) {
-            return $this->model->getElementsByTagName('guid')->item(0)->nodeValue;
+        $attribute = (isset($params[0]) and $params[0] == 'ispermalink') ? 
+            true : false;
+        $tag = $this->model->getElementsByTagName('guid');
+        if ($tag->length > 0) {
+            if ($ispermalink) {
+                if ($tag->hasAttribute("ispermalink")) {
+                    return $tag->getAttribute("ispermalink");
+                }
+            }
+            return $tag->item(0)->nodeValue;
         }
         return false;
     }
@@ -102,7 +113,7 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
      * @param   int offset
      * @return  array|false
      */
-    function getEnclosure($offset = 0)
+    protected function getEnclosure($offset = 0)
     {
         $encs = $this->model->getElementsByTagName('enclosure');
         if ($encs->length >= $offset) {
@@ -128,7 +139,7 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
      *
      * @return array|false
      */
-    function getSource()
+    protected function getSource()
     {
         $get = $this->model->getElementsByTagName('source');
         if ($get->length) {
