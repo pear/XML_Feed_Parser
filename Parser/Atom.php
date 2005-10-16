@@ -176,8 +176,10 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 	}
 
 	/**
-	 * Get a text construct. This is probably our most complex basic type as
-	 * we will want the option to return attributes.
+	 * Get a text construct. When calling this method, the two arguments
+	 * allowed are 'offset' and 'attribute', so $parser->subtitle() would
+	 * return the content of the element, while $parser->subtitle(false, 'type')
+	 * would return the value of the type attribute.
 	 *
 	 * @todo    Clarify overlap with getContent()
 	 * @param	string	$method	The name of the text construct we want

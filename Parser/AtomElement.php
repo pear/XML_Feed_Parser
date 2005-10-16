@@ -130,7 +130,13 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
 	 * once. It may have a 'src' attribute, in which case there's no content
 	 * If not present, then the entry must have link with rel="alternate".
 	 * If there is content we return it, if not and there's a 'src' attribute
-	 * we return the value of that instead.
+	 * we return the value of that instead. The method can take an 'attribute'
+	 * argument, in which case we return the value of that attribute if present.
+	 * eg. $item->content("type") will return the type of the content. It is
+	 * recommended that all users check the type before getting the content to
+	 * ensure that their script is capable of handling the type of returned data.
+	 * (data carried in the content element can be either 'text', 'html', 'xhtml', 
+	 * or any standard MIME type).
 	 *
 	 * @todo    Work out overlap with general text construct
 	 * @return  string|false
