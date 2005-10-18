@@ -70,17 +70,28 @@ abstract class XML_Feed_Parser_Type
     	    $call = $this->compatMap[$call][0];
     	}
 
-    	if (isset($this->map[$call])) {
-    	    $method = 'get' . $this->map[$call][0];
-    	    if ($method == 'getLink') {
-    	        $offset = isset($arguments[0][0]) ? $arguments[0][0] : 0;
-    	        $attribute = isset($arguments[0][1]) ? $arguments[0][1] : 'href';
-    	        $params = isset($arguments[0][2]) ? $arguments[0][2] : array();
-    		    return $this->getLink($offset, $attribute, $params);
+        /* To be helpful, we allow a case-insensitive search for this method */
+    	if (! isset($this->map[$call])) {
+    	    foreach (array_keys($this->map) as $key) {
+    	        if (strtoupper($key) == strtoupper($call)) {
+    	            $call = $key;
+    	            break;
+    	        }
     	    }
-    	} else {
-    	    return false;
     	}
+
+        if (empty($this->map[$call]))
+        {
+            return false;
+        }
+
+	    $method = 'get' . $this->map[$call][0];
+	    if ($method == 'getLink') {
+	        $offset = isset($arguments[0][0]) ? $arguments[0][0] : 0;
+	        $attribute = isset($arguments[0][1]) ? $arguments[0][1] : 'href';
+	        $params = isset($arguments[0][2]) ? $arguments[0][2] : array();
+		    return $this->getLink($offset, $attribute, $params);
+	    }
 
         if (method_exists($this, $method)) {
     	    return $this->$method($call, $arguments);
