@@ -98,6 +98,12 @@ class XML_Feed_Parser implements Iterator
 		        require_once 'Parser/RSS1Element.php';
     		    $class = 'XML_Feed_Parser_RSS1';
     		    break;
+    		case ($doc_element->childNodes->item(1)->namespaceURI == 
+    		    'http://my.netscape.com/rdf/simple/0.9/'):
+		        require_once 'Parser/RSS09.php';
+		        require_once 'Parser/RSS09Element.php';
+    		    $class = 'XML_Feed_Parser_RSS09';
+    		    break;
 		    case ($doc_element->tagName == 'rss'):
     		    if ($doc_element->hasAttribute('version') and 
     		        $doc_element->getAttribute('version') == 2) {
