@@ -82,7 +82,10 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
 	    'category' => array('Text'),
 	    'generator' => array('Text'),
 	    'docs' => array('Text'),
-	    'ttl' => array('Text'));
+	    'ttl' => array('Text'),
+	    'image' => array('Image'),
+	    'skipDays' => array('skipDays'),
+	    'skipHours' => array('skipHours'));
 
     /**
      * Here we map some elements to their atom equivalents. This is going to be
@@ -176,15 +179,15 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
 	    if ($images->length > 0) {
 	        $image = $images->item(0);
 	        $desc = $image->getElementsByTagName('description');
-	        $description = $desc->length ? $desc->item(0)->value : false;
+	        $description = $desc->length ? $desc->item(0)->nodeValue : false;
 	        $heigh = $image->getElementsByTagName('height'); 
-	        $height = $heigh->length ? $heigh->item(0)->value : false;
+	        $height = $heigh->length ? $heigh->item(0)->nodeValue : false;
 	        $widt = $image->getElementsByTagName('width'); 
-	        $width = $widt->length ? $widt->item(0)->value : false;
+	        $width = $widt->length ? $widt->item(0)->nodeValue : false;
 	        return array(
-	            'title' => $image->getElementsByTagName('title')->item(0)->value,
-	            'link' => $image->getElementsByTagName('link')->item(0)->value,
-	            'url' => $image->getElementsByTagName('url')->item(0)->value,
+	            'title' => $image->getElementsByTagName('title')->item(0)->nodeValue,
+	            'link' => $image->getElementsByTagName('link')->item(0)->nodeValue,
+	            'url' => $image->getElementsByTagName('url')->item(0)->nodeValue,
 	            'description' => $description,
 	            'height' => $height,
 	            'width' => $width);

@@ -68,6 +68,7 @@ Reworked atom text construct handling to obey 'type' attribute</notes>
                     <file name="japanese.php"/>
                     <file name="farsi.php"/>
                     <file name="errors.php"/>
+                    <file name="rss091Values.php"/>
                 </dir>
                 <dir name="samples" role="data">
                     <file name="atom10-example1.xml"/>
@@ -82,6 +83,10 @@ Reworked atom text construct handling to obey 'type' attribute</notes>
                     <file name="technorati.feed"/>
                     <file name="hoder.xml"/>
                     <file name="sixapart-jp.xml"/>
+                    <file name="rss091-complete.xml"/>
+                    <file name="rss091-international.xml"/>
+                    <file name="rss091-simple.xml"/>
+                    <file name="rss092-sample.xml"/>
                 </dir>
             </dir>
         </filelist>

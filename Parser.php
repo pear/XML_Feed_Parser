@@ -106,13 +106,32 @@ class XML_Feed_Parser implements Iterator
 		        require_once 'Parser/RSS09Element.php';
     		    $class = 'XML_Feed_Parser_RSS09';
     		    break;
-		    case ($doc_element->tagName == 'rss'):
-    		    if ($doc_element->hasAttribute('version') and 
-    		        $doc_element->getAttribute('version') == 2) {
-    		            require_once 'Parser/RSS2.php';
-    		            require_once 'Parser/RSS2Element.php';
-    		            $class = 'XML_Feed_Parser_RSS2';
-    		    }
+		    case ($doc_element->tagName == 'rss' and 
+		        $doc_element->hasAttribute('version') and 
+		        $doc_element->getAttribute('version') == 2):
+	            require_once 'Parser/RSS2.php';
+	            require_once 'Parser/RSS2Element.php';
+	            $class = 'XML_Feed_Parser_RSS2';
+    		    break;
+    		case ($doc_element->tagName == 'rss' and
+        		$doc_element->hasAttribute('version') and 
+		        $doc_element->getAttribute('version') == 0.91):
+		        trigger_error(
+    		        'RSS 0.91 has been superceded by RSS2.0. Using RSS2.0 parser.', 
+    		        E_USER_WARNING);
+		        require_once 'Parser/RSS2.php';
+	            require_once 'Parser/RSS2Element.php';
+	            $class = 'XML_Feed_Parser_RSS2';
+    		    break;
+    		case ($doc_element->tagName == 'rss' and
+        		$doc_element->hasAttribute('version') and 
+		        $doc_element->getAttribute('version') == 0.92):
+		        trigger_error(
+    		        'RSS 0.92 has been superceded by RSS2.0. Using RSS2.0 parser.', 
+    		        E_USER_WARNING);
+		        require_once 'Parser/RSS2.php';
+	            require_once 'Parser/RSS2Element.php';
+	            $class = 'XML_Feed_Parser_RSS2';
     		    break;
     		default:
 		        throw new XML_Feed_Parser_Exception('Feed type unknown');
