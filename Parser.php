@@ -92,13 +92,15 @@ class XML_Feed_Parser implements Iterator
     		        'Atom 0.3 deprecated, using 1.0 parser which won\'t provide 
     		        all options', E_USER_WARNING);
     		    break;
-		    case ($doc_element->childNodes->item(1)->namespaceURI == 
+		    case ($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1 
+		        and $doc_element->childNodes->item(1)->namespaceURI == 
 		        'http://purl.org/rss/1.0/'):
 		        require_once 'Parser/RSS1.php';
 		        require_once 'Parser/RSS1Element.php';
     		    $class = 'XML_Feed_Parser_RSS1';
     		    break;
-    		case ($doc_element->childNodes->item(1)->namespaceURI == 
+    		case ($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1
+    		    and $doc_element->childNodes->item(1)->namespaceURI == 
     		    'http://my.netscape.com/rdf/simple/0.9/'):
 		        require_once 'Parser/RSS09.php';
 		        require_once 'Parser/RSS09Element.php';

@@ -44,6 +44,12 @@ Reworked atom text construct handling to obey 'type' attribute</notes>
                     <file name="RSS2Element.php">
                         <replace from="@version@" to="version" type="package-info"/>
                     </file>
+                    <file name="RSS09Element.php">
+                        <replace from="@version@" to="version" type="package-info"/>
+                    </file>
+                    <file name="RSS09Element.php">
+                        <replace from="@version@" to="version" type="package-info"/>
+                    </file>
                     <file name="Type.php">
                         <replace from="@version@" to="version" type="package-info"/>
                     </file>
@@ -61,6 +67,7 @@ Reworked atom text construct handling to obey 'type' attribute</notes>
                     <file name="rss2Values.php"/>
                     <file name="japanese.php"/>
                     <file name="farsi.php"/>
+                    <file name="errors.php"/>
                 </dir>
                 <dir name="samples" role="data">
                     <file name="atom10-example1.xml"/>
