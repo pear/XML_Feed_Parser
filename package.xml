@@ -69,6 +69,7 @@ Reworked atom text construct handling to obey 'type' attribute</notes>
                     <file name="farsi.php"/>
                     <file name="errors.php"/>
                     <file name="rss091Values.php"/>
+                    <file name="rss092Values.php"/>
                 </dir>
                 <dir name="samples" role="data">
                     <file name="atom10-example1.xml"/>

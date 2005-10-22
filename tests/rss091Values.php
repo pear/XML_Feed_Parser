@@ -1,6 +1,6 @@
 <?php
 
-require_once '../Parser.php';
+require_once 'XML/Feed/Parser.php';
 require_once 'PHPUnit.php';
 
 class XML_Feed_Parser_RSS091_valueValidity_TestCase extends PHPUnit_TestCase

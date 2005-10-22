@@ -110,12 +110,14 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
      * unique in a given entry. For now we will assume it needn't, and allow
      * for an offset.
      *
-     * @param   int offset
+     * @param   string $method - the method being called
+     * @param   array   $parameters - we expect the first of these to be our offset
      * @return  array|false
      */
-    protected function getEnclosure($offset = 0)
+    protected function getEnclosure($method, $parameters)
     {
         $encs = $this->model->getElementsByTagName('enclosure');
+        $offset = isset($parameters[0]) ? $parameters[0] : 0;
         if ($encs->length >= $offset) {
             try {
                 $attrs = $encs->item($offset)->attributes;
