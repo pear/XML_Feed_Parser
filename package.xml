@@ -20,7 +20,8 @@
 Added tests for RSS0.91 and RSS0.92
 Fixed bug meaning that errors weren't being thrown for unrecognised RSS versions
 Cleared up the main constructor to prevent DOM errors while detecting feed type
-Added code to allow case-insensitive specification of element names as a backup</notes>
+Added code to allow case-insensitive specification of element names as a backup
+Fixed bad check of guid's 'ispermalink' attribute in RSS2Element.php</notes>
         <filelist>
             <dir name="/" baseinstalldir="/XML/Feed">
                 <dir name="Parser" role="php">

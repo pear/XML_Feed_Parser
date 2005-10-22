@@ -95,7 +95,7 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
             true : false;
         $tag = $this->model->getElementsByTagName('guid');
         if ($tag->length > 0) {
-            if ($ispermalink) {
+            if ($attribute) {
                 if ($tag->hasAttribute("ispermalink")) {
                     return $tag->getAttribute("ispermalink");
                 }

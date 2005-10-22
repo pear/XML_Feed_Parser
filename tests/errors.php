@@ -14,7 +14,6 @@ class XML_Feed_Parser_ThrowErrors_TestCase extends PHPUnit_Testcase
 	function __construct($name)
 	{
 	    $this->PHPUnit_TestCase($name);
-        $this->file = "<myfeed><myitem /></myfeed>";
 	}
     
     function setUp() {
@@ -23,13 +22,26 @@ class XML_Feed_Parser_ThrowErrors_TestCase extends PHPUnit_Testcase
     function tearDown() {
     }
     
-    function test_ExceptionThrown()
+    function test_fakeFeedType()
     {
+        $file = "<myfeed><myitem /></myfeed>";
         try {
-            $feed = new XML_Feed_Parser($this->file);
+            $feed = new XML_Feed_Parser($file);
         } catch (Exception $e) {
             $this->assertTrue($e instanceof XML_Feed_Parser_Exception);
         }
+    }
+    
+    function test_badRSSVersion()
+    {
+        $file = "<?xml version=\"1.0\"?>
+        <rss version=\"0.8\">
+           <channel></channel></rss>";
+       try {
+           $feed = new XML_Feed_Parser($file);
+       } catch (Exception $e) {
+           $this->assertTrue($e instanceof XML_Feed_Parser_Exception);
+       }
     }
 }
 
