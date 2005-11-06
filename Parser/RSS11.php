@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
- * RSS1 class for XML_Feed_Parser
+ * RSS1.1 class for XML_Feed_Parser
  *
  * PHP versions 5
  *
@@ -22,20 +22,21 @@
  */
 
 /**
- * This class handles RSS1.0 feeds.
+ * This class handles RSS1.1 feeds.
  * 
  * @author	James Stewart <james@jystewart.net>
  * @version	Release: @package_version@
  * @package XML_Feed_Parser
- * @todo    Find a Relax NG URI we can use
+ * @todo    Support for RDF:List
+ * @todo	Ensure xml:lang is accessible to users
  */
-class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
+class XML_Feed_Parser_RSS11 extends XML_Feed_Parser_Type
 {
     /**
      * The URI of the RelaxNG schema used to (optionally) validate the feed 
      * @var string
      */
-    private $relax = '';
+    private $relax = 'http://inamidst.com/rss1.1/schema.rnc';
 
 	/**
 	 * We're likely to use XPath, so let's keep it global
@@ -74,7 +75,6 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
         'link' => array('Text'),
         'description' => array('Text'),
         'image' => array('Image'),
-        'textinput' => array('TextInput'),
         'updatePeriod' => array('Text'),
         'updateFrequency' => array('Text'),
         'updateBase' => array('Date'),
@@ -101,12 +101,12 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
 
     /**
      * We will be working with multiple namespaces and it is useful to 
-     * keep them together 
+     * keep them together. We will retain support for some common RSS1.0 modules
      * @var array
      */
     protected $namespaces = array(
         'rdf' => 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-        'rss' => 'http://purl.org/rss/1.0/',
+        'rss' => 'http://purl.org/net/rss1.1#',
         'dc' => 'http://purl.org/rss/1.0/modules/dc/',
         'content' => 'http://purl.org/rss/1.0/modules/content/',
         'sy' => 'http://web.resource.org/rss/1.0/modules/syndication/');
@@ -122,6 +122,12 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
 	{
 		$this->model = $model;
 
+		if ($strict) {
+			if (! $this->model->relaxNGValidateSource($this->relax)) {
+				throw new XML_Feed_Parser_Exception('Failed required validation');
+			}
+		}
+
 		$this->xpath = new DOMXPath($model);
 		foreach ($this->namespaces as $key => $value) {
             $this->xpath->registerNamespace($key, $value);
@@ -130,10 +136,11 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
 	}
 
     /**
-     * This is not really something that will work with RSS1 as it does not have
+     * This is not really something that will work with RSS1.1 as it does not have
      * clear restrictions on the global uniqueness of IDs. We will employ the
      * _very_ hit and miss method of selecting entries based on the rdf:about
-     * attribute.
+     * attribute. Please note that this is even more hit and miss with RSS1.1 than
+	 * with RSS1.0 since RSS1.1 does not require the rdf:about attribute for items.
      *
      * @param	string	$id	any valid ID.
      * @return	XML_Feed_Parser_RSS1Element
@@ -167,8 +174,11 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
             if ($image->hasChildNodes()) {
                 $details = array(
                     'title' => $image->getElementsByTagName('title')->item(0)->value,
-	                'link' => $image->getElementsByTagName('link')->item(0)->value,
 	                'url' => $image->getElementsByTagName('url')->item(0)->value);
+				if ($image->getElementsByTagName('link')->length > 0) {
+					$details['link'] = 
+						$image->getElementsByTagName('link')->item(0)->value;
+				}
             } else {
                 $details = array('title' => false,
                     'link' => false,

@@ -111,6 +111,14 @@ class XML_Feed_Parser implements Iterator
 		        require_once 'Parser/RSS1Element.php';
     		    $class = 'XML_Feed_Parser_RSS1';
     		    break;
+		    case ($doc_element->namespaceURI == 'http://purl.org/rss/1.1/' or 
+				($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1 
+		        and $doc_element->childNodes->item(1)->namespaceURI == 
+		        'http://purl.org/rss/1.1/')):
+				require_once 'Parser/RSS11.php';
+				require_once 'Parser/RSS11Element.php';
+				$class = 'XML_Feed_Parser_RSS11';
+				break;
     		case ($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1
     		    and $doc_element->childNodes->item(1)->namespaceURI == 
     		    'http://my.netscape.com/rdf/simple/0.9/'):
