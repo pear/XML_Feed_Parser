@@ -63,6 +63,15 @@ class XML_Feed_Parser implements Iterator
 	protected $idMappings = array();
 
 	/**
+	 * A storage space for Namespace URIs.
+	 * @var array
+	 */
+	private $feedNamespaces = array(
+		'rss2' => array(
+			'http://backend.userland.com/rss',
+			'http://backend.userland.com/rss2',
+			'http://blogs.law.harvard.edu/tech/rss'));
+	/**
 	 * Our constructor takes care of detecting feed types and instantiating
 	 * appropriate classes. For now we're going to treat Atom 0.3 as Atom 1.0
 	 * but raise a warning. I do not intend to introduce full support for 
@@ -74,7 +83,9 @@ class XML_Feed_Parser implements Iterator
 	function __construct($feed, $strict = false)
 	{
 		$this->model = new DOMDocument;
-        $this->model->loadXML($feed);
+        if (! $this->model->loadXML($feed)) {
+            throw new XML_Feed_Parser_Exception("Invalid input: this is not valid XML");
+        }
 
 		/* detect feed type */
 		$doc_element = $this->model->documentElement;
@@ -89,12 +100,13 @@ class XML_Feed_Parser implements Iterator
     		    require_once 'Parser/AtomElement.php';
     		    $class = 'XML_Feed_Parser_Atom';
     		    trigger_error(
-    		        'Atom 0.3 deprecated, using 1.0 parser which won\'t provide 
-    		        all options', E_USER_WARNING);
+    		        'Atom 0.3 deprecated, using 1.0 parser which won\'t provide ' .
+    		        'all options', E_USER_WARNING);
     		    break;
-		    case ($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1 
+		    case ($doc_element->namespaceURI == 'http://purl.org/rss/1.0/' or 
+				($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1 
 		        and $doc_element->childNodes->item(1)->namespaceURI == 
-		        'http://purl.org/rss/1.0/'):
+		        'http://purl.org/rss/1.0/')):
 		        require_once 'Parser/RSS1.php';
 		        require_once 'Parser/RSS1Element.php';
     		    $class = 'XML_Feed_Parser_RSS1';
@@ -106,13 +118,12 @@ class XML_Feed_Parser implements Iterator
 		        require_once 'Parser/RSS09Element.php';
     		    $class = 'XML_Feed_Parser_RSS09';
     		    break;
-		    case ($doc_element->tagName == 'rss' and 
-		        $doc_element->hasAttribute('version') and 
-		        $doc_element->getAttribute('version') == 2):
-	            require_once 'Parser/RSS2.php';
-	            require_once 'Parser/RSS2Element.php';
-	            $class = 'XML_Feed_Parser_RSS2';
-    		    break;
+			case ($doc_element->namespaceURI == 
+				'http://my.netscape.com/rdf/simple/0.9/'):
+				require_once 'Parser/RSS09.php';
+				require_once 'Parser/RSS09Element.php';
+				$class = 'XML_Feed_Parser_RSS09';
+				break;
     		case ($doc_element->tagName == 'rss' and
         		$doc_element->hasAttribute('version') and 
 		        $doc_element->getAttribute('version') == 0.91):
@@ -130,6 +141,17 @@ class XML_Feed_Parser implements Iterator
     		        'RSS 0.92 has been superceded by RSS2.0. Using RSS2.0 parser.', 
     		        E_USER_WARNING);
 		        require_once 'Parser/RSS2.php';
+	            require_once 'Parser/RSS2Element.php';
+	            $class = 'XML_Feed_Parser_RSS2';
+    		    break;
+		    case (in_array($doc_element->namespaceURI, $this->feedNamespaces['rss2'])
+				or $doc_element->tagName == 'rss'):
+				if (! $doc_element->hasAttribute('version') or 
+					$doc_element->getAttribute('version') != 2) {
+					trigger_error('RSS version not specified. Parsing as RSS2.0',
+						E_USER_WARNING);
+				}
+	            require_once 'Parser/RSS2.php';
 	            require_once 'Parser/RSS2Element.php';
 	            $class = 'XML_Feed_Parser_RSS2';
     		    break;

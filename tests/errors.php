@@ -1,6 +1,6 @@
 <?php
 
-require_once 'XML/Feed/Parser.php';
+require_once '../Parser.php';
 require_once 'PHPUnit.php';
 
 /**
@@ -42,6 +42,26 @@ class XML_Feed_Parser_ThrowErrors_TestCase extends PHPUnit_Testcase
        } catch (Exception $e) {
            $this->assertTrue($e instanceof XML_Feed_Parser_Exception);
        }
+    }
+    
+    function test_emptyInput()
+    {
+        $file = null;
+        try {
+            $feed = new XML_Feed_Parser($file);
+        } catch (Exception $e) {
+            $this->assertTrue($e instanceof XML_Feed_Parser_Exception);
+        }
+    }
+
+    function test_nonXMLInput()
+    {
+        $file = "My string";
+        try {
+            $feed = new XML_Feed_Parser($file);
+        } catch (Exception $e) {
+            $this->assertTrue($e instanceof XML_Feed_Parser_Exception);
+        }
     }
 }
 
