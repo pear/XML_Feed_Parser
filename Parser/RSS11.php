@@ -18,11 +18,12 @@
  * @copyright  2005 James Stewart <james@jystewart.net>
  * @license    http://www.gnu.org/copyleft/lesser.html  GNU LGPL 2.1
  * @version    CVS: $Id$
- * @link       http://dev.jystewart.net/XML_Feed_Parser/
+ * @link       http://pear.php.net/package/XML_Feed_Parser/
  */
 
 /**
- * This class handles RSS1.1 feeds.
+ * This class handles RSS1.1 feeds. RSS1.1 is documented at:
+ * http://inamidst.com/rss1.1/
  * 
  * @author	James Stewart <james@jystewart.net>
  * @version	Release: @package_version@

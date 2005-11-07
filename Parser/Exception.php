@@ -18,7 +18,7 @@
  * @copyright  2005 James Stewart <james@jystewart.net>
  * @license    http://www.gnu.org/copyleft/lesser.html  GNU LGPL
  * @version    CVS: $Id$
- * @link       http://dev.jystewart.net/XML_Feed_Parser/
+ * @link       http://pear.php.net/package/XML_Feed_Parser/
  */
  
 /**
