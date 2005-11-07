@@ -63,7 +63,8 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
 	    'id' => array('guid'),
 	    'content' => array('description'),
 	    'updated' => array('lastBuildDate'),
-	    'published' => array('pubdate'));
+	    'published' => array('pubdate'),
+		'guidislink' => array('guid', 'ispermalink'));
 
     /**
      * Store useful information for later.

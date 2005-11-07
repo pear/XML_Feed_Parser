@@ -66,8 +66,11 @@ abstract class XML_Feed_Parser_Type
         }
 
         if (isset($this->compatMap[$call])) {
-    	    $arguments = array_merge($arguments, $this->compatMap[$call]);
-    	    $call = $this->compatMap[$call][0];
+			$tempcall = array_pop($this->compatMap[$call]);
+			if (! empty($this->compatMap)) {
+    	    	$arguments = array_merge($arguments, $this->compatMap[$call]);
+			}
+			$call = $tempcall;
     	}
 
         /* To be helpful, we allow a case-insensitive search for this method */
