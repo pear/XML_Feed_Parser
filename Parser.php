@@ -79,8 +79,9 @@ class XML_Feed_Parser implements Iterator
 	 *
 	 * @param	string	$feed	XML serialization of the feed
 	 * @param	bool	$strict	Whether or not to validate the feed
+	 * @param	bool	$suppressWarnings Trigger errors for deprecated feed types?
 	 */
-	function __construct($feed, $strict = false)
+	function __construct($feed, $strict = false, $suppressWarnings = false)
 	{
 		$this->model = new DOMDocument;
         if (! $this->model->loadXML($feed)) {
@@ -89,6 +90,8 @@ class XML_Feed_Parser implements Iterator
 
 		/* detect feed type */
 		$doc_element = $this->model->documentElement;
+		$error = false;
+
 		switch (true) {
     		case ($doc_element->namespaceURI == 'http://www.w3.org/2005/Atom'):
     		    require_once 'Parser/Atom.php';
@@ -99,9 +102,8 @@ class XML_Feed_Parser implements Iterator
     		    require_once 'Parser/Atom.php';
     		    require_once 'Parser/AtomElement.php';
     		    $class = 'XML_Feed_Parser_Atom';
-    		    trigger_error(
-    		        'Atom 0.3 deprecated, using 1.0 parser which won\'t provide ' .
-    		        'all options', E_USER_WARNING);
+	    		$error = 'Atom 0.3 deprecated, using 1.0 parser which won\'t provide ' .
+	    		        'all options';
     		    break;
 		    case ($doc_element->namespaceURI == 'http://purl.org/rss/1.0/' or 
 				($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1 
@@ -130,9 +132,7 @@ class XML_Feed_Parser implements Iterator
     		case ($doc_element->tagName == 'rss' and
         		$doc_element->hasAttribute('version') and 
 		        $doc_element->getAttribute('version') == 0.91):
-		        trigger_error(
-    		        'RSS 0.91 has been superceded by RSS2.0. Using RSS2.0 parser.', 
-    		        E_USER_WARNING);
+				$error = 'RSS 0.91 has been superceded by RSS2.0. Using RSS2.0 parser.';
 		        require_once 'Parser/RSS2.php';
 	            require_once 'Parser/RSS2Element.php';
 	            $class = 'XML_Feed_Parser_RSS2';
@@ -140,9 +140,7 @@ class XML_Feed_Parser implements Iterator
     		case ($doc_element->tagName == 'rss' and
         		$doc_element->hasAttribute('version') and 
 		        $doc_element->getAttribute('version') == 0.92):
-		        trigger_error(
-    		        'RSS 0.92 has been superceded by RSS2.0. Using RSS2.0 parser.', 
-    		        E_USER_WARNING);
+		        $error = 'RSS 0.92 has been superceded by RSS2.0. Using RSS2.0 parser.';
 		        require_once 'Parser/RSS2.php';
 	            require_once 'Parser/RSS2Element.php';
 	            $class = 'XML_Feed_Parser_RSS2';
@@ -151,8 +149,7 @@ class XML_Feed_Parser implements Iterator
 				or $doc_element->tagName == 'rss'):
 				if (! $doc_element->hasAttribute('version') or 
 					$doc_element->getAttribute('version') != 2) {
-					trigger_error('RSS version not specified. Parsing as RSS2.0',
-						E_USER_WARNING);
+					$error = 'RSS version not specified. Parsing as RSS2.0';
 				}
 	            require_once 'Parser/RSS2.php';
 	            require_once 'Parser/RSS2Element.php';
@@ -161,6 +158,9 @@ class XML_Feed_Parser implements Iterator
     		default:
 		        throw new XML_Feed_Parser_Exception('Feed type unknown');
 		        break;
+		}
+		if (! $suppressWarnings and ! empty($error)) {
+			trigger_error($error, E_USER_WARNING);
 		}
 
 		/* Instantiate feed object */
