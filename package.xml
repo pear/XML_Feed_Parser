@@ -46,7 +46,7 @@ Fixed bad check of guid's 'ispermalink' attribute in RSS2Element.php</notes>
                     <file name="RSS2Element.php">
                         <replace from="@version@" to="version" type="package-info"/>
                     </file>
-                    <file name="RSS09Element.php">
+                    <file name="RSS09.php">
                         <replace from="@version@" to="version" type="package-info"/>
                     </file>
                     <file name="RSS09Element.php">

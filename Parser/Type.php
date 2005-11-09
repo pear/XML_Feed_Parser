@@ -334,6 +334,18 @@ abstract class XML_Feed_Parser_Type
     }
 
 	/**
+	 * Checks if this element has a particular child element.
+	 *
+	 * @todo	implement
+	 * @return bool
+	 * @author James Stewart
+	 **/
+	function hasKey()
+	{
+		return false;
+	}
+
+	/**
 	 * Return an XML serialization of the feed, should it be required. Most 
 	 * users however, will already have a serialization that they used when 
 	 * instantiating the object.

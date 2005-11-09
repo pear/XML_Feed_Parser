@@ -119,19 +119,14 @@ class XML_Feed_Parser implements Iterator
 				require_once 'Parser/RSS11Element.php';
 				$class = 'XML_Feed_Parser_RSS11';
 				break;
-    		case ($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1
+    		case (($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1
     		    and $doc_element->childNodes->item(1)->namespaceURI == 
-    		    'http://my.netscape.com/rdf/simple/0.9/'):
+    		    'http://my.netscape.com/rdf/simple/0.9/') or 
+				$doc_element->namespaceURI == 'http://my.netscape.com/rdf/simple/0.9/'):
 		        require_once 'Parser/RSS09.php';
 		        require_once 'Parser/RSS09Element.php';
     		    $class = 'XML_Feed_Parser_RSS09';
     		    break;
-			case ($doc_element->namespaceURI == 
-				'http://my.netscape.com/rdf/simple/0.9/'):
-				require_once 'Parser/RSS09.php';
-				require_once 'Parser/RSS09Element.php';
-				$class = 'XML_Feed_Parser_RSS09';
-				break;
     		case ($doc_element->tagName == 'rss' and
         		$doc_element->hasAttribute('version') and 
 		        $doc_element->getAttribute('version') == 0.91):
@@ -306,6 +301,17 @@ class XML_Feed_Parser implements Iterator
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * Retrieve version details from feed type class.
+	 *
+	 * @return void
+	 * @author James Stewart
+	 */
+	function version()
+	{
+		return $this->feed->version;
 	}
 	
 	function __toString()
