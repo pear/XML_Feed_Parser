@@ -52,12 +52,14 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
 
 	/**
 	 * Here we provide a few mappings for those very special circumstances in
-	 * which it makes sense to map back to the RSS2 spec. Key is RSS2 version
-	 * value is an array consisting of the equivalent in atom and any attributes
-	 * needed to make the mapping.
+	 * which it makes sense to map back to the RSS2 spec or to manage other
+	 * compatibilities (eg. with the Univeral Feed Parser). Key is the other version's
+	 * name for the command, value is an array consisting of the equivalent in our atom 
+	 * api and any attributes needed to make the mapping.
 	 * @var array
 	 */
-	protected $compatMap = array();
+	protected $compatMap = array(
+		'links' => array('link'));
 	    
 	/**
 	 * Our specific element map 

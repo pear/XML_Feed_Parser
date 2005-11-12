@@ -98,7 +98,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      * needed to make the mapping.
 	 * @var array
      */
-    protected $compatMap = array();
+    protected $compatMap = array(
+		'links' => array('link'));
 
 	/**
 	 * Our constructor does nothing more than its parent.
@@ -157,16 +158,13 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 	protected function getPerson($method, $arguments)
 	{
         $offset = empty($arguments[0]) ? 0 : $arguments[0];
-        $arguments = empty($arguments[1]) ? array() : $arguments[1];
+        $parameter = empty($arguments[1]) ? 'name' : $arguments[1];
 		$section = $this->model->getElementsByTagName($method);
+		print $section->length . ':' . $offset . "\n";
 		if ($section->length == 0 or $section->length < $offset+1) {
 		    return false;
 		}
-		if (isset($arguments['param'])) {
-			$parameter = $arguments['param'];
-		} else {
-			$parameter = 'name';
-		}
+
 		$param = $section->item($offset)->getElementsByTagName($parameter);
 		if ($param->length == 0) {
 		    return false;
