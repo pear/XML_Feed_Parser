@@ -242,6 +242,19 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
         }
         $source = new XML_Feed_Parser_Atom($test->item(0));
     }
+
+	/**
+	 * Return an XML serialization of the feed, should it be required. Most 
+	 * users however, will already have a serialization that they used when 
+	 * instantiating the object.
+	 *
+	 * @return    string    XML serialization of element
+	 */    
+	function __toString()
+	{
+	    $simple = simplexml_import_dom($this->model);
+	    return $simple->asXML();
+	}
 }
 
 ?>

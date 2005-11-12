@@ -212,12 +212,10 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         }
 
         switch ($type) {
-            case 'text':
-                return $content->nodeValue;
-                break;
             case 'html':
                 return str_replace("&lt;", "<", $content->nodeValue);
                 break;
+			case 'application/xhtml+xml':
             case 'xhtml':
                 $container = $content->getElementsByTagName("div");
                 if ($container->length == 0) {
@@ -232,7 +230,11 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
                     }
                     return $result;
                 }
-            break;
+                break;
+			case 'text':
+			case 'text/html':
+			default:
+                return $content->nodeValue;
                 break;
         }
         return false;
