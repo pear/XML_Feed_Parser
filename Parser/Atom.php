@@ -160,7 +160,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         $offset = empty($arguments[0]) ? 0 : $arguments[0];
         $parameter = empty($arguments[1]) ? 'name' : $arguments[1];
 		$section = $this->model->getElementsByTagName($method);
-		print $section->length . ':' . $offset . "\n";
+
 		if ($section->length == 0 or $section->length < $offset+1) {
 		    return false;
 		}

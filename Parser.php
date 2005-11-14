@@ -177,7 +177,7 @@ class XML_Feed_Parser implements Iterator
      */
 	function __call($call, $attributes)
 	{
-	    return $this->feed->$call($attributes);
+	    return $this->feed->$call(extract($attributes));
 	}
 
     /**
