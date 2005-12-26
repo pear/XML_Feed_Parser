@@ -89,9 +89,9 @@ abstract class XML_Feed_Parser_Type
 
 	    $method = 'get' . $this->map[$call][0];
 	    if ($method == 'getLink') {
-	        $offset = isset($arguments[0][0]) ? $arguments[0][0] : 0;
-	        $attribute = isset($arguments[0][1]) ? $arguments[0][1] : 'href';
-	        $params = isset($arguments[0][2]) ? $arguments[0][2] : array();
+	        $offset = isset($arguments[0]) ? $arguments[0] : 0;
+	        $attribute = isset($arguments[1]) ? $arguments[1] : 'href';
+	        $params = isset($arguments[2]) ? $arguments[2] : array();
 		    return $this->getLink($offset, $attribute, $params);
 	    }
 
@@ -283,12 +283,15 @@ abstract class XML_Feed_Parser_Type
             if ($attribute->name == 'src' or $attribute->name == 'href') {
                 $attribute->value = $this->addBase($attribute->value, $attribute);
             }
-            if ($attribute->name == "base") {
+            if ($attribute->name == 'base') {
                 continue;
             }
             $return .= $attribute->name . '="' . $attribute->value .'" ';
         }
-        return " " . trim($return);
+		if (! empty($return)) {
+			return ' ' . trim($return);
+		}
+        return '';
     }
 
     /**
@@ -302,12 +305,12 @@ abstract class XML_Feed_Parser_Type
      */
     function traverseNode($node)
     {
-        $content = "";
+        $content = '';
 
         /* Add the opening of this node to the content */
         if ($node instanceof DOMElement) {
-            $content .= "<" . $node->tagName . 
-                $this->processAttributes($node) . ">";
+            $content .= '<' . $node->tagName . 
+                $this->processXHTMLAttributes($node) . '>';
         }
 
         /* Process children */
@@ -318,12 +321,12 @@ abstract class XML_Feed_Parser_Type
         }
 
         if ($node instanceof DOMText) {
-            $content .= $node->nodeValue;
+            $content .= htmlentities($node->nodeValue);
         }
 
         /* Add the closing of this node to the content */
         if ($node instanceof DOMElement) {
-            $content .= "</" . $node->tagName . ">";
+            $content .= '</' . $node->tagName . '>';
         }
 
         return $content;

@@ -38,6 +38,7 @@ require_once 'Parser/Exception.php';
  * and abstracts access to them. It is an iterator, allowing for easy access 
  * to the entire feed.
  *
+ * @todo	Look into working with Tidy extension to handle ill-formed XML
  * @author  James Stewart <james@jystewart.net>
  * @version Release: @package_version@
  * @package XML_Feed_Parser
@@ -75,7 +76,7 @@ class XML_Feed_Parser implements Iterator
 	 * Our constructor takes care of detecting feed types and instantiating
 	 * appropriate classes. For now we're going to treat Atom 0.3 as Atom 1.0
 	 * but raise a warning. I do not intend to introduce full support for 
-	 * Atom 0.3 or RSS < 1.0, but others are welcome to.
+	 * Atom 0.3 as it has been deprecated, but others are welcome to.
 	 *
 	 * @param	string	$feed	XML serialization of the feed
 	 * @param	bool	$strict	Whether or not to validate the feed
@@ -177,7 +178,9 @@ class XML_Feed_Parser implements Iterator
      */
 	function __call($call, $attributes)
 	{
-	    return $this->feed->$call(extract($attributes));
+		$attributes = array_pad($attributes, 5, false);
+		list($a, $b, $c, $d, $e) = $attributes;
+	    return $this->feed->$call($a, $b, $c, $d, $e);
 	}
 
     /**
@@ -299,6 +302,7 @@ class XML_Feed_Parser implements Iterator
 				return $this->feed->entries[$offset];
 			}
 		} else {
+			// print $this->feed->numberEntries;
 			return false;
 		}
 	}

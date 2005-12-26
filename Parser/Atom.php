@@ -83,6 +83,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 		'author' => array('Person'),
 		'contributor' => array('Person'),
 		'icon' => array('Text'),
+		'logo' => array('Text'),
 		'id' => array('Text', 'fail'),
 		'rights' => array('Text'),
 		'subtitle' => array('Text'),
@@ -164,6 +165,11 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         $offset = empty($arguments[0]) ? 0 : $arguments[0];
         $parameter = empty($arguments[1]) ? 'name' : $arguments[1];
 		$section = $this->model->getElementsByTagName($method);
+		
+		if ($parameter == 'url') {
+			$parameter = 'uri';
+		}
+
 		if ($section->length == 0 or $section->length < $offset+1) {
 		    return false;
 		}
@@ -209,7 +215,6 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
             }
             return false;
         }
-
         switch ($type) {
 			case 'application/octet-stream':
 				return base64_decode(trim($content->nodeValue));
@@ -266,8 +271,10 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 	}
 
 	/**
-	 * This element must be present at least once with rel="feed"
-	 * This element may be present any number of further times so long as there is no clash
+	 * This element must be present at least once with rel="feed". This element may be 
+	 * present any number of further times so long as there is no clash. If no 'rel' is 
+	 * present and we're asked for one, we follow the example of the Universal Feed
+	 * Parser and presume 'alternate'.
 	 *
 	 * @param	int	$offset	the position of the link within the container
 	 * @param	string	$attribute	the attribute name required
@@ -295,6 +302,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 				    $value = $this->addBase($value, $links->item($offset));
 				}
 				return $value;
+			} else if ($attribute == 'rel') {
+				return 'alternate';
 			}
 		}
 	}
