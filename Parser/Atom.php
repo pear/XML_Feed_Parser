@@ -101,6 +101,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 	 * @var array
      */
     protected $compatMap = array(
+		'guid' => array('id'),
 		'links' => array('link'),
 		'tags' => array('category'),
 		'contributors' => array('contributor'));
@@ -209,10 +210,13 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         }
         $type = $content->getAttribute('type');
 
-        if (! empty($attribute)) {
+        if (! empty($attribute) and 
+			! ($method == 'generator' and $attribute == 'name')) {
             if ($content->hasAttribute($attribute)) {
                 return $content->getAttribute($attribute);
-            }
+            } else if ($attribute == 'href' and $content->hasAttribute('uri')) {
+                return $content->getAttribute('uri');
+			}
             return false;
         }
         switch ($type) {

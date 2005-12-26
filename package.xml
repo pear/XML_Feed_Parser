@@ -19,8 +19,9 @@
 		<notes>Added atom-specific category handling
 Added 'tags' call in atom which is an alias for categories, to match Universal Feed Parser behaviour
 Added base64 decoding for atom Text and Content
-In atom:link elements, the rel attribute now defaults to 'alternate' if none specified</notes>
+In atom:link elements, the rel attribute now defaults to 'alternate' if none specified
 Added support for atom:logo
+Numerous API fixes and consistency fixes following use of Universal Feed Parser testkit</notes>
         <filelist>
             <dir name="/" baseinstalldir="/XML/Feed">
                 <dir name="Parser" role="php">

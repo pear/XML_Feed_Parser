@@ -59,6 +59,7 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
 	 * @var array
 	 */
 	protected $compatMap = array(
+		'guid' => array('id'),
 		'links' => array('link'),
 		'tags' => array('category'),
 		'contributors' => array('contributor'));
@@ -148,8 +149,8 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
 	 */
 	function getContent($method, $arguments = array())
     {
-
-        $attribute = empty($arguments[0]) ? false : $arguments[0];
+		$offset = empty($arguments[0]) ? false : $arguments[0];
+        $attribute = empty($arguments[1]) ? false : $arguments[1];
         $tags = $this->model->getElementsByTagName('content');
 
         if ($tags->length == 0) {
@@ -179,6 +180,7 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
 			case 'application/octet-stream':
 				return base64_decode(trim($content->nodeValue));
                 break;
+			case 'text/plain':
             case 'text':
                 return $content->nodeValue;
                 break;
@@ -219,13 +221,17 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
         $offset = isset($arguments[0]) ? $arguments[0] : 0;
         $query = "//atom:entry[atom:id='" . $this->getText('id', false) . 
             "']/atom:link[@rel='enclosure']";
+
         $encs = $this->parent->xpath->query($query);
         if ($encs->length > 0 and $encs->length >= $offset) {
             try {
                 $attrs = $encs->item($offset)->attributes;
+				$length = $encs->item($offset)->hasAttribute('length') ? 
+					$encs->item($offset)->getAttribute('length') : false;
                 return array(
                     'url' => $attrs->getNamedItem('href')->value,
-                    'type' => $attrs->getNamedItem('type')->value);
+                    'type' => $attrs->getNamedItem('type')->value,
+					'length' => $length);
             } catch (Exception $e) {
                 return false;
             }
