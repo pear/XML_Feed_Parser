@@ -224,17 +224,14 @@ abstract class XML_Feed_Parser_Type
 	}
 
     /**
-     * There is no single way of declaring a category in RSS1 or Atom as there is
-     * in RSS2. 
-     * Instead the usual approach is to use the dublin core namespace to declare 
-     * categories. For example delicious use both: <dc:subject>PEAR</dc:subject>
-     * and: <taxo:topics><rdf:Bag>
+     * There is no single way of declaring a category in RSS1/1.1 as there is in RSS2 
+	 * and  Atom. Instead the usual approach is to use the dublin core namespace to 
+	 * declare  categories. For example delicious use both: 
+	 * <dc:subject>PEAR</dc:subject> and: <taxo:topics><rdf:Bag>
      * <rdf:li resource="http://del.icio.us/tag/PEAR" /></rdf:Bag></taxo:topics>
      * to declare a categorisation of 'PEAR'.
      *
-     * We need to be sensitive to this where possible. For the initial implementation
-     * we will simply extract all dc:subject entries as that is common across Atom and
-     * RSS1.
+     * We need to be sensitive to this where possible.
      *
 	 * @param	string	$call	for compatibility with our overloading
 	 * @param   array $arguments - arg 0 is the offset, arg 1 is whether to return as array

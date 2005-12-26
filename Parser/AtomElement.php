@@ -59,7 +59,8 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
 	 * @var array
 	 */
 	protected $compatMap = array(
-		'links' => array('link'));
+		'links' => array('link'),
+		'tags' => array('category'));
 	    
 	/**
 	 * Our specific element map 
@@ -76,7 +77,8 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
 		'summary' => array('Text'),
 		'content' => array('Content'),
 		'link' => array('Link'),
-		'enclosure' => array('Enclosure'));
+		'enclosure' => array('Enclosure'),
+		'category' => array('Category'));
 
 	/**
 	 * Store useful information for later.
@@ -155,10 +157,10 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
 
         $content = $tags->item(0);
 
-        if (! $content->hasAttribute("type")) {
-            $content->setAttribute("type", "text");
+        if (! $content->hasAttribute('type')) {
+            $content->setAttribute('type', 'text');
         }
-        $type = $content->getAttribute("type");
+        $type = $content->getAttribute('type');
 
         if (! empty($attribute)) {
             if ($content->hasAttribute($attribute))
@@ -168,26 +170,29 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
             return false;
         }
 
-        if ($content->hasAttribute("src")) {
-            return $content->getAttribute("src");
+        if ($content->hasAttribute('src')) {
+            return $content->getAttribute('src');
         }
 
         switch ($type) {
+			case 'application/octet-stream':
+				return base64_decode(trim($content->nodeValue));
+                break;
             case 'text':
                 return $content->nodeValue;
                 break;
             case 'html':
-                return str_replace("&lt;", "<", $content->nodeValue);
+                return str_replace('&lt;', '<', $content->nodeValue);
                 break;
             case 'xhtml':
-                $container = $content->getElementsByTagName("div");
+                $container = $content->getElementsByTagName('div');
                 if ($container->length == 0) {
                     return false;
                 }
                 $contents = $container->item(0);
                 if ($contents->hasChildNodes()) {
                     /* Iterate through, applying xml:base and store the result */
-                    $result = "";
+                    $result = '';
                     foreach ($contents->childNodes as $node) {
                         $result .= $this->traverseNode($node);
                     }

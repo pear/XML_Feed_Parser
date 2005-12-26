@@ -89,7 +89,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 		'title' => array('Text', 'fail'),
 		'updated' => array('Date', 'fail'),
 		'link' => array('Link'),
-		'generator' => array('Text'));
+		'generator' => array('Text'),
+		'category' => array('Category'));
 
     /**
      * Here we provide a few mappings for those very special circumstances in
@@ -99,7 +100,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 	 * @var array
      */
     protected $compatMap = array(
-		'links' => array('link'));
+		'links' => array('link'),
+		'tags' => array('category'));
 
 	/**
 	 * Our constructor does nothing more than its parent.
@@ -129,6 +131,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 	 * Once it is available, I will try to implement support for it for those users
 	 * on a capable platform.
 	 * 
+	 * @todo	Test with PHP5.1 and add conditional support
 	 * @param	string	$id	any valid Atom ID.
 	 * @return	XML_Feed_Parser_AtomElement
 	 */
@@ -195,34 +198,35 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 
         $content = $tags->item($offset);
 
-        if (! $content->hasAttribute("type")) {
-            $content->setAttribute("type", "text");
+        if (! $content->hasAttribute('type')) {
+            $content->setAttribute('type', 'text');
         }
-        $type = $content->getAttribute("type");
+        $type = $content->getAttribute('type');
 
-        if (! empty($attribute))
-        {
-            if ($content->hasAttribute($attribute))
-            {
-                return $content->getAttribute($attribute)->value;
+        if (! empty($attribute)) {
+            if ($content->hasAttribute($attribute)) {
+                return $content->getAttribute($attribute);
             }
             return false;
         }
 
         switch ($type) {
+			case 'application/octet-stream':
+				return base64_decode(trim($content->nodeValue));
+                break;
             case 'html':
-                return str_replace("&lt;", "<", $content->nodeValue);
+                return str_replace('&lt;', '<', $content->nodeValue);
                 break;
 			case 'application/xhtml+xml':
             case 'xhtml':
-                $container = $content->getElementsByTagName("div");
+                $container = $content->getElementsByTagName('div');
                 if ($container->length == 0) {
                     return false;
                 }
                 $contents = $container->item(0);
                 if ($contents->hasChildNodes()) {
                     /* Iterate through, applying xml:base and store the result */
-                    $result = "";
+                    $result = '';
                     foreach ($contents->childNodes as $node) {
                         $result .= $this->traverseNode($node);
                     }
@@ -236,6 +240,29 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
                 break;
         }
         return false;
+	}
+	
+	/**
+	 * A feed or entry can have any number of categories. A category can have the
+	 * attributes term, scheme and label.
+	 * 
+	 * @todo    offer other attributes
+	 * @param	string	$method	The name of the text construct we want
+	 * @param	array 	$arguments	An array which we hope gives a 'param'
+	 * @return	string
+	 */
+	function getCategory($method, $arguments)
+	{
+		$offset = empty($arguments[0]) ? 0: $arguments[0];
+        $attribute = empty($arguments[1]) ? 'term' : $arguments[1];
+		$categories = $this->model->getElementsByTagName('category');
+		if ($categories->length > $offset) {
+			$category = $categories->item($offset);
+			if ($category->hasAttribute($attribute)) {
+				return $category->getAttribute($attribute);
+			}
+		}
+		return false;
 	}
 
 	/**
