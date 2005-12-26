@@ -60,7 +60,8 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
 	 */
 	protected $compatMap = array(
 		'links' => array('link'),
-		'tags' => array('category'));
+		'tags' => array('category'),
+		'contributors' => array('contributor'));
 	    
 	/**
 	 * Our specific element map 

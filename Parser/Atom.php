@@ -81,7 +81,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 	 */
 	protected $map = array(
 		'author' => array('Person'),
-		'contributor' => array('Contributor'),
+		'contributor' => array('Person'),
 		'icon' => array('Text'),
 		'id' => array('Text', 'fail'),
 		'rights' => array('Text'),
@@ -101,7 +101,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      */
     protected $compatMap = array(
 		'links' => array('link'),
-		'tags' => array('category'));
+		'tags' => array('category'),
+		'contributors' => array('contributor'));
 
 	/**
 	 * Our constructor does nothing more than its parent.
@@ -163,7 +164,6 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         $offset = empty($arguments[0]) ? 0 : $arguments[0];
         $parameter = empty($arguments[1]) ? 'name' : $arguments[1];
 		$section = $this->model->getElementsByTagName($method);
-
 		if ($section->length == 0 or $section->length < $offset+1) {
 		    return false;
 		}

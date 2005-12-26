@@ -83,8 +83,7 @@ abstract class XML_Feed_Parser_Type
     	    }
     	}
 
-        if (empty($this->map[$call]))
-        {
+        if (empty($this->map[$call])) {
             return false;
         }
 
