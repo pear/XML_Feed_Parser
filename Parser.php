@@ -89,7 +89,8 @@ class XML_Feed_Parser implements Iterator
         if (! $this->model->loadXML($feed)) {
 			if (extension_loaded('tidy') and $tidy) {
 				$tidy = new tidy;
-				$tidy->parseString($feed);
+				$tidy->parseString($feed, 
+					array('input-xml' => true, 'output-xml' => true));
 				$tidy->cleanRepair();
 				if (! $this->model->loadXML((string) $tidy)) {
             		throw new XML_Feed_Parser_Exception('Invalid input: this is not ' .

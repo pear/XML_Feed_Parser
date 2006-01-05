@@ -72,6 +72,7 @@ Numerous API fixes and consistency fixes following use of Universal Feed Parser 
                     <file name="errors.php"/>
                     <file name="rss091Values.php"/>
                     <file name="rss092Values.php"/>
+					<file name="tidy.php"/>
                 </dir>
                 <dir name="samples" role="data">
                     <file name="atom10-example1.xml"/>
@@ -90,6 +91,7 @@ Numerous API fixes and consistency fixes following use of Universal Feed Parser 
                     <file name="rss091-international.xml"/>
                     <file name="rss091-simple.xml"/>
                     <file name="rss092-sample.xml"/>
+					<file name="illformed-atom10.xml"/>
                 </dir>
             </dir>
         </filelist>
