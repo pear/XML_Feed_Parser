@@ -7,7 +7,7 @@ class XML_Feed_Parser_RSS091_valueValidity_TestCase extends PHPUnit_TestCase
 {
     function __construct($name)
     {
-	    $this->PHPUnit_TestCase($name);
+        $this->PHPUnit_TestCase($name);
         $this->file = file_get_contents("../samples/rss091-complete.xml");
         $this->feed = new XML_Feed_Parser($this->file);
         $this->entry = $this->feed->getEntryByOffset(0);

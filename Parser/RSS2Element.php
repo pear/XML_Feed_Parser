@@ -25,8 +25,8 @@
  * This class provides support for RSS 2.0 entries. It will usually be 
  * called by XML_Feed_Parser_RSS2 with which it shares many methods.
  *
- * @author	James Stewart <james@jystewart.net>
- * @version	Release: @package_version@
+ * @author    James Stewart <james@jystewart.net>
+ * @version    Release: @package_version@
  * @package XML_Feed_Parser
  */
 class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
@@ -43,28 +43,28 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
      * @var array
      */
     protected $map = array(
-    	'title' => array('Text'),
-    	'guid' => array('Guid'),
-    	'description' => array('Text'),
-    	'author' => array('Text'),
-    	'comments' => array('Text'),
-    	'enclosure' => array('Enclosure'),
-    	'pubDate' => array('Date'),
-    	'source' => array('Source'),
-    	'link' => array('Text'));
+        'title' => array('Text'),
+        'guid' => array('Guid'),
+        'description' => array('Text'),
+        'author' => array('Text'),
+        'comments' => array('Text'),
+        'enclosure' => array('Enclosure'),
+        'pubDate' => array('Date'),
+        'source' => array('Source'),
+        'link' => array('Text'));
 
-	/**
-	 * Here we map some elements to their atom equivalents. This is going to be
-	 * quite tricky to pull off effectively (and some users' methods may vary)
-	 * but is worth trying. The key is the atom version, the value is RSS2.
-	 * @var array
-	 */
-	protected $compatMap = array(
-	    'id' => array('guid'),
-	    'content' => array('description'),
-	    'updated' => array('lastBuildDate'),
-	    'published' => array('pubdate'),
-		'guidislink' => array('guid', 'ispermalink'));
+    /**
+     * Here we map some elements to their atom equivalents. This is going to be
+     * quite tricky to pull off effectively (and some users' methods may vary)
+     * but is worth trying. The key is the atom version, the value is RSS2.
+     * @var array
+     */
+    protected $compatMap = array(
+        'id' => array('guid'),
+        'content' => array('description'),
+        'updated' => array('lastBuildDate'),
+        'published' => array('pubdate'),
+        'guidislink' => array('guid', 'ispermalink'));
 
     /**
      * Store useful information for later.
@@ -74,8 +74,8 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
      */
     function __construct(DOMElement $element, $parent, $xmlBase = '')
     {
-    	$this->model = $element;
-    	$this->parent = $parent;
+        $this->model = $element;
+        $this->parent = $parent;
     }
 
     /**

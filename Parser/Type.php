@@ -66,40 +66,40 @@ abstract class XML_Feed_Parser_Type
         }
 
         if (isset($this->compatMap[$call])) {
-			$tempcall = array_pop($this->compatMap[$call]);
-			if (! empty($this->compatMap)) {
-    	    	$arguments = array_merge($arguments, $this->compatMap[$call]);
-			}
-			$call = $tempcall;
-    	}
+            $tempcall = array_pop($this->compatMap[$call]);
+            if (! empty($this->compatMap)) {
+                $arguments = array_merge($arguments, $this->compatMap[$call]);
+            }
+            $call = $tempcall;
+        }
 
         /* To be helpful, we allow a case-insensitive search for this method */
-    	if (! isset($this->map[$call])) {
-    	    foreach (array_keys($this->map) as $key) {
-    	        if (strtoupper($key) == strtoupper($call)) {
-    	            $call = $key;
-    	            break;
-    	        }
-    	    }
-    	}
+        if (! isset($this->map[$call])) {
+            foreach (array_keys($this->map) as $key) {
+                if (strtoupper($key) == strtoupper($call)) {
+                    $call = $key;
+                    break;
+                }
+            }
+        }
 
         if (empty($this->map[$call])) {
             return false;
         }
 
-	    $method = 'get' . $this->map[$call][0];
-	    if ($method == 'getLink') {
-	        $offset = isset($arguments[0]) ? $arguments[0] : 0;
-	        $attribute = isset($arguments[1]) ? $arguments[1] : 'href';
-	        $params = isset($arguments[2]) ? $arguments[2] : array();
-		    return $this->getLink($offset, $attribute, $params);
-	    }
+        $method = 'get' . $this->map[$call][0];
+        if ($method == 'getLink') {
+            $offset = isset($arguments[0]) ? $arguments[0] : 0;
+            $attribute = isset($arguments[1]) ? $arguments[1] : 'href';
+            $params = isset($arguments[2]) ? $arguments[2] : array();
+            return $this->getLink($offset, $attribute, $params);
+        }
 
         if (method_exists($this, $method)) {
-    	    return $this->$method($call, $arguments);
-    	}
+            return $this->$method($call, $arguments);
+        }
 
-    	return false;
+        return false;
     }
 
     /**
@@ -167,75 +167,75 @@ abstract class XML_Feed_Parser_Type
         return $this->combineBases($element->baseURI, $link);
     }
 
-	/**
-	 * Pretty fundamental!
-	 * 
-	 * @param   int $offset
-	 * @return  XML_Feed_Parser_RSS1Element
-	 */
-	function getEntryByOffset($offset)
-	{
-    	if (! isset($this->entries[$offset])) {
-    		$entries = $this->model->getElementsByTagName($this->itemElement);
-    		if ($entries->length > 0) {
-			    $xmlBase = $entries->item($offset)->baseURI;
-				$this->entries[$offset] = new $this->itemClass(
-				    $entries->item($offset), $this, $xmlBase);
-    		} else {
-    		    throw new XML_Feed_Parser_Exception('No entries found');
-    		}
-    	}
+    /**
+     * Pretty fundamental!
+     * 
+     * @param   int $offset
+     * @return  XML_Feed_Parser_RSS1Element
+     */
+    function getEntryByOffset($offset)
+    {
+        if (! isset($this->entries[$offset])) {
+            $entries = $this->model->getElementsByTagName($this->itemElement);
+            if ($entries->length > 0) {
+                $xmlBase = $entries->item($offset)->baseURI;
+                $this->entries[$offset] = new $this->itemClass(
+                    $entries->item($offset), $this, $xmlBase);
+            } else {
+                throw new XML_Feed_Parser_Exception('No entries found');
+            }
+        }
 
-    	return $this->entries[$offset];
-	}
+        return $this->entries[$offset];
+    }
 
-	/**
-	 * Get a date construct. We use PHP's strtotime to return it as a unix datetime
-	 * 
-	 * @param	string	$method	    The name of the date construct we want
-	 * @param	array 	$arguments	Included for compatibility with our __call usage
-	 * @return	int|false datetime
-	 */
-	protected function getDate($method, $arguments)
-	{
-		$time = $this->model->getElementsByTagName($method);
-		if ($time->length == 0) {
-		    return false;
-		}
-		return strtotime($time->item(0)->nodeValue);
-	}
+    /**
+     * Get a date construct. We use PHP's strtotime to return it as a unix datetime
+     * 
+     * @param    string    $method        The name of the date construct we want
+     * @param    array     $arguments    Included for compatibility with our __call usage
+     * @return    int|false datetime
+     */
+    protected function getDate($method, $arguments)
+    {
+        $time = $this->model->getElementsByTagName($method);
+        if ($time->length == 0) {
+            return false;
+        }
+        return strtotime($time->item(0)->nodeValue);
+    }
 
-	/**
-	 * Get a text construct. 
-	 *
-	 * @param	string	$method	The name of the text construct we want
-	 * @param	array 	$arguments	Included for compatibility with our __call usage
-	 * @return	string
-	 */
-	protected function getText($method, $arguments = array())
-	{
-		$tags = $this->model->getElementsByTagName($method);
-		if ($tags->length > 0) {
-			$value = $tags->item(0)->nodeValue;
-			return $value;
-		}
-		return false;
-	}
+    /**
+     * Get a text construct. 
+     *
+     * @param    string    $method    The name of the text construct we want
+     * @param    array     $arguments    Included for compatibility with our __call usage
+     * @return    string
+     */
+    protected function getText($method, $arguments = array())
+    {
+        $tags = $this->model->getElementsByTagName($method);
+        if ($tags->length > 0) {
+            $value = $tags->item(0)->nodeValue;
+            return $value;
+        }
+        return false;
+    }
 
     /**
      * There is no single way of declaring a category in RSS1/1.1 as there is in RSS2 
-	 * and  Atom. Instead the usual approach is to use the dublin core namespace to 
-	 * declare  categories. For example delicious use both: 
-	 * <dc:subject>PEAR</dc:subject> and: <taxo:topics><rdf:Bag>
+     * and  Atom. Instead the usual approach is to use the dublin core namespace to 
+     * declare  categories. For example delicious use both: 
+     * <dc:subject>PEAR</dc:subject> and: <taxo:topics><rdf:Bag>
      * <rdf:li resource="http://del.icio.us/tag/PEAR" /></rdf:Bag></taxo:topics>
      * to declare a categorisation of 'PEAR'.
      *
      * We need to be sensitive to this where possible.
      *
-	 * @param	string	$call	for compatibility with our overloading
-	 * @param   array $arguments - arg 0 is the offset, arg 1 is whether to return as array
-	 * @return  string|array|false
-	 */
+     * @param    string    $call    for compatibility with our overloading
+     * @param   array $arguments - arg 0 is the offset, arg 1 is whether to return as array
+     * @return  string|array|false
+     */
     protected function getCategory($call, $arguments)
     {
         $categories = $this->model->getElementsByTagName('subject');
@@ -258,15 +258,15 @@ abstract class XML_Feed_Parser_Type
      * This function will tell us how many times the element $type
      * appears at this level of the feed.
      * 
-     * @param	string	$type	the element we want to get a count of
-     * @return	int
+     * @param    string    $type    the element we want to get a count of
+     * @return    int
      */
     protected function count($type)
     {
-    	if ($tags = $this->model->getElementsByTagName($type)) {
-    		return $tags->length;
-    	}
-    	return 0;
+        if ($tags = $this->model->getElementsByTagName($type)) {
+            return $tags->length;
+        }
+        return 0;
     }
 
     /**
@@ -288,9 +288,9 @@ abstract class XML_Feed_Parser_Type
             }
             $return .= $attribute->name . '="' . $attribute->value .'" ';
         }
-		if (! empty($return)) {
-			return ' ' . trim($return);
-		}
+        if (! empty($return)) {
+            return ' ' . trim($return);
+        }
         return '';
     }
 
@@ -332,30 +332,30 @@ abstract class XML_Feed_Parser_Type
         return $content;
     }
 
-	/**
-	 * Checks if this element has a particular child element.
-	 *
-	 * @todo	implement
-	 * @return bool
-	 * @author James Stewart
-	 **/
-	function hasKey()
-	{
-		return false;
-	}
+    /**
+     * Checks if this element has a particular child element.
+     *
+     * @todo    implement
+     * @return bool
+     * @author James Stewart
+     **/
+    function hasKey()
+    {
+        return false;
+    }
 
-	/**
-	 * Return an XML serialization of the feed, should it be required. Most 
-	 * users however, will already have a serialization that they used when 
-	 * instantiating the object.
-	 *
-	 * @return    string    XML serialization of element
-	 */    
-	function __toString()
-	{
-	    $simple = simplexml_import_dom($this->model);
-	    return $simple->asXML();
-	}
+    /**
+     * Return an XML serialization of the feed, should it be required. Most 
+     * users however, will already have a serialization that they used when 
+     * instantiating the object.
+     *
+     * @return    string    XML serialization of element
+     */    
+    function __toString()
+    {
+        $simple = simplexml_import_dom($this->model);
+        return $simple->asXML();
+    }
 }
 
 ?>

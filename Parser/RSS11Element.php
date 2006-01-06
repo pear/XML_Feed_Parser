@@ -25,8 +25,8 @@
  * This class provides support for RSS 1.1 entries. It will usually be called by
  * XML_Feed_Parser_RSS11 with which it shares many methods.
  *
- * @author	James Stewart <james@jystewart.net>
- * @version	Release: @package_version@
+ * @author    James Stewart <james@jystewart.net>
+ * @version    Release: @package_version@
  * @package XML_Feed_Parser
  */
 class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11
@@ -44,10 +44,10 @@ class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11
      */
     protected $map = array(
         'id' => array('Id'),
-    	'title' => array('Text'),
-    	'link' => array('Link'),
-    	'description' => array('Text'), # or dc:description
-    	'category' => array('Category'),
+        'title' => array('Text'),
+        'link' => array('Link'),
+        'description' => array('Text'), # or dc:description
+        'category' => array('Category'),
         'rights' => array('Text'), # dc:rights
         'creator' => array('Text'), # dc:creator
         'publisher' => array('Text'), # dc:publisher
@@ -56,21 +56,21 @@ class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11
         'content' => array('Content')
         );
 
-	/**
-	 * Here we map some elements to their atom equivalents. This is going to be
-	 * quite tricky to pull off effectively (and some users' methods may vary)
-	 * but is worth trying. The key is the atom version, the value is RSS1.
-	 * @var array
-	 */
-	protected $compatMap = array(
-	    'content' => array('content'),
-	    'updated' => array('lastBuildDate'),
-	    'published' => array('pubdate'),
-	    'subtitle' => array('description'),
+    /**
+     * Here we map some elements to their atom equivalents. This is going to be
+     * quite tricky to pull off effectively (and some users' methods may vary)
+     * but is worth trying. The key is the atom version, the value is RSS1.
+     * @var array
+     */
+    protected $compatMap = array(
+        'content' => array('content'),
+        'updated' => array('lastBuildDate'),
+        'published' => array('pubdate'),
+        'subtitle' => array('description'),
         'updated' => array('date'),
         'author' => array('creator'),
         'contributor' => array('contributor')
-	);
+    );
 
     /**
      * Store useful information for later.
@@ -80,8 +80,8 @@ class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11
      */
     function __construct(DOMElement $element, $parent, $xmlBase = '')
     {
-    	$this->model = $element;
-    	$this->parent = $parent;
+        $this->model = $element;
+        $this->parent = $parent;
     }
 
     /**
@@ -114,17 +114,17 @@ class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11
             if ($test->length == 0) {
                 continue;
             }
-		    if ($test->item(0)->hasChildNodes()) {
-		        $value = '';
-		        foreach ($test->item(0)->childNodes as $child) {
-		            if ($child instanceof DOMText) {
-		                $value .= $child->nodeValue;
-		            } else {
-    		            $simple = simplexml_import_dom($child);
-    		            $value .= $simple->asXML();
-		            }
-        	    }
-        	    return $value;
+            if ($test->item(0)->hasChildNodes()) {
+                $value = '';
+                foreach ($test->item(0)->childNodes as $child) {
+                    if ($child instanceof DOMText) {
+                        $value .= $child->nodeValue;
+                    } else {
+                        $simple = simplexml_import_dom($child);
+                        $value .= $simple->asXML();
+                    }
+                }
+                return $value;
             } else if ($test->length > 0) {
                 return $test->item(0)->nodeValue;
             }

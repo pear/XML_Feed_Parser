@@ -12,14 +12,14 @@ require_once 'PHPUnit.php';
  */
 class XML_Feed_Parser_AtomCompat1_TestCase extends PHPUnit_Testcase
 {
-	
-	function __construct($name)
-	{
-	    $this->PHPUnit_TestCase($name);
+    
+    function __construct($name)
+    {
+        $this->PHPUnit_TestCase($name);
         $this->file = file_get_contents("../samples/atom10-example1.xml");
         $this->parser = new XML_Feed_Parser($this->file);
         $this->entry = $this->parser->getEntryByOffset(0);
-	}
+    }
     
     function setUp() {
     }

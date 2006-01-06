@@ -10,11 +10,11 @@ require_once 'PHPUnit.php';
  */
 class XML_Feed_Parser_ThrowErrors_TestCase extends PHPUnit_Testcase
 {
-	
-	function __construct($name)
-	{
-	    $this->PHPUnit_TestCase($name);
-	}
+    
+    function __construct($name)
+    {
+        $this->PHPUnit_TestCase($name);
+    }
     
     function setUp() {
     }

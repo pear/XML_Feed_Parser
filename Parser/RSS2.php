@@ -24,8 +24,8 @@
 /**
  * This class handles RSS2 feeds.
  * 
- * @author	James Stewart <james@jystewart.net>
- * @version	Release: @package_version@
+ * @author    James Stewart <james@jystewart.net>
+ * @version    Release: @package_version@
  * @package XML_Feed_Parser
  */
 class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
@@ -36,17 +36,17 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
      */
     private $relax = 'http://dmorelli.sdf-us.org/files/rss2/rss-2_0.rng';
 
-	/**
-	 * We're likely to use XPath, so let's keep it global
-	 * @var DOMXPath
-	 */
-	protected $xpath;
+    /**
+     * We're likely to use XPath, so let's keep it global
+     * @var DOMXPath
+     */
+    protected $xpath;
 
-	/**
-	 * The feed type we are parsing
-	 * @var string
-	 */
-	public $version = 'RSS 2.0';
+    /**
+     * The feed type we are parsing
+     * @var string
+     */
+    public $version = 'RSS 2.0';
 
     /**
      * The class used to represent individual items
@@ -60,32 +60,32 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
      */
     protected $itemElement = 'item';
 
-	/**
-	 * Here we map those elements we're not going to handle individually
-	 * to the constructs they are. The optional second parameter in the array
-	 * tells the parser whether to 'fall back' (not apt. at the feed level) or
-	 * fail if the element is missing. If the parameter is not set, the function
-	 * will simply return false and leave it to the client to decide what to do.
-	 * @var array
-	 */
-	protected $map = array(
-	    'ttl' => array('Text'),
-	    'pubDate' => array('Date'),
-	    'lastBuildDate' => array('Date'),
-	    'title' => array('Text'),
-	    'link' => array('Link'),
-	    'description' => array('Text'),
-	    'language' => array('Text'),
-	    'copyright' => array('Text'),
-	    'managingEditor' => array('Text'),
-	    'webMaster' => array('Text'),
-	    'category' => array('Text'),
-	    'generator' => array('Text'),
-	    'docs' => array('Text'),
-	    'ttl' => array('Text'),
-	    'image' => array('Image'),
-	    'skipDays' => array('skipDays'),
-	    'skipHours' => array('skipHours'));
+    /**
+     * Here we map those elements we're not going to handle individually
+     * to the constructs they are. The optional second parameter in the array
+     * tells the parser whether to 'fall back' (not apt. at the feed level) or
+     * fail if the element is missing. If the parameter is not set, the function
+     * will simply return false and leave it to the client to decide what to do.
+     * @var array
+     */
+    protected $map = array(
+        'ttl' => array('Text'),
+        'pubDate' => array('Date'),
+        'lastBuildDate' => array('Date'),
+        'title' => array('Text'),
+        'link' => array('Link'),
+        'description' => array('Text'),
+        'language' => array('Text'),
+        'copyright' => array('Text'),
+        'managingEditor' => array('Text'),
+        'webMaster' => array('Text'),
+        'category' => array('Text'),
+        'generator' => array('Text'),
+        'docs' => array('Text'),
+        'ttl' => array('Text'),
+        'image' => array('Image'),
+        'skipDays' => array('skipDays'),
+        'skipHours' => array('skipHours'));
 
     /**
      * Here we map some elements to their atom equivalents. This is going to be
@@ -101,57 +101,57 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
         'date' => array('pubDate'),
         'author' => array('managingEditor'));
 
-	/**
-	 * Our constructor does nothing more than its parent.
-	 * 
-	 * @param	DOMDocument	$xml	A DOM object representing the feed
-	 * @param	bool (optional) $string	Whether or not to validate this feed
-	 */
-	function __construct(DOMDocument $model, $strict = false)
-	{
-		$this->model = $model;
+    /**
+     * Our constructor does nothing more than its parent.
+     * 
+     * @param    DOMDocument    $xml    A DOM object representing the feed
+     * @param    bool (optional) $string    Whether or not to validate this feed
+     */
+    function __construct(DOMDocument $model, $strict = false)
+    {
+        $this->model = $model;
 
-		if ($strict) {
-			if (! $this->model->relaxNGValidateSource($this->relax)) {
-				throw new XML_Feed_Parser_Exception('Failed required validation');
-			}
-		}
+        if ($strict) {
+            if (! $this->model->relaxNGValidateSource($this->relax)) {
+                throw new XML_Feed_Parser_Exception('Failed required validation');
+            }
+        }
 
-		$this->xpath = new DOMXPath($this->model);
-		$this->numberEntries = $this->count('item');
-	}
+        $this->xpath = new DOMXPath($this->model);
+        $this->numberEntries = $this->count('item');
+    }
 
     /**
      * This is not really something that will work with RSS2 as it does not have
      * clear restrictions on the global uniqueness of IDs. But we can emulate
      * it by allowing access based on the 'guid' element.
      *
-     * @param	string	$id	any valid ID.
-     * @return	XML_Feed_Parser_RSS2Element
+     * @param    string    $id    any valid ID.
+     * @return    XML_Feed_Parser_RSS2Element
      */
-	function getEntryById($id)
-	{
-	    if (isset($this->idMappings[$id])) {
-	    	return $this->entries[$this->idMappings[$id]];
-	    }
+    function getEntryById($id)
+    {
+        if (isset($this->idMappings[$id])) {
+            return $this->entries[$this->idMappings[$id]];
+        }
 
-	    $entries = $this->xpath->query("//item[guid='$id']");
-	    if ($entries->length > 0) {
-	    	$entry = new $this->itemElement($entries->item(0), $this);
-	    	return $entry;
-	    }	    
-	}
+        $entries = $this->xpath->query("//item[guid='$id']");
+        if ($entries->length > 0) {
+            $entry = new $this->itemElement($entries->item(0), $this);
+            return $entry;
+        }        
+    }
 
-	/**
-	 * The category element is a simple text construct which can occur any number
-	 * of times. We allow access by offset or access to an array of results.
-	 *
-	 * @param	string	$call	for compatibility with our overloading
-	 * @param   array $arguments - arg 0 is the offset, arg 1 is whether to return as array
-	 * @return  string|array|false
-	 */
-	function getCategory($call, $arguments = array())
-	{
+    /**
+     * The category element is a simple text construct which can occur any number
+     * of times. We allow access by offset or access to an array of results.
+     *
+     * @param    string    $call    for compatibility with our overloading
+     * @param   array $arguments - arg 0 is the offset, arg 1 is whether to return as array
+     * @return  string|array|false
+     */
+    function getCategory($call, $arguments = array())
+    {
         $categories = $this->model->getElementsByTagName('category');
         $offset = empty($arguments[0]) ? 0 : $arguments[0];
         $array = empty($arguments[1]) ? false : true;
@@ -166,34 +166,34 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
             return $list;
         }
         return $categories->item($offset)->nodeValue;
-	}
+    }
 
-	/**
-	 * Get details of the image associated with the feed.
-	 *
-	 * @return  array|false an array simply containing the child elements
-	 */
-	protected function getImage()
-	{
-	    $images = $this->model->getElementsByTagName('image');
-	    if ($images->length > 0) {
-	        $image = $images->item(0);
-	        $desc = $image->getElementsByTagName('description');
-	        $description = $desc->length ? $desc->item(0)->nodeValue : false;
-	        $heigh = $image->getElementsByTagName('height'); 
-	        $height = $heigh->length ? $heigh->item(0)->nodeValue : false;
-	        $widt = $image->getElementsByTagName('width'); 
-	        $width = $widt->length ? $widt->item(0)->nodeValue : false;
-	        return array(
-	            'title' => $image->getElementsByTagName('title')->item(0)->nodeValue,
-	            'link' => $image->getElementsByTagName('link')->item(0)->nodeValue,
-	            'url' => $image->getElementsByTagName('url')->item(0)->nodeValue,
-	            'description' => $description,
-	            'height' => $height,
-	            'width' => $width);
-	    }
-	    return false;
-	}
+    /**
+     * Get details of the image associated with the feed.
+     *
+     * @return  array|false an array simply containing the child elements
+     */
+    protected function getImage()
+    {
+        $images = $this->model->getElementsByTagName('image');
+        if ($images->length > 0) {
+            $image = $images->item(0);
+            $desc = $image->getElementsByTagName('description');
+            $description = $desc->length ? $desc->item(0)->nodeValue : false;
+            $heigh = $image->getElementsByTagName('height'); 
+            $height = $heigh->length ? $heigh->item(0)->nodeValue : false;
+            $widt = $image->getElementsByTagName('width'); 
+            $width = $widt->length ? $widt->item(0)->nodeValue : false;
+            return array(
+                'title' => $image->getElementsByTagName('title')->item(0)->nodeValue,
+                'link' => $image->getElementsByTagName('link')->item(0)->nodeValue,
+                'url' => $image->getElementsByTagName('url')->item(0)->nodeValue,
+                'description' => $description,
+                'height' => $height,
+                'width' => $width);
+        }
+        return false;
+    }
 
     /**
      * The textinput element is little used, but in the interests of
@@ -204,16 +204,16 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
     function getTextInput()
     {
         $inputs = $this->model->getElementsByTagName('input');
-	    if ($inputs->length > 0) {
-	        $input = $inputs->item(0);
-	        return array(
-	            'title' => $input->getElementsByTagName('title')->item(0)->value,
-	            'description' => 
-	                $input->getElementsByTagName('description')->item(0)->value,
-	            'name' => $input->getElementsByTagName('name')->item(0)->value,
-	            'link' => $input->getElementsByTagName('link')->item(0)->value);
-	    }
-	    return false;
+        if ($inputs->length > 0) {
+            $input = $inputs->item(0);
+            return array(
+                'title' => $input->getElementsByTagName('title')->item(0)->value,
+                'description' => 
+                    $input->getElementsByTagName('description')->item(0)->value,
+                'name' => $input->getElementsByTagName('name')->item(0)->value,
+                'link' => $input->getElementsByTagName('link')->item(0)->value);
+        }
+        return false;
     }
 
     /**

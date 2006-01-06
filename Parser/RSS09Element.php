@@ -25,8 +25,8 @@
  * This class provides support for RSS 1.0 entries. It will usually be called by
  * XML_Feed_Parser_RSS1 with which it shares many methods.
  *
- * @author	James Stewart <james@jystewart.net>
- * @version	Release: @package_version@
+ * @author    James Stewart <james@jystewart.net>
+ * @version    Release: @package_version@
  * @package XML_Feed_Parser
  */
 class XML_Feed_Parser_RSS09Element extends XML_Feed_Parser_RSS09
@@ -43,8 +43,8 @@ class XML_Feed_Parser_RSS09Element extends XML_Feed_Parser_RSS09
      * @var array
      */
     protected $map = array(
-    	'title' => array('Text'),
-    	'link' => array('Link'));
+        'title' => array('Text'),
+        'link' => array('Link'));
 
     /**
      * Store useful information for later.
@@ -54,8 +54,8 @@ class XML_Feed_Parser_RSS09Element extends XML_Feed_Parser_RSS09
      */
     function __construct(DOMElement $element, $parent, $xmlBase = '')
     {
-    	$this->model = $element;
-    	$this->parent = $parent;
+        $this->model = $element;
+        $this->parent = $parent;
     }
 }
 

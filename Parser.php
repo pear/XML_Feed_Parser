@@ -38,18 +38,18 @@ require_once 'Parser/Exception.php';
  * and abstracts access to them. It is an iterator, allowing for easy access 
  * to the entire feed.
  *
- * @todo	Look into working with Tidy extension to handle ill-formed XML
+ * @todo    Look into working with Tidy extension to handle ill-formed XML
  * @author  James Stewart <james@jystewart.net>
  * @version Release: @package_version@
  * @package XML_Feed_Parser
  */
 class XML_Feed_Parser implements Iterator
 {
-	/**
-	 * This is where we hold the feed object 
-	 * @var Object
-	 */
-	private $feed;
+    /**
+     * This is where we hold the feed object 
+     * @var Object
+     */
+    private $feed;
 
     /**
      * To allow for extensions, we make a public reference to the feed model 
@@ -57,130 +57,130 @@ class XML_Feed_Parser implements Iterator
      */
     public $model;
     
-	/**
-	 * A map between entry ID and offset
-	 * @var array
-	 */
-	protected $idMappings = array();
+    /**
+     * A map between entry ID and offset
+     * @var array
+     */
+    protected $idMappings = array();
 
-	/**
-	 * A storage space for Namespace URIs.
-	 * @var array
-	 */
-	private $feedNamespaces = array(
-		'rss2' => array(
-			'http://backend.userland.com/rss',
-			'http://backend.userland.com/rss2',
-			'http://blogs.law.harvard.edu/tech/rss'));
-	/**
-	 * Our constructor takes care of detecting feed types and instantiating
-	 * appropriate classes. For now we're going to treat Atom 0.3 as Atom 1.0
-	 * but raise a warning. I do not intend to introduce full support for 
-	 * Atom 0.3 as it has been deprecated, but others are welcome to.
-	 *
-	 * @param	string	$feed	XML serialization of the feed
-	 * @param	bool	$strict	Whether or not to validate the feed
-	 * @param	bool	$suppressWarnings Trigger errors for deprecated feed types?
-	 * @param	bool	$tidy	Whether or not to try and use the tidy library on input
-	 */
-	function __construct($feed, $strict = false, $suppressWarnings = false, $tidy = false)
-	{
-		$this->model = new DOMDocument;
+    /**
+     * A storage space for Namespace URIs.
+     * @var array
+     */
+    private $feedNamespaces = array(
+        'rss2' => array(
+            'http://backend.userland.com/rss',
+            'http://backend.userland.com/rss2',
+            'http://blogs.law.harvard.edu/tech/rss'));
+    /**
+     * Our constructor takes care of detecting feed types and instantiating
+     * appropriate classes. For now we're going to treat Atom 0.3 as Atom 1.0
+     * but raise a warning. I do not intend to introduce full support for 
+     * Atom 0.3 as it has been deprecated, but others are welcome to.
+     *
+     * @param    string    $feed    XML serialization of the feed
+     * @param    bool    $strict    Whether or not to validate the feed
+     * @param    bool    $suppressWarnings Trigger errors for deprecated feed types?
+     * @param    bool    $tidy    Whether or not to try and use the tidy library on input
+     */
+    function __construct($feed, $strict = false, $suppressWarnings = false, $tidy = false)
+    {
+        $this->model = new DOMDocument;
         if (! $this->model->loadXML($feed)) {
-			if (extension_loaded('tidy') and $tidy) {
-				$tidy = new tidy;
-				$tidy->parseString($feed, 
-					array('input-xml' => true, 'output-xml' => true));
-				$tidy->cleanRepair();
-				if (! $this->model->loadXML((string) $tidy)) {
-            		throw new XML_Feed_Parser_Exception('Invalid input: this is not ' .
-						'valid XML');
-				}
-			} else {
-				throw new XML_Feed_Parser_Exception('Invalid input: this is not valid XML');
-			}
+            if (extension_loaded('tidy') and $tidy) {
+                $tidy = new tidy;
+                $tidy->parseString($feed, 
+                    array('input-xml' => true, 'output-xml' => true));
+                $tidy->cleanRepair();
+                if (! $this->model->loadXML((string) $tidy)) {
+                    throw new XML_Feed_Parser_Exception('Invalid input: this is not ' .
+                        'valid XML');
+                }
+            } else {
+                throw new XML_Feed_Parser_Exception('Invalid input: this is not valid XML');
+            }
 
         }
 
-		/* detect feed type */
-		$doc_element = $this->model->documentElement;
-		$error = false;
+        /* detect feed type */
+        $doc_element = $this->model->documentElement;
+        $error = false;
 
-		switch (true) {
-    		case ($doc_element->namespaceURI == 'http://www.w3.org/2005/Atom'):
-    		    require_once 'Parser/Atom.php';
-    		    require_once 'Parser/AtomElement.php';
-    			$class = 'XML_Feed_Parser_Atom';
-    			break;
-		    case ($doc_element->namespaceURI == 'http://purl.org/atom/ns#'):
-    		    require_once 'Parser/Atom.php';
-    		    require_once 'Parser/AtomElement.php';
-    		    $class = 'XML_Feed_Parser_Atom';
-	    		$error = 'Atom 0.3 deprecated, using 1.0 parser which won\'t provide ' .
-	    			'all options';
-    		    break;
-		    case ($doc_element->namespaceURI == 'http://purl.org/rss/1.0/' or 
-				($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1 
-		        and $doc_element->childNodes->item(1)->namespaceURI == 
-		        'http://purl.org/rss/1.0/')):
-		        require_once 'Parser/RSS1.php';
-		        require_once 'Parser/RSS1Element.php';
-    		    $class = 'XML_Feed_Parser_RSS1';
-    		    break;
-		    case ($doc_element->namespaceURI == 'http://purl.org/rss/1.1/' or 
-				($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1 
-		        and $doc_element->childNodes->item(1)->namespaceURI == 
-		        'http://purl.org/rss/1.1/')):
-				require_once 'Parser/RSS11.php';
-				require_once 'Parser/RSS11Element.php';
-				$class = 'XML_Feed_Parser_RSS11';
-				break;
-    		case (($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1
-    		    and $doc_element->childNodes->item(1)->namespaceURI == 
-    		    'http://my.netscape.com/rdf/simple/0.9/') or 
-				$doc_element->namespaceURI == 'http://my.netscape.com/rdf/simple/0.9/'):
-		        require_once 'Parser/RSS09.php';
-		        require_once 'Parser/RSS09Element.php';
-    		    $class = 'XML_Feed_Parser_RSS09';
-    		    break;
-    		case ($doc_element->tagName == 'rss' and
-        		$doc_element->hasAttribute('version') and 
-		        $doc_element->getAttribute('version') == 0.91):
-				$error = 'RSS 0.91 has been superceded by RSS2.0. Using RSS2.0 parser.';
-		        require_once 'Parser/RSS2.php';
-	            require_once 'Parser/RSS2Element.php';
-	            $class = 'XML_Feed_Parser_RSS2';
-    		    break;
-    		case ($doc_element->tagName == 'rss' and
-        		$doc_element->hasAttribute('version') and 
-		        $doc_element->getAttribute('version') == 0.92):
-		        $error = 'RSS 0.92 has been superceded by RSS2.0. Using RSS2.0 parser.';
-		        require_once 'Parser/RSS2.php';
-	            require_once 'Parser/RSS2Element.php';
-	            $class = 'XML_Feed_Parser_RSS2';
-    		    break;
-		    case (in_array($doc_element->namespaceURI, $this->feedNamespaces['rss2'])
-				or $doc_element->tagName == 'rss'):
-				if (! $doc_element->hasAttribute('version') or 
-					$doc_element->getAttribute('version') != 2) {
-					$error = 'RSS version not specified. Parsing as RSS2.0';
-				}
-	            require_once 'Parser/RSS2.php';
-	            require_once 'Parser/RSS2Element.php';
-	            $class = 'XML_Feed_Parser_RSS2';
-    		    break;
-    		default:
-		        throw new XML_Feed_Parser_Exception('Feed type unknown');
-		        break;
-		}
+        switch (true) {
+            case ($doc_element->namespaceURI == 'http://www.w3.org/2005/Atom'):
+                require_once 'Parser/Atom.php';
+                require_once 'Parser/AtomElement.php';
+                $class = 'XML_Feed_Parser_Atom';
+                break;
+            case ($doc_element->namespaceURI == 'http://purl.org/atom/ns#'):
+                require_once 'Parser/Atom.php';
+                require_once 'Parser/AtomElement.php';
+                $class = 'XML_Feed_Parser_Atom';
+                $error = 'Atom 0.3 deprecated, using 1.0 parser which won\'t provide ' .
+                    'all options';
+                break;
+            case ($doc_element->namespaceURI == 'http://purl.org/rss/1.0/' or 
+                ($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1 
+                and $doc_element->childNodes->item(1)->namespaceURI == 
+                'http://purl.org/rss/1.0/')):
+                require_once 'Parser/RSS1.php';
+                require_once 'Parser/RSS1Element.php';
+                $class = 'XML_Feed_Parser_RSS1';
+                break;
+            case ($doc_element->namespaceURI == 'http://purl.org/rss/1.1/' or 
+                ($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1 
+                and $doc_element->childNodes->item(1)->namespaceURI == 
+                'http://purl.org/rss/1.1/')):
+                require_once 'Parser/RSS11.php';
+                require_once 'Parser/RSS11Element.php';
+                $class = 'XML_Feed_Parser_RSS11';
+                break;
+            case (($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1
+                and $doc_element->childNodes->item(1)->namespaceURI == 
+                'http://my.netscape.com/rdf/simple/0.9/') or 
+                $doc_element->namespaceURI == 'http://my.netscape.com/rdf/simple/0.9/'):
+                require_once 'Parser/RSS09.php';
+                require_once 'Parser/RSS09Element.php';
+                $class = 'XML_Feed_Parser_RSS09';
+                break;
+            case ($doc_element->tagName == 'rss' and
+                $doc_element->hasAttribute('version') and 
+                $doc_element->getAttribute('version') == 0.91):
+                $error = 'RSS 0.91 has been superceded by RSS2.0. Using RSS2.0 parser.';
+                require_once 'Parser/RSS2.php';
+                require_once 'Parser/RSS2Element.php';
+                $class = 'XML_Feed_Parser_RSS2';
+                break;
+            case ($doc_element->tagName == 'rss' and
+                $doc_element->hasAttribute('version') and 
+                $doc_element->getAttribute('version') == 0.92):
+                $error = 'RSS 0.92 has been superceded by RSS2.0. Using RSS2.0 parser.';
+                require_once 'Parser/RSS2.php';
+                require_once 'Parser/RSS2Element.php';
+                $class = 'XML_Feed_Parser_RSS2';
+                break;
+            case (in_array($doc_element->namespaceURI, $this->feedNamespaces['rss2'])
+                or $doc_element->tagName == 'rss'):
+                if (! $doc_element->hasAttribute('version') or 
+                    $doc_element->getAttribute('version') != 2) {
+                    $error = 'RSS version not specified. Parsing as RSS2.0';
+                }
+                require_once 'Parser/RSS2.php';
+                require_once 'Parser/RSS2Element.php';
+                $class = 'XML_Feed_Parser_RSS2';
+                break;
+            default:
+                throw new XML_Feed_Parser_Exception('Feed type unknown');
+                break;
+        }
 
-		if (! $suppressWarnings and ! empty($error)) {
-			trigger_error($error, E_USER_WARNING);
-		}
+        if (! $suppressWarnings and ! empty($error)) {
+            trigger_error($error, E_USER_WARNING);
+        }
 
-		/* Instantiate feed object */
+        /* Instantiate feed object */
         $this->feed = new $class($this->model, $strict);
-	}
+    }
 
     /**
      * For top-level feed elements we will provide access using
@@ -190,12 +190,12 @@ class XML_Feed_Parser implements Iterator
      * @param   string  $call - the method being called
      * @param   array   $attributes
      */
-	function __call($call, $attributes)
-	{
-		$attributes = array_pad($attributes, 5, false);
-		list($a, $b, $c, $d, $e) = $attributes;
-	    return $this->feed->$call($a, $b, $c, $d, $e);
-	}
+    function __call($call, $attributes)
+    {
+        $attributes = array_pad($attributes, 5, false);
+        list($a, $b, $c, $d, $e) = $attributes;
+        return $this->feed->$call($a, $b, $c, $d, $e);
+    }
 
     /**
      * To allow variable-like access to feed-level data we use this
@@ -209,132 +209,132 @@ class XML_Feed_Parser implements Iterator
         return $this->feed->$val;
     }
 
-	/**
-	 * Of course we must be able to iterate... This function simply increases
-	 * our internal counter.
-	 */
-	function next()
-	{
-	    if (isset($this->current_item) && 
-	        $this->current_item <= $this->feed->numberEntries - 1) {
-	        ++$this->current_item;
-	    } else if (! isset($this->current_item)) {
-	        $this->current_item = 0;
-	    } else {
-	        return false;
-	    }
-	}
+    /**
+     * Of course we must be able to iterate... This function simply increases
+     * our internal counter.
+     */
+    function next()
+    {
+        if (isset($this->current_item) && 
+            $this->current_item <= $this->feed->numberEntries - 1) {
+            ++$this->current_item;
+        } else if (! isset($this->current_item)) {
+            $this->current_item = 0;
+        } else {
+            return false;
+        }
+    }
 
-	/**
-	 * Return XML_Feed_Type object for current element
-	 *
-	 * @return	XML_Feed_Parser_Type Object
-	 */
-	function current()
-	{
-	    return $this->getEntryByOffset($this->current_item);
-	}
+    /**
+     * Return XML_Feed_Type object for current element
+     *
+     * @return    XML_Feed_Parser_Type Object
+     */
+    function current()
+    {
+        return $this->getEntryByOffset($this->current_item);
+    }
 
-	/**
-	 * Part of the iteration implementation. Returns the key for the current 
-	 * stage in  the array.
-	 *
-	 * @return	int
-	 */    
-	function key()
-	{
-	    return $this->current_item;
-	}
+    /**
+     * Part of the iteration implementation. Returns the key for the current 
+     * stage in  the array.
+     *
+     * @return    int
+     */    
+    function key()
+    {
+        return $this->current_item;
+    }
 
-	/**
-	 * Part of the iteration implementation. Tells whether we have reached the 
-	 * end.
-	 *
-	 * @return	bool
-	 */
-	function valid()
-	{
-	    return $this->current_item < $this->feed->numberEntries;
-	}
+    /**
+     * Part of the iteration implementation. Tells whether we have reached the 
+     * end.
+     *
+     * @return    bool
+     */
+    function valid()
+    {
+        return $this->current_item < $this->feed->numberEntries;
+    }
 
-	/**
-	 * Part of the iteration implementation. Resets the internal counter 
-	 * to the beginning.
-	 */
-	function rewind()
-	{
-	    $this->current_item = 0;
-	}
+    /**
+     * Part of the iteration implementation. Resets the internal counter 
+     * to the beginning.
+     */
+    function rewind()
+    {
+        $this->current_item = 0;
+    }
 
-	/**
-	 * As well as allowing the items to be iterated over we want to allow
-	 * users to be able to access a specific entry. This is one of two ways of
-	 * doing that, the other being by offset. This method can be quite slow
-	 * if dealing with a large feed that hasn't yet been processed as it
-	 * instantiates objects for every entry until it finds the one needed.
-	 *
-	 * @param	string	$id
-	 * @return	XML_Feed_Parser_Type|false
-	 */    		
-	function getEntryById($id)
-	{
-		if (isset($this->idMappings[$id])) {
-			return $this->getEntryByOffset($this->idMappings[$id]);
-		}
+    /**
+     * As well as allowing the items to be iterated over we want to allow
+     * users to be able to access a specific entry. This is one of two ways of
+     * doing that, the other being by offset. This method can be quite slow
+     * if dealing with a large feed that hasn't yet been processed as it
+     * instantiates objects for every entry until it finds the one needed.
+     *
+     * @param    string    $id
+     * @return    XML_Feed_Parser_Type|false
+     */            
+    function getEntryById($id)
+    {
+        if (isset($this->idMappings[$id])) {
+            return $this->getEntryByOffset($this->idMappings[$id]);
+        }
 
-		/* 
-		 * Since we have not yet encountered that ID, let's go through all the
-		 * remaining entries in order till we find it.
-		 * This is a fairly slow implementation, but it should work.
-		 */
-		return $this->feed->getEntryById($id);
+        /* 
+         * Since we have not yet encountered that ID, let's go through all the
+         * remaining entries in order till we find it.
+         * This is a fairly slow implementation, but it should work.
+         */
+        return $this->feed->getEntryById($id);
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * As well as allowing the items to be iterated over we want to allow
-	 * users to be able to access a specific entry. This is one of two ways of
-	 * doing that, the other being by ID.
-	 *
-	 * @param	int	$offset
-	 * @return	XML_Feed_Parser_Type|false
-	 */
-	function getEntryByOffset($offset)
-	{
-		if ($offset < $this->feed->numberEntries) {
-			if (isset($this->feed->entries[$offset])) {
-				return $this->feed->entries[$offset];
-			} else {
-				try {
-					$this->feed->getEntryByOffset($offset);
-				} catch (Exception $e) {
-					return false;
-				}
-				$id = $this->feed->entries[$offset]->getID();
-				$this->idMappings[$id] = $offset;
-				return $this->feed->entries[$offset];
-			}
-		} else {
-			// print $this->feed->numberEntries;
-			return false;
-		}
-	}
+    /**
+     * As well as allowing the items to be iterated over we want to allow
+     * users to be able to access a specific entry. This is one of two ways of
+     * doing that, the other being by ID.
+     *
+     * @param    int    $offset
+     * @return    XML_Feed_Parser_Type|false
+     */
+    function getEntryByOffset($offset)
+    {
+        if ($offset < $this->feed->numberEntries) {
+            if (isset($this->feed->entries[$offset])) {
+                return $this->feed->entries[$offset];
+            } else {
+                try {
+                    $this->feed->getEntryByOffset($offset);
+                } catch (Exception $e) {
+                    return false;
+                }
+                $id = $this->feed->entries[$offset]->getID();
+                $this->idMappings[$id] = $offset;
+                return $this->feed->entries[$offset];
+            }
+        } else {
+            // print $this->feed->numberEntries;
+            return false;
+        }
+    }
 
-	/**
-	 * Retrieve version details from feed type class.
-	 *
-	 * @return void
-	 * @author James Stewart
-	 */
-	function version()
-	{
-		return $this->feed->version;
-	}
-	
-	function __toString()
-	{
-	    return $this->feed->__toString();
-	}
+    /**
+     * Retrieve version details from feed type class.
+     *
+     * @return void
+     * @author James Stewart
+     */
+    function version()
+    {
+        return $this->feed->version;
+    }
+    
+    function __toString()
+    {
+        return $this->feed->__toString();
+    }
 }
 ?>
