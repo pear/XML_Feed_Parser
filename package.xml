@@ -13,15 +13,13 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.2.8alpha</version>
-        <state>alpha</state>
-        <date>2005-12-26</date>
-        <notes>Added atom-specific category handling
-Added 'tags' call in atom which is an alias for categories, to match Universal Feed Parser behaviour
-Added base64 decoding for atom Text and Content
-In atom:link elements, the rel attribute now defaults to 'alternate' if none specified
-Added support for atom:logo
-Numerous API fixes and consistency fixes following use of Universal Feed Parser testkit</notes>
+        <version>0.3.0beta</version>
+        <state>beta</state>
+        <date>2006-01-10</date>
+        <notes>First beta release
+Added support for 'content' namespace in RSS2
+Further consistency fixes
+Added prototype conversion script for Universal Feed Parser tests</notes>
         <filelist>
             <dir name="/" baseinstalldir="/XML/Feed">
                 <dir name="Parser" role="php">
@@ -118,6 +116,17 @@ Numerous API fixes and consistency fixes following use of Universal Feed Parser 
         </deps>
     </release>
     <changelog>
+	    <release>
+	        <version>0.2.8alpha</version>
+	        <state>alpha</state>
+	        <date>2005-12-26</date>
+	        <notes>Added atom-specific category handling
+Added 'tags' call in atom which is an alias for categories, to match Universal Feed Parser behaviour
+Added base64 decoding for atom Text and Content
+In atom:link elements, the rel attribute now defaults to 'alternate' if none specified
+Added support for atom:logo
+Numerous API fixes and consistency fixes following use of Universal Feed Parser testkit</notes>
+		</release>
         <release>
             <version>0.2.7alpha</version>
             <state>alpha</state>
