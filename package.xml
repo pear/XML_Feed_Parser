@@ -73,6 +73,24 @@ Numerous API fixes and consistency fixes following use of Universal Feed Parser 
                     <file name="rss091Values.php"/>
                     <file name="rss092Values.php"/>
 					<file name="tidy.php"/>
+					<file name="convert-tests.php" role="script"/>
+					<dir name="convertedtests" role="test">
+						<file name="amp.php"/>
+						<file name="atom.php"/>
+						<file name="atom10.php"/>
+						<file name="base.php"/>
+						<file name="cdf.php"/>
+						<file name="date.php"/>
+						<file name="encoding.php"/>
+						<file name="feedburner.php"/>
+						<file name="http.php"/>
+						<file name="itunes.php"/>
+						<file name="lang.php"/>
+						<file name="namespace.php"/>
+						<file name="rdf.php"/>
+						<file name="rss.php"/>
+						<file name="sanitize.php"/>
+					</dir>
                 </dir>
                 <dir name="samples" role="data">
                     <file name="atom10-example1.xml"/>
