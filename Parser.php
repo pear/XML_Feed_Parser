@@ -316,7 +316,6 @@ class XML_Feed_Parser implements Iterator
                 return $this->feed->entries[$offset];
             }
         } else {
-            // print $this->feed->numberEntries;
             return false;
         }
     }

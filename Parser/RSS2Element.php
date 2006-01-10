@@ -51,7 +51,8 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
         'enclosure' => array('Enclosure'),
         'pubDate' => array('Date'),
         'source' => array('Source'),
-        'link' => array('Text'));
+        'link' => array('Text'),
+        'content' => array('Content'));
 
     /**
      * Here we map some elements to their atom equivalents. This is going to be
@@ -61,10 +62,10 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
      */
     protected $compatMap = array(
         'id' => array('guid'),
-        'content' => array('description'),
         'updated' => array('lastBuildDate'),
         'published' => array('pubdate'),
-        'guidislink' => array('guid', 'ispermalink'));
+        'guidislink' => array('guid', 'ispermalink'),
+        'summary' => array('description'));
 
     /**
      * Store useful information for later.

@@ -100,39 +100,6 @@ class XML_Feed_Parser_RSS1Element extends XML_Feed_Parser_RSS1
     }
 
     /**
-     * The official way to include full content in an RSS1 entry is to use
-     * the content module's element 'encoded'. Often, however, the 'description'
-     * element is used instead. We will offer that as a fallback.
-     *
-     * @return  string|false
-     */
-    function getContent()
-    {
-        $options = array('encoded', 'description');
-        foreach ($options as $element) {
-            $test = $this->model->getElementsByTagName($element);
-            if ($test->length == 0) {
-                continue;
-            }
-            if ($test->item(0)->hasChildNodes()) {
-                $value = '';
-                foreach ($test->item(0)->childNodes as $child) {
-                    if ($child instanceof DOMText) {
-                        $value .= $child->nodeValue;
-                    } else {
-                        $simple = simplexml_import_dom($child);
-                        $value .= $simple->asXML();
-                    }
-                }
-                return $value;
-            } else if ($test->length > 0) {
-                return $test->item(0)->nodeValue;
-            }
-        }
-        return false;
-    }
-    
-    /**
      * How RSS1 should support for enclosures is not clear. For now we will return
      * false.
      *

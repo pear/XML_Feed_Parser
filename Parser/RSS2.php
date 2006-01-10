@@ -101,6 +101,10 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
         'date' => array('pubDate'),
         'author' => array('managingEditor'));
 
+    protected $namespaces = array(
+        'dc' => 'http://purl.org/rss/1.0/modules/dc/',
+        'content' => 'http://purl.org/rss/1.0/modules/content/');
+
     /**
      * Our constructor does nothing more than its parent.
      * 
@@ -118,6 +122,9 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
         }
 
         $this->xpath = new DOMXPath($this->model);
+        foreach ($this->namespaces as $key => $value) {
+            $this->xpath->registerNamespace($key, $value);
+        }
         $this->numberEntries = $this->count('item');
     }
 

@@ -13,10 +13,10 @@
         </maintainer>
     </maintainers>
     <release>
-		<version>0.2.8alpha</version>
-		<state>alpha</state>
-		<date>2005-12-26</date>
-		<notes>Added atom-specific category handling
+        <version>0.2.8alpha</version>
+        <state>alpha</state>
+        <date>2005-12-26</date>
+        <notes>Added atom-specific category handling
 Added 'tags' call in atom which is an alias for categories, to match Universal Feed Parser behaviour
 Added base64 decoding for atom Text and Content
 In atom:link elements, the rel attribute now defaults to 'alternate' if none specified
@@ -72,25 +72,25 @@ Numerous API fixes and consistency fixes following use of Universal Feed Parser 
                     <file name="errors.php"/>
                     <file name="rss091Values.php"/>
                     <file name="rss092Values.php"/>
-					<file name="tidy.php"/>
-					<file name="convert-tests.php" role="script"/>
-					<dir name="convertedtests" role="test">
-						<file name="amp.php"/>
-						<file name="atom.php"/>
-						<file name="atom10.php"/>
-						<file name="base.php"/>
-						<file name="cdf.php"/>
-						<file name="date.php"/>
-						<file name="encoding.php"/>
-						<file name="feedburner.php"/>
-						<file name="http.php"/>
-						<file name="itunes.php"/>
-						<file name="lang.php"/>
-						<file name="namespace.php"/>
-						<file name="rdf.php"/>
-						<file name="rss.php"/>
-						<file name="sanitize.php"/>
-					</dir>
+                    <file name="tidy.php"/>
+                    <file name="convert-tests.php" role="script"/>
+                    <dir name="convertedtests" role="test">
+                        <file name="amp.php"/>
+                        <file name="atom.php"/>
+                        <file name="atom10.php"/>
+                        <file name="base.php"/>
+                        <file name="cdf.php"/>
+                        <file name="date.php"/>
+                        <file name="encoding.php"/>
+                        <file name="feedburner.php"/>
+                        <file name="http.php"/>
+                        <file name="itunes.php"/>
+                        <file name="lang.php"/>
+                        <file name="namespace.php"/>
+                        <file name="rdf.php"/>
+                        <file name="rss.php"/>
+                        <file name="sanitize.php"/>
+                    </dir>
                 </dir>
                 <dir name="samples" role="data">
                     <file name="atom10-example1.xml"/>
@@ -109,33 +109,33 @@ Numerous API fixes and consistency fixes following use of Universal Feed Parser 
                     <file name="rss091-international.xml"/>
                     <file name="rss091-simple.xml"/>
                     <file name="rss092-sample.xml"/>
-					<file name="illformed-atom10.xml"/>
+                    <file name="illformed-atom10.xml"/>
                 </dir>
             </dir>
         </filelist>
         <deps>
-			<dep type="ext" rel="has" optional="yes">tidy</dep>
+            <dep type="ext" rel="has" optional="yes">tidy</dep>
         </deps>
     </release>
     <changelog>
-		<release>
-	        <version>0.2.7alpha</version>
-	        <state>alpha</state>
-	        <date>2005-10-22</date>
-	        <notes>Fixed bug in __call() meaning arguments in requests for feed-level elements weren't passed on correctly
+        <release>
+            <version>0.2.7alpha</version>
+            <state>alpha</state>
+            <date>2005-10-22</date>
+            <notes>Fixed bug in __call() meaning arguments in requests for feed-level elements weren't passed on correctly
 Some extra compatibility maps to improve match with Universal Feed Parser</notes>
-		</release>
-		<release>
-	        <version>0.2.6alpha</version>
-	        <state>alpha</state>
-	        <date>2005-10-22</date>
-	        <notes>Added support for RSS0.90, RSS0.91 and RSS0.92
+        </release>
+        <release>
+            <version>0.2.6alpha</version>
+            <state>alpha</state>
+            <date>2005-10-22</date>
+            <notes>Added support for RSS0.90, RSS0.91 and RSS0.92
 Added tests for RSS0.91 and RSS0.92
 Fixed bug meaning that errors weren't being thrown for unrecognised RSS versions
 Cleared up the main constructor to prevent DOM errors while detecting feed type
 Added code to allow case-insensitive specification of element names as a backup
 Fixed bad check of guid's 'ispermalink' attribute in RSS2Element.php</notes>
-		</release>
+        </release>
         <release>
             <version>0.2.5alpha</version>
             <state>alpha</state>

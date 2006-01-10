@@ -1,6 +1,6 @@
 <?php
 
-require_once 'XML/Feed/Parser.php';
+require_once '../Parser.php';
 require_once 'PHPUnit.php';
 
 class XML_Feed_Parser_RSS2_valueValidity_TestCase extends PHPUnit_TestCase
@@ -131,6 +131,12 @@ class XML_Feed_Parser_RSS2_valueValidity_TestCase extends PHPUnit_TestCase
         $value = "http://liftoff.msfc.nasa.gov/2003/05/27.html#item571";
         $this->assertEquals($value, $this->entry->id);   
     }
+
+	function test_entryContent()
+	{
+		$value = "<p>Test content</p>";
+		$this->assertEquals($value, $this->entry->content);
+	}
 }
 
 $suite = new PHPUnit_TestSuite;

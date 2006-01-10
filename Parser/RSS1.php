@@ -125,7 +125,7 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
         $this->xpath = new DOMXPath($model);
         foreach ($this->namespaces as $key => $value) {
             $this->xpath->registerNamespace($key, $value);
-        }            
+        }
         $this->numberEntries = $this->count('item');
     }
 

@@ -333,6 +333,40 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
+     * The official way to include full content in an RSS1 entry is to use
+     * the content module's element 'encoded', and RSS2 feeds often duplicate that.
+     * Often, however, the 'description' element is used instead. We will offer that 
+     * as a fallback. Atom uses its own approach and overrides this method.
+     *
+     * @return  string|false
+     */
+    function getContent()
+    {
+        $options = array('encoded', 'description');
+        foreach ($options as $element) {
+            $test = $this->model->getElementsByTagName($element);
+            if ($test->length == 0) {
+                continue;
+            }
+            if ($test->item(0)->hasChildNodes()) {
+                $value = '';
+                foreach ($test->item(0)->childNodes as $child) {
+                    if ($child instanceof DOMText) {
+                        $value .= $child->nodeValue;
+                    } else {
+                        $simple = simplexml_import_dom($child);
+                        $value .= $simple->asXML();
+                    }
+                }
+                return $value;
+            } else if ($test->length > 0) {
+                return $test->item(0)->nodeValue;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if this element has a particular child element.
      *
      * @todo    implement
