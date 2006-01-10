@@ -114,6 +114,7 @@ Numerous API fixes and consistency fixes following use of Universal Feed Parser 
             </dir>
         </filelist>
         <deps>
+			<dep type="ext" rel="has" optional="yes">tidy</dep>
         </deps>
     </release>
     <changelog>
