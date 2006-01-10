@@ -107,7 +107,7 @@ Added prototype conversion script for Universal Feed Parser tests</notes>
                     <file name="rss091-international.xml"/>
                     <file name="rss091-simple.xml"/>
                     <file name="rss092-sample.xml"/>
-                    <file name="illformed-atom10.xml"/>
+                    <file name="illformed_atom10.xml"/>
                 </dir>
             </dir>
         </filelist>
