@@ -164,7 +164,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
     protected function getPerson($method, $arguments)
     {
         $offset = empty($arguments[0]) ? 0 : $arguments[0];
-        $parameter = empty($arguments[1]) ? 'name' : $arguments[1];
+        $parameter = empty($arguments[1]['param']) ? 'name' : $arguments[1]['param'];
         $section = $this->model->getElementsByTagName($method);
         
         if ($parameter == 'url') {
@@ -310,6 +310,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
                 return 'alternate';
             }
         }
+		return false;
     }
 }
 

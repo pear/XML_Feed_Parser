@@ -15,11 +15,12 @@
     <release>
         <version>0.3.0beta</version>
         <state>beta</state>
-        <date>2006-01-10</date>
+        <date>2006-01-11</date>
         <notes>First beta release
 Added support for 'content' namespace in RSS2
 Further consistency fixes
-Added prototype conversion script for Universal Feed Parser tests</notes>
+Added prototype conversion script for Universal Feed Parser tests
+Fixed bug in main __call function that led to problems when the same attribute was accessed multiple times</notes>
         <filelist>
             <dir name="/" baseinstalldir="/XML/Feed">
                 <dir name="Parser" role="php">

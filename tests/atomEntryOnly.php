@@ -39,7 +39,7 @@ class XML_Feed_Parser_AtomEntryOnly_TestCase extends PHPUnit_Testcase
     function test_AuthorURI()
     {
         $value = "http://example.org/";
-        $this->assertEquals($this->entry->author(null, array('param' => "uri")), $value);
+        $this->assertEquals($value, $this->entry->author(null, array('param' => 'uri')));
     }
 
     function test_Contributor()
@@ -72,7 +72,8 @@ class XML_Feed_Parser_AtomEntryOnly_TestCase extends PHPUnit_Testcase
     {
         $value = array (
            'url' => 'http://example.org/audio/ph34r_my_podcast.mp3',
-           'type' => 'audio/mpeg');
+           'type' => 'audio/mpeg',
+			'length' => '1337');
         $this->assertEquals($this->entry->enclosure, $value);
     }
 }

@@ -26,7 +26,7 @@ class XML_Feed_Parser_ThrowErrors_TestCase extends PHPUnit_Testcase
     {
         $file = "<myfeed><myitem /></myfeed>";
         try {
-            $feed = new XML_Feed_Parser($file);
+            $feed = new XML_Feed_Parser($file, false, true);
         } catch (Exception $e) {
             $this->assertTrue($e instanceof XML_Feed_Parser_Exception);
         }
@@ -38,7 +38,7 @@ class XML_Feed_Parser_ThrowErrors_TestCase extends PHPUnit_Testcase
         <rss version=\"0.8\">
            <channel></channel></rss>";
        try {
-           $feed = new XML_Feed_Parser($file);
+           $feed = new XML_Feed_Parser($file, false, true);
        } catch (Exception $e) {
            $this->assertTrue($e instanceof XML_Feed_Parser_Exception);
        }
@@ -48,7 +48,7 @@ class XML_Feed_Parser_ThrowErrors_TestCase extends PHPUnit_Testcase
     {
         $file = null;
         try {
-            $feed = new XML_Feed_Parser($file);
+            $feed = new XML_Feed_Parser($file, false, true);
         } catch (Exception $e) {
             $this->assertTrue($e instanceof XML_Feed_Parser_Exception);
         }
@@ -58,7 +58,7 @@ class XML_Feed_Parser_ThrowErrors_TestCase extends PHPUnit_Testcase
     {
         $file = "My string";
         try {
-            $feed = new XML_Feed_Parser($file);
+            $feed = new XML_Feed_Parser($file, false, true);
         } catch (Exception $e) {
             $this->assertTrue($e instanceof XML_Feed_Parser_Exception);
         }

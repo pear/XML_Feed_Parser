@@ -66,9 +66,10 @@ abstract class XML_Feed_Parser_Type
         }
 
         if (isset($this->compatMap[$call])) {
-            $tempcall = array_pop($this->compatMap[$call]);
-            if (! empty($this->compatMap)) {
-                $arguments = array_merge($arguments, $this->compatMap[$call]);
+			$tempMap = $this->compatMap;
+            $tempcall = array_pop($tempMap[$call]);
+            if (! empty($tempMap)) {
+                $arguments = array_merge($arguments, $tempMap[$call]);
             }
             $call = $tempcall;
         }
@@ -89,12 +90,11 @@ abstract class XML_Feed_Parser_Type
 
         $method = 'get' . $this->map[$call][0];
         if ($method == 'getLink') {
-            $offset = isset($arguments[0]) ? $arguments[0] : 0;
-            $attribute = isset($arguments[1]) ? $arguments[1] : 'href';
+            $offset = empty($arguments[0]) ? 0 : $arguments[0];
+            $attribute = empty($arguments[1]) ? 'href' : $arguments[1];
             $params = isset($arguments[2]) ? $arguments[2] : array();
             return $this->getLink($offset, $attribute, $params);
         }
-
         if (method_exists($this, $method)) {
             return $this->$method($call, $arguments);
         }
@@ -111,7 +111,7 @@ abstract class XML_Feed_Parser_Type
      */
     function __get($value)
     {
-        return $this->$value();
+        return $this->__call($value, array());
     }
 
     /**
