@@ -310,7 +310,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
                 return 'alternate';
             }
         }
-		return false;
+        return false;
     }
 }
 

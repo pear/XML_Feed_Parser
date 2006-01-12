@@ -13,14 +13,11 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.3.0beta</version>
+        <version>0.3.1beta</version>
         <state>beta</state>
         <date>2006-01-11</date>
-        <notes>First beta release
-Added support for 'content' namespace in RSS2
-Further consistency fixes
-Added prototype conversion script for Universal Feed Parser tests
-Fixed bug in main __call function that led to problems when the same attribute was accessed multiple times</notes>
+        <notes>Fixed bug #6472 - wrong paths in require_once
+Fixed bug #6473 - missing files (for RSS1.1)</notes>
         <filelist>
             <dir name="/" baseinstalldir="/XML/Feed">
                 <dir name="Parser" role="php">
@@ -37,6 +34,12 @@ Fixed bug in main __call function that led to problems when the same attribute w
                         <replace from="@version@" to="version" type="package-info"/>
                     </file>
                     <file name="RSS1Element.php">
+                        <replace from="@version@" to="version" type="package-info"/>
+                    </file>
+                    <file name="RSS11.php">
+                        <replace from="@version@" to="version" type="package-info"/>
+                    </file>
+                    <file name="RSS11Element.php">
                         <replace from="@version@" to="version" type="package-info"/>
                     </file>
                     <file name="RSS2.php">
@@ -117,6 +120,16 @@ Fixed bug in main __call function that led to problems when the same attribute w
         </deps>
     </release>
     <changelog>
+	    <release>
+	        <version>0.3.0beta</version>
+	        <state>beta</state>
+	        <date>2006-01-11</date>
+	        <notes>First beta release
+Added support for 'content' namespace in RSS2
+Further consistency fixes
+Added prototype conversion script for Universal Feed Parser tests
+Fixed bug in main __call function that led to problems when the same attribute was accessed multiple times</notes>
+	    </release>
 	    <release>
 	        <version>0.2.8alpha</version>
 	        <state>alpha</state>
