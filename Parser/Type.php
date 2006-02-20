@@ -143,6 +143,9 @@ abstract class XML_Feed_Parser_Type
                 array_pop($url);
             }
             return implode("/", $url) . "/" . $suffix;
+        } else if (preg_match('/^(?!\/$)/', $base)) {
+            $base = preg_replace('/(.*\/).*$/', '$1', $base)  ;
+            return $base . $link;
         } else {
             /* Just stick it on the end */
             return $base . $link;
