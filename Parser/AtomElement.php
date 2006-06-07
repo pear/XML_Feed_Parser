@@ -199,7 +199,7 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
                     foreach ($contents->childNodes as $node) {
                         $result .= $this->traverseNode($node);
                     }
-                    return $result;
+                    return utf8_decode($result);
                 }
                 break;
             default:

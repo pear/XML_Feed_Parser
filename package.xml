@@ -117,6 +117,7 @@ Fixed bug #6473 - missing files (for RSS1.1)</notes>
         </filelist>
         <deps>
             <dep type="ext" rel="has" optional="yes">tidy</dep>
+            <dep type="ext" rel="has">xml</dep>
         </deps>
     </release>
     <changelog>
