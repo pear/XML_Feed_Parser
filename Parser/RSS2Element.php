@@ -80,11 +80,13 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
     }
 
     /**
-     * guid is the closest RSS2 has to atom's ID. It is usually but not always a 
-     * URI. The one attribute that RSS2 can posess is 'ispermalink' which specifies 
-     * whether the guid is itself dereferencable. Use of guid is not obligatory, 
-     * but is advisable. To get the guid you would call $item->id() (for atom 
-     * compatibility) or $item->guid(). To check if this guid is a permalink call 
+     * Get the value of the guid element, if specified
+     *
+     * guid is the closest RSS2 has to atom's ID. It is usually but not always a
+     * URI. The one attribute that RSS2 can posess is 'ispermalink' which specifies
+     * whether the guid is itself dereferencable. Use of guid is not obligatory,
+     * but is advisable. To get the guid you would call $item->id() (for atom
+     * compatibility) or $item->guid(). To check if this guid is a permalink call
      * $item->guid("ispermalink").
      *
      * @param   string  $method - the method name being called
@@ -108,6 +110,8 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
     }
 
     /**
+     * Access details of file enclosures
+     *
      * The RSS2 spec is ambiguous as to whether an enclosure element must be
      * unique in a given entry. For now we will assume it needn't, and allow
      * for an offset.
@@ -135,6 +139,8 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
     }
 
     /**
+     * Get the entry source if specified
+     *
      * source is an optional sub-element of item. Like atom:source it tells
      * us about where the entry came from (eg. if it's been copied from another
      * feed). It is not a rich source of metadata in the same way as atom:source

@@ -97,7 +97,9 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
     }
 
     /**
-     * author data at the entry level is more complex than at the feed level.
+     * Provides access to specific aspects of the author data for an atom entry
+     *
+     * Author data at the entry level is more complex than at the feed level.
      * If atom:author is not present for the entry we need to look for it in
      * an atom:source child of the atom:entry. If it's not there either, then
      * we look to the parent for data.
@@ -132,6 +134,8 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
     }
 
     /**
+     * Returns the content of the content element or info on a specific attribute
+     *
      * This element may or may not be present. It cannot be present more than
      * once. It may have a 'src' attribute, in which case there's no content
      * If not present, then the entry must have link with rel="alternate".
@@ -209,6 +213,8 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
      }
 
     /**
+     * For compatibility, this method provides a mapping to access enclosures.
+     *
      * The Atom spec doesn't provide for an enclosure element, but it is
      * generally supported using the link element with rel='enclosure'.
      *
@@ -240,6 +246,8 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
     }
     
     /**
+     * Get details of this entry's source, if available/relevant
+     *
      * Where an atom:entry is taken from another feed then the aggregator
      * is supposed to include an atom:source element which replicates at least
      * the atom:id, atom:title, and atom:updated metadata from the original
@@ -258,6 +266,8 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
     }
 
     /**
+     * Get the entry as an XML string
+     *
      * Return an XML serialization of the feed, should it be required. Most 
      * users however, will already have a serialization that they used when 
      * instantiating the object.

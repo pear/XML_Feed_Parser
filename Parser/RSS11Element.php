@@ -85,6 +85,8 @@ class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11
     }
 
     /**
+     * If an rdf:about attribute is specified, return that as an ID
+     *
      * There is no established way of showing an ID for an RSS1 entry. We will 
      * simulate it using the rdf:about attribute of the entry element. This cannot
      * be relied upon for unique IDs but may prove useful.
@@ -100,6 +102,8 @@ class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11
     }
 
     /**
+     * Return the entry's content
+     *
      * The official way to include full content in an RSS1 entry is to use
      * the content module's element 'encoded'. Often, however, the 'description'
      * element is used instead. We will offer that as a fallback.

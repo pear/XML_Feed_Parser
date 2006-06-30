@@ -72,6 +72,8 @@ class XML_Feed_Parser implements Iterator
             'http://backend.userland.com/rss2',
             'http://blogs.law.harvard.edu/tech/rss'));
     /**
+     * Detects feed types and instantiate appropriate objects.
+     *
      * Our constructor takes care of detecting feed types and instantiating
      * appropriate classes. For now we're going to treat Atom 0.3 as Atom 1.0
      * but raise a warning. I do not intend to introduce full support for 
@@ -182,9 +184,11 @@ class XML_Feed_Parser implements Iterator
     }
 
     /**
-     * For top-level feed elements we will provide access using
-     * methods or attributes. This function simply passes on a 
-     * request to the appropriate feed type object.
+     * Proxy to allow feed element names to be used as method names
+     *
+     * For top-level feed elements we will provide access using methods or 
+     * attributes. This function simply passes on a request to the appropriate 
+     * feed type object.
      *
      * @param   string  $call - the method being called
      * @param   array   $attributes
@@ -197,6 +201,8 @@ class XML_Feed_Parser implements Iterator
     }
 
     /**
+     * Proxy to allow feed element names to be used as attribute names
+     *
      * To allow variable-like access to feed-level data we use this
      * method. It simply passes along to __call() which in turn passes
      * along to the relevant object.
@@ -209,6 +215,8 @@ class XML_Feed_Parser implements Iterator
     }
 
     /**
+     * Provides iteration functionality.
+     *
      * Of course we must be able to iterate... This function simply increases
      * our internal counter.
      */
@@ -235,8 +243,7 @@ class XML_Feed_Parser implements Iterator
     }
 
     /**
-     * Part of the iteration implementation. Returns the key for the current 
-     * stage in  the array.
+     * For iteration -- returns the key for the current stage in the array.
      *
      * @return    int
      */    
@@ -246,7 +253,7 @@ class XML_Feed_Parser implements Iterator
     }
 
     /**
-     * Part of the iteration implementation. Tells whether we have reached the 
+     * For iteration -- tells whether we have reached the 
      * end.
      *
      * @return    bool
@@ -257,8 +264,7 @@ class XML_Feed_Parser implements Iterator
     }
 
     /**
-     * Part of the iteration implementation. Resets the internal counter 
-     * to the beginning.
+     * For iteration -- resets the internal counter to the beginning.
      */
     function rewind()
     {
@@ -266,6 +272,8 @@ class XML_Feed_Parser implements Iterator
     }
 
     /**
+     * Provides access to entries by ID if one is specified in the source feed.
+     *
      * As well as allowing the items to be iterated over we want to allow
      * users to be able to access a specific entry. This is one of two ways of
      * doing that, the other being by offset. This method can be quite slow
@@ -292,6 +300,8 @@ class XML_Feed_Parser implements Iterator
     }
 
     /**
+     * Retrieve entry by numeric offset, starting trom zero.
+     *
      * As well as allowing the items to be iterated over we want to allow
      * users to be able to access a specific entry. This is one of two ways of
      * doing that, the other being by ID.

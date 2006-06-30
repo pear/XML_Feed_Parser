@@ -114,6 +114,8 @@ class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
     }
 
     /**
+     * Included for compatibility -- will not work with RSS 0.9
+     *
      * This is not something that will work with RSS0.9 as it does not have
      * clear restrictions on the global uniqueness of IDs.
      *
@@ -186,6 +188,8 @@ class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
     }
     
     /**
+     * Get details of a link from the feed.
+     *
      * In RSS1 a link is a text element but in order to ensure that we resolve
      * URLs properly we have a special function for them.
      *

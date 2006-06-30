@@ -137,6 +137,8 @@ class XML_Feed_Parser_RSS11 extends XML_Feed_Parser_Type
     }
 
     /**
+     * Attempts to identify an element by ID given by the rdf:about attribute
+     *
      * This is not really something that will work with RSS1.1 as it does not have
      * clear restrictions on the global uniqueness of IDs. We will employ the
      * _very_ hit and miss method of selecting entries based on the rdf:about
@@ -225,6 +227,8 @@ class XML_Feed_Parser_RSS11 extends XML_Feed_Parser_Type
     }
 
     /**
+     * Attempts to discern authorship
+     *
      * Dublin Core provides the dc:creator, dc:contributor, and dc:publisher
      * elements for defining authorship in RSS1. We will try each of those in
      * turn in order to simulate the atom author element and will return it
@@ -245,6 +249,8 @@ class XML_Feed_Parser_RSS11 extends XML_Feed_Parser_Type
     }
     
     /**
+     * Retrieve a link
+     *
      * In RSS1 a link is a text element but in order to ensure that we resolve
      * URLs properly we have a special function for them.
      *

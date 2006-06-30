@@ -22,8 +22,8 @@
  */
 
 /*
- * This class provides support for RSS 1.0 entries. It will usually be called by
- * XML_Feed_Parser_RSS1 with which it shares many methods.
+ * This class provides support for RSS 0.9 entries. It will usually be called by
+ * XML_Feed_Parser_RSS09 with which it shares many methods.
  *
  * @author    James Stewart <james@jystewart.net>
  * @version    Release: @package_version@

@@ -129,6 +129,8 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
     }
 
     /**
+     * Retrieves an entry by ID, if the ID is specified with the guid element
+     *
      * This is not really something that will work with RSS2 as it does not have
      * clear restrictions on the global uniqueness of IDs. But we can emulate
      * it by allowing access based on the 'guid' element.
@@ -150,6 +152,8 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
     }
 
     /**
+     * Get a category from the element
+     *
      * The category element is a simple text construct which can occur any number
      * of times. We allow access by offset or access to an array of results.
      *
@@ -224,6 +228,8 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
     }
 
     /**
+     * Utility function for getSkipDays and getSkipHours
+     *
      * This is a general function used by both getSkipDays and getSkipHours. It simply
      * returns an array of the values of the children of the appropriate tag.
      *
@@ -246,6 +252,8 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
     }
 
     /**
+     * Retrieve skipHours data
+     *
      * The skiphours element provides a list of hours on which this feed should
      * not be checked. We return an array of those hours (integers, 24 hour clock)
      *
@@ -257,6 +265,8 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
     }
 
     /**
+     * Retrieve skipDays data
+     *
      * The skipdays element provides a list of days on which this feed should
      * not be checked. We return an array of those days.
      *
@@ -268,6 +278,8 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
     }
 
     /**
+     * Return content of the little-used 'cloud' element
+     *
      * The cloud element is rarely used. It is designed to provide some details
      * of a location to update the feed.
      *
@@ -287,6 +299,8 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
     }
     
     /**
+     * Get link URL
+     *
      * In RSS2 a link is a text element but in order to ensure that we resolve
      * URLs properly we have a special function for them. We maintain the 
      * parameter used by the atom getLink method, though we only use the offset

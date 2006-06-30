@@ -50,6 +50,8 @@ abstract class XML_Feed_Parser_Type
     public $entries = array();
 
     /**
+     * Peoxy to allow use of element names as method names
+     *
      * We are not going to provide methods for every entry type so this
      * function will allow for a lot of mapping. We rely pretty heavily
      * on this to handle our mappings between other feed types and atom.
@@ -102,6 +104,8 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
+     * Proxy to allow use of element names as attribute names
+     *
      * For many elements variable-style access will be desirable. This function
      * provides for that.
      *
@@ -114,6 +118,8 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
+     * Utility function to help us resolve xml:base values
+     *
      * We have other methods which will traverse the DOM and work out the different
      * xml:base declarations we need to be aware of. We then need to combine them.
      * If a declaration starts with a protocol then we restart the string. If it 
@@ -153,6 +159,8 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
+     * Determine whether we need to apply our xml:base rules
+     *
      * Gets us the xml:base data and then processes that with regard
      * to our current link.
      *
@@ -170,6 +178,8 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
+     * Get an entry by its position in the feed, starting from zero
+     *
      * As well as allowing the items to be iterated over we want to allow
      * users to be able to access a specific entry. This is one of two ways of
      * doing that, the other being by ID.
@@ -194,6 +204,8 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
+     * Return a date in seconds since epoch.
+     *
      * Get a date construct. We use PHP's strtotime to return it as a unix datetime, which
      * is the number of seconds since 1970-01-01 00:00:00.
      * 
@@ -229,6 +241,8 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
+     * Apply various rules to retrieve category data.
+     *
      * There is no single way of declaring a category in RSS1/1.1 as there is in RSS2 
      * and  Atom. Instead the usual approach is to use the dublin core namespace to 
      * declare  categories. For example delicious use both: 
@@ -261,6 +275,8 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
+     * Count occurrences of an element
+     *
      * This function will tell us how many times the element $type
      * appears at this level of the feed.
      * 
@@ -276,6 +292,8 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
+     * Part of our xml:base processing code
+     *
      * We need a couple of methods to access XHTML content stored in feeds. 
      * This is because we dereference all xml:base references before returning
      * the element. This method handles the attributes.
@@ -301,6 +319,8 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
+     * Part of our xml:base processing code
+     *
      * We need a couple of methods to access XHTML content stored in feeds. 
      * This is because we dereference all xml:base references before returning
      * the element. This method recurs through the tree descending from the node
@@ -339,6 +359,8 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
+     * Get content from RSS feeds (atom has its own implementation)
+     *
      * The official way to include full content in an RSS1 entry is to use
      * the content module's element 'encoded', and RSS2 feeds often duplicate that.
      * Often, however, the 'description' element is used instead. We will offer that 

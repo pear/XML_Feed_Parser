@@ -128,6 +128,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
     }
 
     /**
+     * Implement retrieval of an entry based on its ID for atom feeds.
+     *
      * This function uses XPath to get the entry based on its ID. Ideally we
      * would also use XPath to find the offset of that node and therefore cache
      * it, but the necessary XPath support isn't coming until at least PHP5.1.
@@ -154,6 +156,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
     }
 
     /**
+     * Retrieves data from a person construct.
+     *
      * Get a person construct. We default to the 'name' element but allow
      * access to any of the elements.
      * 
@@ -183,6 +187,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
     }
 
     /**
+     * Retrieves an element's content where that content is a text construct.
+     *
      * Get a text construct. When calling this method, the two arguments
      * allowed are 'offset' and 'attribute', so $parser->subtitle() would
      * return the content of the element, while $parser->subtitle(false, 'type')
@@ -252,6 +258,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
     }
     
     /**
+     * Get a category from the entry.
+     *
      * A feed or entry can have any number of categories. A category can have the
      * attributes term, scheme and label.
      * 

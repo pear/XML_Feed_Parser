@@ -85,6 +85,8 @@ class XML_Feed_Parser_RSS1Element extends XML_Feed_Parser_RSS1
     }
 
     /**
+     * If an rdf:about attribute is specified, return it as an ID
+     *
      * There is no established way of showing an ID for an RSS1 entry. We will 
      * simulate it using the rdf:about attribute of the entry element. This cannot
      * be relied upon for unique IDs but may prove useful.
