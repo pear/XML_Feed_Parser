@@ -227,7 +227,7 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
      * This is a general function used by both getSkipDays and getSkipHours. It simply
      * returns an array of the values of the children of the appropriate tag.
      *
-     * @param   string
+     * @param   string      $tagName    The tag name (getSkipDays or getSkipHours)
      * @return  array|false
      */
     protected function getSkips($tagName)
@@ -246,7 +246,7 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
     }
 
     /**
-     * The skiphours element provides a list of hourss on which this feed should
+     * The skiphours element provides a list of hours on which this feed should
      * not be checked. We return an array of those hours (integers, 24 hour clock)
      *
      * @return  array
@@ -292,9 +292,9 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
      * parameter used by the atom getLink method, though we only use the offset
      * parameter.
      *
-     * @param   int
-     * @param   string
-     * @param   array
+     * @param   int     $offset The position of the link within the feed. Starts from 0
+     * @param   string  $attribute  The attribute of the link element required
+     * @param   array   $params An array of other parameters. Not used.
      * @return  string
      */
     function getLink($offset, $attribute = 'href', $params = array())

@@ -12,7 +12,6 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @todo        Produce tests with non-UTF8 encoded feeds
  * @category   XML
  * @package    XML_Feed_Parser
  * @author     James Stewart <james@jystewart.net>
@@ -171,7 +170,9 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
-     * Pretty fundamental!
+     * As well as allowing the items to be iterated over we want to allow
+     * users to be able to access a specific entry. This is one of two ways of
+     * doing that, the other being by ID.
      * 
      * @param   int $offset
      * @return  XML_Feed_Parser_RSS1Element
@@ -193,8 +194,10 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
-     * Get a date construct. We use PHP's strtotime to return it as a unix datetime
+     * Get a date construct. We use PHP's strtotime to return it as a unix datetime, which
+     * is the number of seconds since 1970-01-01 00:00:00.
      * 
+     * @link    http://php.net/strtotime
      * @param    string    $method        The name of the date construct we want
      * @param    array     $arguments    Included for compatibility with our __call usage
      * @return    int|false datetime
@@ -277,7 +280,7 @@ abstract class XML_Feed_Parser_Type
      * This is because we dereference all xml:base references before returning
      * the element. This method handles the attributes.
      *
-     * @param   DOMElement $node
+     * @param   DOMElement $node    The DOM node we are iterating over
      * @return  string
      */
     function processXHTMLAttributes($node) {
@@ -303,7 +306,7 @@ abstract class XML_Feed_Parser_Type
      * the element. This method recurs through the tree descending from the node
      * and builds our string
      *
-     * @param   DOMElement $node
+     * @param   DOMElement $node    The DOM node we are processing
      * @return   string
      */
     function traverseNode($node)

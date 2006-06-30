@@ -255,7 +255,6 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      * A feed or entry can have any number of categories. A category can have the
      * attributes term, scheme and label.
      * 
-     * @todo    offer other attributes
      * @param    string    $method    The name of the text construct we want
      * @param    array     $arguments    An array which we hope gives a 'param'
      * @return    string

@@ -38,7 +38,6 @@ require_once 'XML/Feed/Parser/Exception.php';
  * and abstracts access to them. It is an iterator, allowing for easy access 
  * to the entire feed.
  *
- * @todo    Look into working with Tidy extension to handle ill-formed XML
  * @author  James Stewart <james@jystewart.net>
  * @version Release: @package_version@
  * @package XML_Feed_Parser
@@ -273,7 +272,7 @@ class XML_Feed_Parser implements Iterator
      * if dealing with a large feed that hasn't yet been processed as it
      * instantiates objects for every entry until it finds the one needed.
      *
-     * @param    string    $id
+     * @param    string    $id  Valid ID for the given feed format
      * @return    XML_Feed_Parser_Type|false
      */            
     function getEntryById($id)
@@ -297,7 +296,7 @@ class XML_Feed_Parser implements Iterator
      * users to be able to access a specific entry. This is one of two ways of
      * doing that, the other being by ID.
      *
-     * @param    int    $offset
+     * @param    int    $offset The position of the entry within the feed, starting from 0
      * @return    XML_Feed_Parser_Type|false
      */
     function getEntryByOffset($offset)
