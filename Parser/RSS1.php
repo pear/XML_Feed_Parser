@@ -135,7 +135,9 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
      * This is not really something that will work with RSS1 as it does not have
      * clear restrictions on the global uniqueness of IDs. We will employ the
      * _very_ hit and miss method of selecting entries based on the rdf:about
-     * attribute.
+     * attribute. If DOMXPath::evaluate is available, we also use that to store 
+     * a reference to the entry in the array used by getEntryByOffset so that 
+     * method does not have to seek out the entry if it's requested that way.
      *
      * @param    string    $id    any valid ID.
      * @return    XML_Feed_Parser_RSS1Element
@@ -150,6 +152,11 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
         if ($entries->length > 0) {
             $classname = $this->itemClass;
             $entry = new $classname($entries->item(0), $this);
+            if (in_array('evaluate', get_class_methods($this->xpath))) {
+                $offset = $this->xpath->evaluate("count(preceding-sibling::rss:item)", $entries->item(0));
+                $this->entries[$offset] = $entry;
+            }
+            $this->idMappings[$id] = $entry;
             return $entry;
         }
         return false;

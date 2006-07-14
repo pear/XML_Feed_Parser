@@ -133,7 +133,10 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
      *
      * This is not really something that will work with RSS2 as it does not have
      * clear restrictions on the global uniqueness of IDs. But we can emulate
-     * it by allowing access based on the 'guid' element.
+     * it by allowing access based on the 'guid' element. If DOMXPath::evaluate
+     * is available, we also use that to store a reference to the entry in the array
+     * used by getEntryByOffset so that method does not have to seek out the entry
+     * if it's requested that way.
      *
      * @param    string    $id    any valid ID.
      * @return    XML_Feed_Parser_RSS2Element
@@ -147,6 +150,11 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
         $entries = $this->xpath->query("//item[guid='$id']");
         if ($entries->length > 0) {
             $entry = new $this->itemElement($entries->item(0), $this);
+            if (in_array('evaluate', get_class_methods($this->xpath))) {
+                $offset = $this->xpath->evaluate("count(preceding-sibling::item)", $entries->item(0));
+                $this->entries[$offset] = $entry;
+            }
+            $this->idMappings[$id] = $entry;
             return $entry;
         }        
     }

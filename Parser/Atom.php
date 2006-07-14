@@ -130,13 +130,11 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
     /**
      * Implement retrieval of an entry based on its ID for atom feeds.
      *
-     * This function uses XPath to get the entry based on its ID. Ideally we
-     * would also use XPath to find the offset of that node and therefore cache
-     * it, but the necessary XPath support isn't coming until at least PHP5.1.
-     * Once it is available, I will try to implement support for it for those users
-     * on a capable platform.
+     * This function uses XPath to get the entry based on its ID. If DOMXPath::evaluate
+     * is available, we also use that to store a reference to the entry in the array
+     * used by getEntryByOffset so that method does not have to seek out the entry
+     * if it's requested that way.
      * 
-     * @todo    Test with PHP5.1 and add conditional support
      * @param    string    $id    any valid Atom ID.
      * @return    XML_Feed_Parser_AtomElement
      */
@@ -147,9 +145,18 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         }
 
         $entries = $this->xpath->query("//atom:entry[atom:id='$id']");
+
         if ($entries->length > 0) {
             $xmlBase = $entries->item(0)->baseURI;
             $entry = new $this->itemElement($entries->item(0), $this, $xmlBase);
+            
+            if (in_array('evaluate', get_class_methods($this->xpath))) {
+                $offset = $this->xpath->evaluate("count(preceding-sibling::atom:entry)", $entries->item(0));
+                $this->entries[$offset] = $entry;
+            }
+
+            $this->idMappings[$id] = $entry
+
             return $entry;
         }
         
@@ -225,14 +232,35 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
             }
             return false;
         }
+        return $this->parseTextConstruct($content);
+    }
+    
+    /**
+     * Extract content appropriately from atom text constructs
+     *
+     * Because of different rules applied to the content element and other text
+     * constructs, they are deployed as separate functions, but they share quite
+     * a bit of processing. This method performs the core common process, which is
+     * to apply the rules for different mime types in order to extract the content.
+     *
+     * @param   DOMNode $content    the text construct node to be parsed
+     * @return String
+     * @author James Stewart
+     **/
+    protected function parseTextConstruct(DOMNode $content)
+    {
+        $type = $content->getAttribute('type');
         switch ($type) {
             case 'application/octet-stream':
                 return base64_decode(trim($content->nodeValue));
                 break;
+            case 'text/plain':
+            case 'text':
+                return $content->nodeValue;
+                break;
             case 'html':
                 return str_replace('&lt;', '<', $content->nodeValue);
                 break;
-            case 'application/xhtml+xml':
             case 'xhtml':
                 $container = $content->getElementsByTagName('div');
                 if ($container->length == 0) {
@@ -245,18 +273,14 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
                     foreach ($contents->childNodes as $node) {
                         $result .= $this->traverseNode($node);
                     }
-                    return $result;
+                    return utf8_decode($result);
                 }
                 break;
-            case 'text':
-            case 'text/html':
             default:
-                return $content->nodeValue;
                 break;
         }
         return false;
     }
-    
     /**
      * Get a category from the entry.
      *

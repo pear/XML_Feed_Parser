@@ -148,12 +148,10 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
      * (data carried in the content element can be either 'text', 'html', 'xhtml', 
      * or any standard MIME type).
      *
-     * @todo    Work out overlap with general text construct
      * @return  string|false
      */
-    function getContent($method, $arguments = array())
+    protected function getContent($method, $arguments = array())
     {
-        $offset = empty($arguments[0]) ? false : $arguments[0];
         $attribute = empty($arguments[1]) ? false : $arguments[1];
         $tags = $this->model->getElementsByTagName('content');
 
@@ -180,36 +178,7 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
             return $content->getAttribute('src');
         }
 
-        switch ($type) {
-            case 'application/octet-stream':
-                return base64_decode(trim($content->nodeValue));
-                break;
-            case 'text/plain':
-            case 'text':
-                return $content->nodeValue;
-                break;
-            case 'html':
-                return str_replace('&lt;', '<', $content->nodeValue);
-                break;
-            case 'xhtml':
-                $container = $content->getElementsByTagName('div');
-                if ($container->length == 0) {
-                    return false;
-                }
-                $contents = $container->item(0);
-                if ($contents->hasChildNodes()) {
-                    /* Iterate through, applying xml:base and store the result */
-                    $result = '';
-                    foreach ($contents->childNodes as $node) {
-                        $result .= $this->traverseNode($node);
-                    }
-                    return utf8_decode($result);
-                }
-                break;
-            default:
-                break;
-        }
-        return false;
+        return $this->parseTextConstruct($content);
      }
 
     /**

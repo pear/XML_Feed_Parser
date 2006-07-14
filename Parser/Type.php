@@ -191,10 +191,13 @@ abstract class XML_Feed_Parser_Type
     {
         if (! isset($this->entries[$offset])) {
             $entries = $this->model->getElementsByTagName($this->itemElement);
-            if ($entries->length > 0) {
+            if ($entries->length >= ($offset + 1)) {
                 $xmlBase = $entries->item($offset)->baseURI;
                 $this->entries[$offset] = new $this->itemClass(
                     $entries->item($offset), $this, $xmlBase);
+                if ($id = $this->entries[$offset]->id) {
+                    $this->idMappings[$id] = $this->entries[$offset];
+                }
             } else {
                 throw new XML_Feed_Parser_Exception('No entries found');
             }

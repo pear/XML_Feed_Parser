@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_STRICT);
+ini_set('display_errors', 1);
+
 require_once 'XML/Feed/Parser.php';
 require_once 'PHPUnit.php';
 
