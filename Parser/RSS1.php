@@ -184,7 +184,9 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
                     'url' => $image->attributes->getNamedItem('resource')->nodeValue);
             }
             $details = array_merge($details, array('description' => false, 'height' => false, 'width' => false));
-            return $details;
+            if (! empty($details)) {
+                return $details;
+            }
         }
         return false;
     }
@@ -213,11 +215,14 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
             $results['link'] = isset(
                    $input->getElementsByTagName('link')->item(0)->value) ? 
                    $input->getElementsByTagName('link')->item(0)->value : null;
-               if (empty($results['link']) and 
-                   $input->attributes->getNamedItem('resource')) {
-                $results['link'] = $input->attributes->getNamedItem('resource')->nodeValue;
-               }
-            return $results;
+            if (empty($results['link']) and 
+                $input->attributes->getNamedItem('resource')) {
+                $results['link'] = 
+                    $input->attributes->getNamedItem('resource')->nodeValue;
+            }
+            if (! empty($results)) {
+                return $results;
+            }
         }
         return false;
     }
@@ -255,7 +260,7 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
     function getLink($offset = 0, $attribute = 'href', $params = false)
     {
         $links = $this->model->getElementsByTagName('link');
-        if ($links->length < $offset+1) {
+        if ($links->length <= $offset) {
             return false;
         }
         $link = $links->item($offset);

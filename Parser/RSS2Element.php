@@ -124,8 +124,11 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
     {
         $encs = $this->model->getElementsByTagName('enclosure');
         $offset = isset($parameters[0]) ? $parameters[0] : 0;
-        if ($encs->length >= $offset) {
+        if ($encs->length > $offset) {
             try {
+                if (! $encs->item($offset)->hasAttribute('url')) {
+                    return false;
+                }
                 $attrs = $encs->item($offset)->attributes;
                 return array(
                     'url' => $attrs->getNamedItem('url')->value,

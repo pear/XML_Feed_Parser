@@ -182,7 +182,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
             $parameter = 'uri';
         }
 
-        if ($section->length == 0 or $section->length < $offset+1) {
+        if ($section->length > $offset) {
             return false;
         }
 
@@ -212,7 +212,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         $attribute = empty($arguments[1]) ? false : $arguments[1];
         $tags = $this->model->getElementsByTagName($method);
 
-        if ($tags->length == 0 or $tags->length < $offset) {
+        if ($tags->length <= $offset) {
             return false;
         }
 

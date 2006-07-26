@@ -198,8 +198,11 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
             "']/atom:link[@rel='enclosure']";
 
         $encs = $this->parent->xpath->query($query);
-        if ($encs->length > 0 and $encs->length >= $offset) {
+        if ($encs->length > $offset) {
             try {
+                if (! $encs->item($offset)->hasAttribute('url')) {
+                    return false;
+                }
                 $attrs = $encs->item($offset)->attributes;
                 $length = $encs->item($offset)->hasAttribute('length') ? 
                     $encs->item($offset)->getAttribute('length') : false;

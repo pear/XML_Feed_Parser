@@ -88,7 +88,7 @@ class XML_Feed_Parser implements Iterator
     {
         $this->model = new DOMDocument;
         if (! $this->model->loadXML($feed)) {
-            if (extension_loaded('tidy') and $tidy) {
+            if (extension_loaded('tidy') && $tidy) {
                 $tidy = new tidy;
                 $tidy->parseString($feed, 
                     array('input-xml' => true, 'output-xml' => true));
@@ -120,32 +120,32 @@ class XML_Feed_Parser implements Iterator
                 $error = 'Atom 0.3 deprecated, using 1.0 parser which won\'t provide ' .
                     'all options';
                 break;
-            case ($doc_element->namespaceURI == 'http://purl.org/rss/1.0/' or 
-                ($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1 
-                and $doc_element->childNodes->item(1)->namespaceURI == 
+            case ($doc_element->namespaceURI == 'http://purl.org/rss/1.0/' || 
+                ($doc_element->hasChildNodes() && $doc_element->childNodes->length > 1 
+                && $doc_element->childNodes->item(1)->namespaceURI == 
                 'http://purl.org/rss/1.0/')):
                 require_once 'XML/Feed/Parser/RSS1.php';
                 require_once 'XML/Feed/Parser/RSS1Element.php';
                 $class = 'XML_Feed_Parser_RSS1';
                 break;
-            case ($doc_element->namespaceURI == 'http://purl.org/rss/1.1/' or 
-                ($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1 
-                and $doc_element->childNodes->item(1)->namespaceURI == 
+            case ($doc_element->namespaceURI == 'http://purl.org/rss/1.1/' || 
+                ($doc_element->hasChildNodes() && $doc_element->childNodes->length > 1 
+                && $doc_element->childNodes->item(1)->namespaceURI == 
                 'http://purl.org/rss/1.1/')):
                 require_once 'XML/Feed/Parser/RSS11.php';
                 require_once 'XML/Feed/Parser/RSS11Element.php';
                 $class = 'XML_Feed_Parser_RSS11';
                 break;
-            case (($doc_element->hasChildNodes() and $doc_element->childNodes->length > 1
-                and $doc_element->childNodes->item(1)->namespaceURI == 
-                'http://my.netscape.com/rdf/simple/0.9/') or 
+            case (($doc_element->hasChildNodes() && $doc_element->childNodes->length > 1
+                && $doc_element->childNodes->item(1)->namespaceURI == 
+                'http://my.netscape.com/rdf/simple/0.9/') || 
                 $doc_element->namespaceURI == 'http://my.netscape.com/rdf/simple/0.9/'):
                 require_once 'XML/Feed/Parser/RSS09.php';
                 require_once 'XML/Feed/Parser/RSS09Element.php';
                 $class = 'XML_Feed_Parser_RSS09';
                 break;
             case ($doc_element->tagName == 'rss' and
-                $doc_element->hasAttribute('version') and 
+                $doc_element->hasAttribute('version') && 
                 $doc_element->getAttribute('version') == 0.91):
                 $error = 'RSS 0.91 has been superceded by RSS2.0. Using RSS2.0 parser.';
                 require_once 'XML/Feed/Parser/RSS2.php';
@@ -153,7 +153,7 @@ class XML_Feed_Parser implements Iterator
                 $class = 'XML_Feed_Parser_RSS2';
                 break;
             case ($doc_element->tagName == 'rss' and
-                $doc_element->hasAttribute('version') and 
+                $doc_element->hasAttribute('version') && 
                 $doc_element->getAttribute('version') == 0.92):
                 $error = 'RSS 0.92 has been superceded by RSS2.0. Using RSS2.0 parser.';
                 require_once 'XML/Feed/Parser/RSS2.php';
@@ -161,8 +161,8 @@ class XML_Feed_Parser implements Iterator
                 $class = 'XML_Feed_Parser_RSS2';
                 break;
             case (in_array($doc_element->namespaceURI, $this->feedNamespaces['rss2'])
-                or $doc_element->tagName == 'rss'):
-                if (! $doc_element->hasAttribute('version') or 
+                || $doc_element->tagName == 'rss'):
+                if (! $doc_element->hasAttribute('version') || 
                     $doc_element->getAttribute('version') != 2) {
                     $error = 'RSS version not specified. Parsing as RSS2.0';
                 }
@@ -175,7 +175,7 @@ class XML_Feed_Parser implements Iterator
                 break;
         }
 
-        if (! $suppressWarnings and ! empty($error)) {
+        if (! $suppressWarnings && ! empty($error)) {
             trigger_error($error, E_USER_WARNING);
         }
 

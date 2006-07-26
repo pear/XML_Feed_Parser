@@ -174,7 +174,7 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
         $categories = $this->model->getElementsByTagName('category');
         $offset = empty($arguments[0]) ? 0 : $arguments[0];
         $array = empty($arguments[1]) ? false : true;
-        if ($categories->length < $offset or $categories->length == 0) {
+        if ($categories->length <= $offset) {
             return false;
         }
         if ($array) {
@@ -323,7 +323,7 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
     {
         $links = $this->model->getElementsByTagName('link');
 
-        if ($links->length < $offset + 1) {
+        if ($links->length <= $offset) {
             return false;
         }
         $link = $links->item($offset);

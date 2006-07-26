@@ -191,7 +191,7 @@ abstract class XML_Feed_Parser_Type
     {
         if (! isset($this->entries[$offset])) {
             $entries = $this->model->getElementsByTagName($this->itemElement);
-            if ($entries->length >= ($offset + 1)) {
+            if ($entries->length > $offset + 1) {
                 $xmlBase = $entries->item($offset)->baseURI;
                 $this->entries[$offset] = new $this->itemClass(
                     $entries->item($offset), $this, $xmlBase);
@@ -264,7 +264,7 @@ abstract class XML_Feed_Parser_Type
         $categories = $this->model->getElementsByTagName('subject');
         $offset = empty($arguments[0]) ? 0 : $arguments[0];
         $array = empty($arguments[1]) ? false : true;
-        if ($categories->length < $offset or $categories->length == 0) {
+        if ($categories->length <= $offset) {
             return false;
         }
         if ($array) {
