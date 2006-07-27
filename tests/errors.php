@@ -1,15 +1,13 @@
 <?php
 
-set_include_path('/Users/james/Projects/PEAR:/usr/local/php5/lib/php');
-require_once 'XML/Feed/Parser.php';
-require_once 'PHPUnit.php';
+require_once 'XML_Feed_Parser_TestCase.php';
 
 /**
  * This test is to make sure that we get errors when we should. In
  * particular we check that it throws an exception if we hand in an
  * illegal feed type.
  */
-class XML_Feed_Parser_ThrowErrors_TestCase extends PHPUnit_Testcase
+class XML_Feed_Parser_ThrowErrors_TestCase extends XML_Feed_Parser_TestCase
 {
     
     function __construct($name)

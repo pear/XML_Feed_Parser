@@ -1,7 +1,6 @@
 <?php
 
-require_once 'XML/Feed/Parser.php';
-require_once 'PHPUnit.php';
+require_once 'XML_Feed_Parser_TestCase.php';
 
 /**
  * This test is to make sure that we get sane values back for all
@@ -10,13 +9,13 @@ require_once 'PHPUnit.php';
  * get a null or false return rather than an error. This test begins
  * to ensure consistency of our API.
  */
-class XML_Feed_Parser_AccessTypes1_TestCase extends PHPUnit_Testcase
+class XML_Feed_Parser_AccessTypes1_TestCase extends XML_Feed_Parser_TestCase
 {
-    
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/atom10-example1.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'atom10-example1.xml');
         $this->feed = new XML_Feed_Parser($this->file);
         $this->entry = $this->feed->getEntryByOffset(0);
     }
@@ -97,7 +96,8 @@ class XML_Feed_Parser_AccessTypes2_TestCase extends XML_Feed_Parser_AccessTypes1
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/atom10-example2.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'atom10-example2.xml');
         $this->feed = new XML_Feed_Parser($this->file);
         $this->entry = $this->feed->getEntryByOffset(0);
     }
@@ -108,7 +108,8 @@ class XML_Feed_Parser_AccessTypes3_TestCase extends XML_Feed_Parser_AccessTypes1
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/rss10-example1.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'rss10-example1.xml');
         $this->feed = new XML_Feed_Parser($this->file);
         $this->entry = $this->feed->getEntryByOffset(0);
     }
@@ -119,7 +120,8 @@ class XML_Feed_Parser_AccessTypes4_TestCase extends XML_Feed_Parser_AccessTypes1
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/rss10-example2.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'rss10-example2.xml');
         $this->feed = new XML_Feed_Parser($this->file);
         $this->entry = $this->feed->getEntryByOffset(0);
     }
@@ -130,7 +132,8 @@ class XML_Feed_Parser_AccessTypes5_TestCase extends XML_Feed_Parser_AccessTypes1
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/rss2sample.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'rss2sample.xml');
         $this->feed = new XML_Feed_Parser($this->file);
         $this->entry = $this->feed->getEntryByOffset(0);
     }
@@ -141,7 +144,8 @@ class XML_Feed_Parser_AccessTypes6_TestCase extends XML_Feed_Parser_AccessTypes1
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/delicious.feed");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'delicious.feed');
         $this->feed = new XML_Feed_Parser($this->file);
         $this->entry = $this->feed->getEntryByOffset(0);
     }
@@ -152,7 +156,8 @@ class XML_Feed_Parser_AccessTypes7_TestCase extends XML_Feed_Parser_AccessTypes1
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/technorati.feed");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'technorati.feed');
         $this->feed = new XML_Feed_Parser($this->file);
         $this->entry = $this->feed->getEntryByOffset(0);
     }
@@ -163,21 +168,22 @@ class XML_Feed_Parser_AccessTypes8_TestCase extends XML_Feed_Parser_AccessTypes1
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/grwifi-atom.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'grwifi-atom.xml');
         $this->feed = new XML_Feed_Parser($this->file);
         $this->entry = $this->feed->getEntryByOffset(0);
     }
 }
 
 $suite = new PHPUnit_TestSuite;
-$suite->addTestSuite("XML_Feed_Parser_AccessTypes1_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AccessTypes2_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AccessTypes3_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AccessTypes4_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AccessTypes5_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AccessTypes6_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AccessTypes7_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AccessTypes8_TestCase");
-$result = PHPUnit::run($suite, "123");
+$suite->addTestSuite('XML_Feed_Parser_AccessTypes1_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AccessTypes2_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AccessTypes3_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AccessTypes4_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AccessTypes5_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AccessTypes6_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AccessTypes7_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AccessTypes8_TestCase');
+$result = PHPUnit::run($suite, '123');
 echo $result->toString();
 ?>

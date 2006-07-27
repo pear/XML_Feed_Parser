@@ -1,9 +1,8 @@
 <?php
 
-require_once 'XML/Feed/Parser.php';
-require_once 'PHPUnit.php';
+require_once 'XML_Feed_Parser_TestCase.php';
 
-class XML_Feed_Parser_XMLBase_TestCase extends PHPUnit_Testcase
+class XML_Feed_Parser_XMLBase_TestCase extends XML_Feed_Parser_TestCase
 {
     
     function __construct($name)
@@ -18,7 +17,8 @@ class XML_Feed_Parser_XMLBase_TestCase extends PHPUnit_Testcase
     }
 
     function test_Base() {
-        $file = file_get_contents("../samples/xmlbase.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . "xmlbase.xml");
         try {
             $feed = new XML_Feed_Parser($file, false, true, true);    
         } catch (XML_Feed_Parser_Exception $e) {

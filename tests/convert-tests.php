@@ -101,7 +101,7 @@ while (false !== ($dir = readdir($handle)))
         }
         $iterTests = array_filter($allTests[$dir], 'applyFilters');
         $fw = fopen('./convertedtests/' . $dir . '.php', 'w');
-        fwrite($fw, $template . $dir . "_TestCase extends PHPUnit_TestCase {\n");
+        fwrite($fw, $template . $dir . "_TestCase extends XML_Feed_Parser_TestCase {\n");
         foreach($iterTests as $key => $test)
         {
             $funcname = str_replace('.xml', '', $key);

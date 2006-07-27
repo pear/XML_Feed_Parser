@@ -1,7 +1,8 @@
 <?php
-require_once 'PHPUnit.php';
-require_once 'XML/Feed/Parser.php';
-class http_TestCase extends PHPUnit_TestCase {
+
+require_once 'XML_Feed_Parser_TestCase.php';
+
+class http_TestCase extends XML_Feed_Parser_Converted_TestCase {
 }
 
 $suite = new PHPUnit_TestSuite('http_TestCase');

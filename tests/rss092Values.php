@@ -1,14 +1,14 @@
 <?php
 
-require_once 'XML/Feed/Parser.php';
-require_once 'PHPUnit.php';
+require_once 'XML_Feed_Parser_TestCase.php';
 
-class XML_Feed_Parser_RSS092_valueValidity_TestCase extends PHPUnit_TestCase
+class XML_Feed_Parser_RSS092_valueValidity_TestCase extends XML_Feed_Parser_TestCase
 {
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/rss092-sample.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . "rss092-sample.xml");
         $this->feed = new XML_Feed_Parser($this->file, false, true);
         $this->entry = $this->feed->getEntryByOffset(0);
     }

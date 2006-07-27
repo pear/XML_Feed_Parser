@@ -1,13 +1,13 @@
 <?php
 
-require_once 'XML/Feed/Parser.php';
-require_once 'PHPUnit.php';
+require_once 'XML_Feed_Parser_TestCase.php';
 
-class XML_Feed_Parser_Iteration_TestCase extends PHPUnit_Testcase
+class XML_Feed_Parser_Iteration_TestCase extends XML_Feed_Parser_TestCase
 {
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
+        $this->sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
     }
     
     function setUp() {
@@ -17,7 +17,8 @@ class XML_Feed_Parser_Iteration_TestCase extends PHPUnit_Testcase
     }
     
     function test_Atom() {
-        $feed = new XML_Feed_Parser(file_get_contents("../samples/grwifi-atom.xml"));
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $feed = new XML_Feed_Parser(file_get_contents($this->sample_dir . "/grwifi-atom.xml"));
         $entries = array();
         foreach ($feed as $entry) {
             array_push($entries, $entry);
@@ -26,7 +27,7 @@ class XML_Feed_Parser_Iteration_TestCase extends PHPUnit_Testcase
     }
 
     function test_RSS1() {
-        $feed = new XML_Feed_Parser(file_get_contents("../samples/delicious.feed"));
+        $feed = new XML_Feed_Parser(file_get_contents($this->sample_dir . "/delicious.feed"));
         $entries = array();
         foreach ($feed as $entry) {
             array_push($entries, $entry);
@@ -35,7 +36,7 @@ class XML_Feed_Parser_Iteration_TestCase extends PHPUnit_Testcase
     }
     
     function test_RSS2() {
-        $feed = new XML_Feed_Parser(file_get_contents("../samples/rss2sample.xml"));
+        $feed = new XML_Feed_Parser(file_get_contents($this->sample_dir . "/rss2sample.xml"));
         $entries = array();
         foreach ($feed as $entry) {
             array_push($entries, $entry);

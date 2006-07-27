@@ -1,9 +1,8 @@
 <?php
 
-require_once 'XML/Feed/Parser.php';
-require_once 'PHPUnit.php';
+require_once 'XML_Feed_Parser_TestCase.php';
 
-class XML_Feed_Parser_Tidy_TestCase extends PHPUnit_Testcase
+class XML_Feed_Parser_Tidy_TestCase extends XML_Feed_Parser_TestCase
 {
     
     function __construct($name)
@@ -23,7 +22,8 @@ class XML_Feed_Parser_Tidy_TestCase extends PHPUnit_Testcase
      * fails. If tidy is installed and it parses, then the test passes.
      */ 
     function test_Tidy() {
-        $file = file_get_contents("../samples/illformed_atom10.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . "illformed_atom10.xml");
         try {
             $feed = new XML_Feed_Parser($file, false, true, true);    
         } catch (XML_Feed_Parser_Exception $e) {

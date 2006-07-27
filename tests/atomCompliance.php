@@ -1,7 +1,6 @@
 <?php
 
-require_once 'XML/Feed/Parser.php';
-require_once 'PHPUnit.php';
+require_once 'XML_Feed_Parser_TestCase.php';
 
 /**
  * This test is to make sure that we get sane values back for all
@@ -10,13 +9,14 @@ require_once 'PHPUnit.php';
  * get a null or false return rather than an error. This test begins
  * to ensure consistency of our API.
  */
-class XML_Feed_Parser_AtomCompat1_TestCase extends PHPUnit_Testcase
+class XML_Feed_Parser_AtomCompat1_TestCase extends XML_Feed_Parser_TestCase
 {
     
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/atom10-example1.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'atom10-example1.xml');
         $this->parser = new XML_Feed_Parser($this->file);
         $this->entry = $this->parser->getEntryByOffset(0);
     }
@@ -63,7 +63,7 @@ class XML_Feed_Parser_AtomCompat1_TestCase extends PHPUnit_Testcase
     }
 
     function test_feedIcon() {
-        $this->assertTrue($this->checkString("icon"));
+        $this->assertTrue($this->checkString('icon'));
     }
     
     function test_feedId() {
@@ -116,7 +116,7 @@ class XML_Feed_Parser_AtomCompat1_TestCase extends PHPUnit_Testcase
     }
     
     function testEntrySummary() {
-        $this->assertTrue($this->checkString("summary", true));
+        $this->assertTrue($this->checkString('summary', true));
     }
     
     function testEntryContent() {
@@ -133,7 +133,8 @@ class XML_Feed_Parser_AtomCompat2_TestCase extends XML_Feed_Parser_AtomCompat1_T
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/atom10-example2.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'atom10-example2.xml');
         $this->parser = new XML_Feed_Parser($this->file);
         $this->entry = $this->parser->getEntryByOffset(0);
     }
@@ -144,7 +145,8 @@ class XML_Feed_Parser_AtomCompat3_TestCase extends XML_Feed_Parser_AtomCompat1_T
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/rss10-example1.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'rss10-example1.xml');
         $this->parser = new XML_Feed_Parser($this->file);
         $this->entry = $this->parser->getEntryByOffset(0);
     }
@@ -155,7 +157,8 @@ class XML_Feed_Parser_AtomCompat4_TestCase extends XML_Feed_Parser_AtomCompat1_T
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/rss10-example2.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'rss10-example2.xml');
         $this->parser = new XML_Feed_Parser($this->file);
         $this->entry = $this->parser->getEntryByOffset(0);
     }
@@ -166,7 +169,8 @@ class XML_Feed_Parser_AtomCompat5_TestCase extends XML_Feed_Parser_AtomCompat1_T
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/rss2sample.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'rss2sample.xml');
         $this->parser = new XML_Feed_Parser($this->file);
         $this->entry = $this->parser->getEntryByOffset(0);
     }
@@ -177,7 +181,8 @@ class XML_Feed_Parser_AtomCompat6_TestCase extends XML_Feed_Parser_AtomCompat1_T
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/delicious.feed");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'delicious.feed');
         $this->parser = new XML_Feed_Parser($this->file);
         $this->entry = $this->parser->getEntryByOffset(0);
     }
@@ -188,7 +193,8 @@ class XML_Feed_Parser_AtomCompat7_TestCase extends XML_Feed_Parser_AtomCompat1_T
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/technorati.feed");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'technorati.feed');
         $this->parser = new XML_Feed_Parser($this->file);
         $this->entry = $this->parser->getEntryByOffset(0);
     }
@@ -199,21 +205,22 @@ class XML_Feed_Parser_AtomCompat8_TestCase extends XML_Feed_Parser_AtomCompat1_T
     function __construct($name)
     {
         $this->PHPUnit_TestCase($name);
-        $this->file = file_get_contents("../samples/grwifi-atom.xml");
+        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'grwifi-atom.xml');
         $this->parser = new XML_Feed_Parser($this->file);
         $this->entry = $this->parser->getEntryByOffset(0);
     }
 }
 
 $suite = new PHPUnit_TestSuite;
-$suite->addTestSuite("XML_Feed_Parser_AtomCompat1_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AtomCompat2_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AtomCompat3_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AtomCompat4_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AtomCompat5_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AtomCompat6_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AtomCompat7_TestCase");
-$suite->addTestSuite("XML_Feed_Parser_AtomCompat8_TestCase");
-$result = PHPUnit::run($suite, "123");
+$suite->addTestSuite('XML_Feed_Parser_AtomCompat1_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AtomCompat2_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AtomCompat3_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AtomCompat4_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AtomCompat5_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AtomCompat6_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AtomCompat7_TestCase');
+$suite->addTestSuite('XML_Feed_Parser_AtomCompat8_TestCase');
+$result = PHPUnit::run($suite, '123');
 echo $result->toString();
 ?>
