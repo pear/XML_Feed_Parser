@@ -13,53 +13,58 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.3.1beta</version>
+        <version>1.0.0RC1</version>
         <state>beta</state>
-        <date>2006-01-11</date>
-        <notes>Fixed bug #6472 - wrong paths in require_once
-Fixed bug #6473 - missing files (for RSS1.1)</notes>
+        <date>2006-07-27</date>
+        <notes>First release candidate
+Fixed bug #6472 - wrong paths in require_once
+Fixed bug #6473 - missing files (for RSS1.1)
+Fixed bug #7849 - cannot validate RSS2 feeds - by bundling relax ng schemas
+Improved error handling when attributes empty
+Fixed loading of sample files in regression tests
+Implemented hasKey method for basic checking of whether an element exists</notes>
         <filelist>
             <dir name="/" baseinstalldir="/XML/Feed">
                 <dir name="Parser" role="php">
                     <file name="Exception.php">
-                        <replace from="@version@" to="version" type="package-info"/>
+                        <replace from="@package_version@" to="version" type="package-info"/>
                     </file>
                     <file name="Atom.php">
-                        <replace from="@version@" to="version" type="package-info"/>
+                        <replace from="@package_version@" to="version" type="package-info"/>
                     </file>
                     <file name="AtomElement.php">
-                        <replace from="@version@" to="version" type="package-info"/>
+                        <replace from="@package_version@" to="version" type="package-info"/>
                     </file>
                     <file name="RSS1.php">
-                        <replace from="@version@" to="version" type="package-info"/>
+                        <replace from="@package_version@" to="version" type="package-info"/>
                     </file>
                     <file name="RSS1Element.php">
-                        <replace from="@version@" to="version" type="package-info"/>
+                        <replace from="@package_version@" to="version" type="package-info"/>
                     </file>
                     <file name="RSS11.php">
-                        <replace from="@version@" to="version" type="package-info"/>
+                        <replace from="@package_version@" to="version" type="package-info"/>
                     </file>
                     <file name="RSS11Element.php">
-                        <replace from="@version@" to="version" type="package-info"/>
+                        <replace from="@package_version@" to="version" type="package-info"/>
                     </file>
                     <file name="RSS2.php">
-                        <replace from="@version@" to="version" type="package-info"/>
+                        <replace from="@package_version@" to="version" type="package-info"/>
                     </file>
                     <file name="RSS2Element.php">
-                        <replace from="@version@" to="version" type="package-info"/>
+                        <replace from="@package_version@" to="version" type="package-info"/>
                     </file>
                     <file name="RSS09.php">
-                        <replace from="@version@" to="version" type="package-info"/>
+                        <replace from="@package_version@" to="version" type="package-info"/>
                     </file>
                     <file name="RSS09Element.php">
-                        <replace from="@version@" to="version" type="package-info"/>
+                        <replace from="@package_version@" to="version" type="package-info"/>
                     </file>
                     <file name="Type.php">
-                        <replace from="@version@" to="version" type="package-info"/>
+                        <replace from="@package_version@" to="version" type="package-info"/>
                     </file>
                 </dir>
                 <file role="php" name="Parser.php">
-                    <replace from="@version@" to="version" type="package-info"/>
+                    <replace from="@package_version@" to="version" type="package-info"/>
                 </file>
                 <dir name="tests" role="test">
                     <file name="accessTypes.php"/>
@@ -75,6 +80,7 @@ Fixed bug #6473 - missing files (for RSS1.1)</notes>
                     <file name="rss091Values.php"/>
                     <file name="rss092Values.php"/>
                     <file name="tidy.php"/>
+                    <file name="XML_Feed_Parser_TestCase.php"/>
                     <file name="convert-tests.php" role="script"/>
                     <dir name="convertedtests" role="test">
                         <file name="amp.php"/>
@@ -114,6 +120,11 @@ Fixed bug #6473 - missing files (for RSS1.1)</notes>
                     <file name="illformed_atom10.xml"/>
                 </dir>
             </dir>
+            <dir name="schemas" role="data">
+              <file name="rss10.rnc"/>
+              <file name="rss11.rnc"/>
+              <file name="atom.rnc"/>
+            </dir>
         </filelist>
         <deps>
             <dep type="ext" rel="has" optional="yes">tidy</dep>
@@ -121,27 +132,27 @@ Fixed bug #6473 - missing files (for RSS1.1)</notes>
         </deps>
     </release>
     <changelog>
-	    <release>
-	        <version>0.3.0beta</version>
-	        <state>beta</state>
-	        <date>2006-01-11</date>
-	        <notes>First beta release
+      <release>
+          <version>0.3.0beta</version>
+          <state>beta</state>
+          <date>2006-01-11</date>
+          <notes>First beta release
 Added support for 'content' namespace in RSS2
 Further consistency fixes
 Added prototype conversion script for Universal Feed Parser tests
 Fixed bug in main __call function that led to problems when the same attribute was accessed multiple times</notes>
-	    </release>
-	    <release>
-	        <version>0.2.8alpha</version>
-	        <state>alpha</state>
-	        <date>2005-12-26</date>
-	        <notes>Added atom-specific category handling
+      </release>
+      <release>
+          <version>0.2.8alpha</version>
+          <state>alpha</state>
+          <date>2005-12-26</date>
+          <notes>Added atom-specific category handling
 Added 'tags' call in atom which is an alias for categories, to match Universal Feed Parser behaviour
 Added base64 decoding for atom Text and Content
 In atom:link elements, the rel attribute now defaults to 'alternate' if none specified
 Added support for atom:logo
 Numerous API fixes and consistency fixes following use of Universal Feed Parser testkit</notes>
-		</release>
+    </release>
         <release>
             <version>0.2.7alpha</version>
             <state>alpha</state>

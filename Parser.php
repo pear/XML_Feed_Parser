@@ -340,6 +340,11 @@ class XML_Feed_Parser implements Iterator
         return $this->feed->version;
     }
     
+    /**
+     * Returns a string representation of the feed.
+     * 
+     * @return String
+     **/
     function __toString()
     {
         return $this->feed->__toString();
