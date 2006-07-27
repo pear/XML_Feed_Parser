@@ -191,7 +191,7 @@ abstract class XML_Feed_Parser_Type
     {
         if (! isset($this->entries[$offset])) {
             $entries = $this->model->getElementsByTagName($this->itemElement);
-            if ($entries->length > $offset + 1) {
+            if ($entries->length > $offset) {
                 $xmlBase = $entries->item($offset)->baseURI;
                 $this->entries[$offset] = new $this->itemClass(
                     $entries->item($offset), $this, $xmlBase);
@@ -371,7 +371,7 @@ abstract class XML_Feed_Parser_Type
      *
      * @return  string|false
      */
-    function getContent()
+    protected function getContent()
     {
         $options = array('encoded', 'description');
         foreach ($options as $element) {
@@ -400,13 +400,14 @@ abstract class XML_Feed_Parser_Type
     /**
      * Checks if this element has a particular child element.
      *
-     * @todo    implement
-     * @return bool
-     * @author James Stewart
+     * @param   String
+     * @param   Integer
+     * @return  bool
      **/
-    function hasKey()
+    function hasKey($name, $offset = 0)
     {
-        return false;
+        $search = $this->model->getElementsByTagName($name);
+        return $search->length > $offset;
     }
 
     /**
@@ -420,6 +421,21 @@ abstract class XML_Feed_Parser_Type
     {
         $simple = simplexml_import_dom($this->model);
         return $simple->asXML();
+    }
+    
+    /**
+     * Get directory holding RNG schemas. Method is based on that 
+     * found in Contact_AddressBook.
+     *
+     * @return string PEAR data directory.
+     * @access public
+     * @static
+     */
+    static function getSchemaDir()
+    {
+        require_once 'PEAR/Config.php';
+        $config = new PEAR_Config;
+        return $config->get('data_dir') . '/XML_Feed_Parser/schemas';
     }
 }
 

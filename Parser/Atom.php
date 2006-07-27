@@ -39,7 +39,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      * The URI of the RelaxNG schema used to (optionally) validate the feed 
      * @var string
      */
-    private $relax = 'http://atompub.org/2005/07/11/atom.rnc';
+    private $relax = 'atom.rnc';
 
     /**
      * We're likely to use XPath, so let's keep it global 
@@ -155,7 +155,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
                 $this->entries[$offset] = $entry;
             }
 
-            $this->idMappings[$id] = $entry
+            $this->idMappings[$id] = $entry;
 
             return $entry;
         }
@@ -182,7 +182,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
             $parameter = 'uri';
         }
 
-        if ($section->length > $offset) {
+        if ($section->length <= $offset) {
             return false;
         }
 
@@ -296,7 +296,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         $offset = empty($arguments[0]) ? 0: $arguments[0];
         $attribute = empty($arguments[1]) ? 'term' : $arguments[1];
         $categories = $this->model->getElementsByTagName('category');
-        if ($categories->length > $offset) {
+        if ($categories->length <= $offset) {
             $category = $categories->item($offset);
             if ($category->hasAttribute($attribute)) {
                 return $category->getAttribute($attribute);
@@ -330,7 +330,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         } else {
             $links = $this->model->getElementsByTagName('link');
         }
-        if ($links->length > $offset) {
+        if ($links->length <= $offset) {
             if ($links->item($offset)->hasAttribute($attribute)) {
                 $value = $links->item($offset)->getAttribute($attribute);
                 if ($attribute == 'href') {

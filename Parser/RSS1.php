@@ -35,7 +35,7 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
      * The URI of the RelaxNG schema used to (optionally) validate the feed 
      * @var string
      */
-    private $relax = '';
+    private $relax = 'rss10.rnc';
 
     /**
      * We're likely to use XPath, so let's keep it global
@@ -114,13 +114,19 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
     /**
      * Our constructor does nothing more than its parent.
      * 
-     * @todo    RelaxNG validation
      * @param    DOMDocument    $xml    A DOM object representing the feed
      * @param    bool (optional) $string    Whether or not to validate this feed
      */
     function __construct(DOMDocument $model, $strict = false)
     {
         $this->model = $model;
+        if ($strict) {
+            $validate = $this->model->relaxNGValidate(self::getSchemaDir . 
+                DIRECTORY_SEPARATOR . $this->relax);
+            if (! $validate) {
+                throw new XML_Feed_Parser_Exception('Failed required validation');
+            }
+        }
 
         $this->xpath = new DOMXPath($model);
         foreach ($this->namespaces as $key => $value) {

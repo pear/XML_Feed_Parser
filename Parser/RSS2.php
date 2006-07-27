@@ -34,7 +34,7 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
      * The URI of the RelaxNG schema used to (optionally) validate the feed
      * @var string
      */
-    private $relax = 'http://dmorelli.sdf-us.org/files/rss2/rss-2_0.rng';
+    private $relax = 'rss20.rnc';
 
     /**
      * We're likely to use XPath, so let's keep it global
@@ -116,7 +116,7 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
         $this->model = $model;
 
         if ($strict) {
-            if (! $this->model->relaxNGValidateSource($this->relax)) {
+            if (! $this->model->relaxNGValidate($this->relax)) {
                 throw new XML_Feed_Parser_Exception('Failed required validation');
             }
         }

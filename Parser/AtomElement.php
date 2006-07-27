@@ -200,7 +200,7 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
         $encs = $this->parent->xpath->query($query);
         if ($encs->length > $offset) {
             try {
-                if (! $encs->item($offset)->hasAttribute('url')) {
+                if (! $encs->item($offset)->hasAttribute('href')) {
                     return false;
                 }
                 $attrs = $encs->item($offset)->attributes;
