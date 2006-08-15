@@ -295,8 +295,6 @@ class XML_Feed_Parser implements Iterator
          * This is a fairly slow implementation, but it should work.
          */
         return $this->feed->getEntryById($id);
-
-        return false;
     }
 
     /**
