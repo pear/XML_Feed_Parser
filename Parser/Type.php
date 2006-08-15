@@ -50,7 +50,7 @@ abstract class XML_Feed_Parser_Type
     public $entries = array();
 
     /**
-     * Peoxy to allow use of element names as method names
+     * Proxy to allow use of element names as method names
      *
      * We are not going to provide methods for every entry type so this
      * function will allow for a lot of mapping. We rely pretty heavily
@@ -155,7 +155,6 @@ abstract class XML_Feed_Parser_Type
             /* Just stick it on the end */
             return $base . $link;
         }
-        return $combinedBase;
     }
 
     /**
