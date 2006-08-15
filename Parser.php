@@ -298,7 +298,7 @@ class XML_Feed_Parser implements Iterator
     }
 
     /**
-     * Retrieve entry by numeric offset, starting trom zero.
+     * Retrieve entry by numeric offset, starting from zero.
      *
      * As well as allowing the items to be iterated over we want to allow
      * users to be able to access a specific entry. This is one of two ways of
