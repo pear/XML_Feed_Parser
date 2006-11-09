@@ -249,12 +249,9 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      **/
     protected function parseTextConstruct(DOMNode $content)
     {
-        $type = $content->getAttribute('type');
+        $type = $content->getAttribute('type') || 'text';
         switch ($type) {
-            case 'application/octet-stream':
-                return base64_decode(trim($content->nodeValue));
-                break;
-            case 'text/plain':
+            case preg_match('@^text/@', $type):
             case 'text':
                 return $content->nodeValue;
                 break;
@@ -276,7 +273,12 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
                     return utf8_decode($result);
                 }
                 break;
+            case preg_match('@^[a-zA-Z]+/[a-zA-Z+]*xml@i', $type) > 0:
+                return $content;
+                break;
+            case 'application/octet-stream':
             default:
+                return base64_decode(trim($content->nodeValue));
                 break;
         }
         return false;
