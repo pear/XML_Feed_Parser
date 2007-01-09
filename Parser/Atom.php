@@ -249,9 +249,16 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      **/
     protected function parseTextConstruct(DOMNode $content)
     {
-        $type = $content->getAttribute('type') || 'text';
+        if ($content->hasAttribute('type')) {
+            $type = $content->getAttribute('type');
+        } else {
+            $type = 'text';
+        }
+
+        if (strpos($type, 'text/') === 0) {
+            $type = 'text';
+        }
         switch ($type) {
-            case preg_match('@^text/@', $type):
             case 'text':
                 return $content->nodeValue;
                 break;
@@ -332,7 +339,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         } else {
             $links = $this->model->getElementsByTagName('link');
         }
-        if ($links->length <= $offset) {
+        if ($links->length > $offset) {
             if ($links->item($offset)->hasAttribute($attribute)) {
                 $value = $links->item($offset)->getAttribute($attribute);
                 if ($attribute == 'href') {

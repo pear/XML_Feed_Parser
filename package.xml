@@ -13,11 +13,10 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>1.0.0RC2</version>
-        <state>beta</state>
-        <date>2006-11-09</date>
-        <notes>Improved handling of atom:text construct to allow for more media types (thanks to Mohanaraj Gonpala Krishnan for initial patch)
-Fixed typos and removed duplicate return statements (request #8445)</notes>
+        <version>1.0.0</version>
+        <state>stable</state>
+        <date>2006-12-26</date>
+        <notes>First stable release. No changes from last release candidate</notes>
         <filelist>
             <dir name="/" baseinstalldir="/XML/Feed">
                 <dir name="Parser" role="php">
@@ -127,6 +126,31 @@ Fixed typos and removed duplicate return statements (request #8445)</notes>
         </deps>
     </release>
     <changelog>
+      <release>
+        <version>1.0.0</version>
+        <state>stable</state>
+        <date>2006-12-26</date>
+        <notes>First stable release. No changes from last release candidate</notes>
+      </release>
+      <release>
+          <version>1.0.0RC2</version>
+          <state>beta</state>
+          <date>2006-11-09</date>
+          <notes>Improved handling of atom:text construct to allow for more media types (thanks to Mohanaraj Gonpala Krishnan for initial patch)
+Fixed typos and removed duplicate return statements (request #8445)</notes>
+      </release>
+      <release>
+        <version>1.0.0RC1</version>
+        <state>beta</state>
+        <date>2006-07-27</date>
+        <notes>First release candidate
+Fixed bug #6472 - wrong paths in require_once
+Fixed bug #6473 - missing files (for RSS1.1)
+Fixed bug #7849 - cannot validate RSS2 feeds - by bundling relax ng schemas
+Improved error handling when attributes empty
+Fixed loading of sample files in regression tests
+Implemented hasKey method for basic checking of whether an element exists</notes>
+      </release>
       <release>
           <version>0.3.0beta</version>
           <state>beta</state>

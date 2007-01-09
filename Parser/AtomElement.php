@@ -152,7 +152,7 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
      */
     protected function getContent($method, $arguments = array())
     {
-        $attribute = empty($arguments[1]) ? false : $arguments[1];
+        $attribute = empty($arguments[0]) ? false : $arguments[0];
         $tags = $this->model->getElementsByTagName('content');
 
         if ($tags->length == 0) {
@@ -164,6 +164,10 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
         if (! $content->hasAttribute('type')) {
             $content->setAttribute('type', 'text');
         }
+        if (! empty($attribute)) {
+            return $content->getAttribute($attribute);
+        }
+
         $type = $content->getAttribute('type');
 
         if (! empty($attribute)) {

@@ -59,7 +59,7 @@ class XML_Feed_Parser_AtomEntryOnly_TestCase extends XML_Feed_Parser_TestCase
         $value = '<p><i>[Update: The Atom draft is finished.]</i></p>';
         $content = trim(preg_replace('/\t/', ' ', $this->entry->content));
         $content = preg_replace('/(\s\s)+/', ' ', $content);
-        $this->assertEquals($content, $value);
+        $this->assertEquals($value, $content);
     }
 
     function test_Link()
