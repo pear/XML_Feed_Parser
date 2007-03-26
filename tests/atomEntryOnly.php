@@ -76,6 +76,13 @@ class XML_Feed_Parser_AtomEntryOnly_TestCase extends XML_Feed_Parser_TestCase
            'length' => '1337');
         $this->assertEquals($this->entry->enclosure, $value);
     }
+    
+    
+    function test_entryXPath()
+    {
+        $this->assertEquals('http://example.org/2005/04/02/atom', 
+            $this->entry->link(0, 'href', array('rel'=>'alternate')));
+    }
 }
 
 $suite = new PHPUnit_TestSuite;
