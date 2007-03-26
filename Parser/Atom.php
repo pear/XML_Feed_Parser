@@ -329,12 +329,20 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
     {
         if (is_array($params) and !empty($params)) {
             $terms = array();
+            $alt_predicate = '';
+            $other_predicate = '';
 
             foreach ($params as $key => $value) {
-                $terms[] = "@$key='$value'";
+                if ($key == 'rel' && $value == 'alternate') {
+                    $alt_predicate = '[not(@rel) or @rel="alternate"]';
+                } else {
+                    $terms[] = "@$key='$value'";
+                }
             }
-
-            $query =  $this->xpathPrefix . 'atom:link[' . join(' and ', $terms) . ']';
+            if (!empty($terms)) {
+                $other_predicate = '[' . join(' and ', $terms) . ']';
+            }
+            $query =  $this->xpathPrefix . 'atom:link' . $alt_predicate . $other_predicate;
             $links = $this->xpath->query($query);
         } else {
             $links = $this->model->getElementsByTagName('link');

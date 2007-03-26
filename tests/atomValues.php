@@ -134,6 +134,24 @@ class XML_Feed_Parser_Atom_valueValidity_TestCase extends XML_Feed_Parser_TestCa
         $value = 'Joe Gregorio';
         $this->assertEquals($value, $this->entry->contributor(1));
     }
+    
+    # According to RFC4287 section 4.2.7.2:
+    # [..]If the 'rel' attribute is not present, the link element MUST be
+    # interpreted as if the link relation type is "alternate".
+    function test_getsLinkWithoutRel()
+    {
+        $source = '<?xml version="1.0" ?>
+        <entry xmlns="http://www.w3.org/2005/Atom">
+        <link href="http://example.org/2005/04/02/atom" />
+        </entry>
+        ';
+        $feed = new XML_Feed_Parser($source);
+        $entry = $feed->getEntryByOffset(0);
+
+        // Output
+        $this->assertEquals( "http://example.org/2005/04/02/atom", 
+            $entry->link(0, 'href', array('rel'=>'alternate')));
+    }
 }
 
 $suite = new PHPUnit_TestSuite('XML_Feed_Parser_Atom_valueValidity_TestCase');
