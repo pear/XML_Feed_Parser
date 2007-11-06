@@ -349,7 +349,7 @@ abstract class XML_Feed_Parser_Type
         }
 
         if ($node instanceof DOMText) {
-            $content .= htmlentities($node->nodeValue);
+            $content .= htmlentities($node->nodeValue, NULL, 'UTF-8');
         }
 
         /* Add the closing of this node to the content */
