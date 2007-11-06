@@ -152,6 +152,19 @@ class XML_Feed_Parser_Atom_valueValidity_TestCase extends XML_Feed_Parser_TestCa
         $this->assertEquals( "http://example.org/2005/04/02/atom", 
             $entry->link(0, 'href', array('rel'=>'alternate')));
     }
+    
+    function test_htmlUnencoding() {
+      $source = '<entry xmlns="http://www.w3.org/2005/Atom">
+        ...
+        <summary type="html">
+          &lt;P&gt;The &amp;lt;EM&amp;gt; tag emphasizes the content.&lt;/P&gt;
+        </summary>
+      </entry>';
+
+      $atom = new XML_Feed_Parser($source);
+      $this->assertEquals("<P>The &lt;EM&gt; tag emphasizes the content.</P>",
+        trim($atom->getEntryByOffset(0)->summary));
+    }
 }
 
 $suite = new PHPUnit_TestSuite('XML_Feed_Parser_Atom_valueValidity_TestCase');

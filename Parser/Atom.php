@@ -263,7 +263,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
                 return $content->nodeValue;
                 break;
             case 'html':
-                return str_replace('&lt;', '<', $content->nodeValue);
+                return $content->nodeValue; #str_replace('&lt;', '<', $content->nodeValue);
                 break;
             case 'xhtml':
                 $container = $content->getElementsByTagName('div');
