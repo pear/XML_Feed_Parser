@@ -24,7 +24,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.php.net/license">PHP License</license>
+ <license uri="http://www.gnu.org/copyleft/lesser.htm">LGPL</license>
  <notes>Fixed bug #10499 - AtomElement's xpath is NULL (thanks to Teo Hui Ming)
  Fixed bug #10501 -- atom getLink() should query links without rel in special case (thanks to Teo Hui Ming)
  </notes>
