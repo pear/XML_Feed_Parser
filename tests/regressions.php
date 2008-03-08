@@ -36,11 +36,27 @@ class Regressions extends XML_Feed_Parser_TestCase
      * @todo Get sample of feed to use in this test
      * @url http://pear.php.net/bugs/bug.php?id=12844
      **/
-    // function test_handlesMultipleEnclosures()
-    // {
-    //   $xml = file_get_contents($this->sample_dir . "/bug12844.xml");
-    //   $feed = new XML_Feed_Parser($xml);
-    // }
+    function test_handlesMultipleEnclosuresInRSS()
+    {
+      $xml = file_get_contents($this->sample_dir . "/bug12844.xml");
+      $feed = new XML_Feed_Parser($xml);
+      $entry = $feed->getEntryByOffset(0);
+      $first = $entry->enclosure(0);
+      $second = $entry->enclosure(1);
+      $this->assertEquals('http://www.scripting.com/mp3s/weatherReportSuite.mp3', $first['url']);
+      $this->assertEquals('http://www.scripting.com/mp3s/weatherReportSuite2.mp3', $second['url']);
+    }
+    
+    function test_handlesMultipleEnclosuresInAtom()
+    {
+      $xml = file_get_contents($this->sample_dir . "/bug12844-atom.xml");
+      $feed = new XML_Feed_Parser($xml);
+      $entry = $feed->getEntryByOffset(0);
+      $first = $entry->enclosure(0);
+      $second = $entry->enclosure(1);
+      $this->assertEquals('http://example.org/audio/ph34r_my_podcast.mp3', $first['url']);
+      $this->assertEquals('http://example.org/audio/ph34r_my_podcast2.mp3', $second['url']);
+    }
     
     
     /**
