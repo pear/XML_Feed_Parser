@@ -232,6 +232,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
             }
             return false;
         }
+
         return $this->parseTextConstruct($content);
     }
     
@@ -258,12 +259,11 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         if (strpos($type, 'text/') === 0) {
             $type = 'text';
         }
+
         switch ($type) {
             case 'text':
-                return $content->nodeValue;
-                break;
             case 'html':
-                return $content->nodeValue; #str_replace('&lt;', '<', $content->nodeValue);
+                return $content->nodeValue;
                 break;
             case 'xhtml':
                 $container = $content->getElementsByTagName('div');
