@@ -194,7 +194,7 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
      */
     protected function getImage()
     {
-        $images = $this->model->getElementsByTagName('image');
+        $images = $this->xpath->query("//image");
         if ($images->length > 0) {
             $image = $images->item(0);
             $desc = $image->getElementsByTagName('description');
