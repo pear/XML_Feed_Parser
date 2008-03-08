@@ -148,7 +148,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 
         if ($entries->length > 0) {
             $xmlBase = $entries->item(0)->baseURI;
-            $entry = new $this->itemElement($entries->item(0), $this, $xmlBase);
+            $entry = new $this->itemClass($entries->item(0), $this, $xmlBase);
             
             if (in_array('evaluate', get_class_methods($this->xpath))) {
                 $offset = $this->xpath->evaluate("count(preceding-sibling::atom:entry)", $entries->item(0));
@@ -277,7 +277,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
                     foreach ($contents->childNodes as $node) {
                         $result .= $this->traverseNode($node);
                     }
-                    return utf8_decode($result);
+                    return $result;
                 }
                 break;
             case preg_match('@^[a-zA-Z]+/[a-zA-Z+]*xml@i', $type) > 0:

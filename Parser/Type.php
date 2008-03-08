@@ -219,7 +219,7 @@ abstract class XML_Feed_Parser_Type
     protected function getDate($method, $arguments)
     {
         $time = $this->model->getElementsByTagName($method);
-        if ($time->length == 0) {
+        if ($time->length == 0 || empty($time->item(0)->nodeValue)) {
             return false;
         }
         return strtotime($time->item(0)->nodeValue);
