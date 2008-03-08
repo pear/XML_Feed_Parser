@@ -9,218 +9,181 @@ require_once 'XML_Feed_Parser_TestCase.php';
  * get a null or false return rather than an error. This test begins
  * to ensure consistency of our API.
  */
-class XML_Feed_Parser_AtomCompat1_TestCase extends XML_Feed_Parser_TestCase
+class atomCompliance extends XML_Feed_Parser_TestCase
 {
     
-    function __construct($name)
+    function setUp()
     {
-        $this->PHPUnit_TestCase($name);
-        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
-        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'atom10-example1.xml');
-        $this->parser = new XML_Feed_Parser($this->file);
-        $this->entry = $this->parser->getEntryByOffset(0);
+        $this->sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+        $this->files = array('atom10-example1.xml', 'atom10-example2.xml', 'rss10-example1.xml', 
+          'rss10-example2.xml', 'rss2sample.xml', 'delicious.feed', 'technorati.feed', 'grwifi-atom.xml');
     }
     
-    function setUp() {
-    }
-    
-    function tearDown() {
-    }
-    
-    function checkString($attribute, $entry = false) {
-        if ($entry) {
-            $author = $this->entry->$attribute;            
-        } else {
-            $author = $this->parser->$attribute;
-        }
-        if (is_string($author) or $author === false) {
-            $test = true;
-        }
+    function checkString($attribute, $element) {
+        $item = $element->$attribute;            
+        $test = (is_string($item) or $item === false);
         return $test;
     }
 
-    function checkNumeric($attribute, $entry = false) {
-        if ($entry) {
-            $author = $this->entry->$attribute;            
-        } else {
-            $author = $this->parser->$attribute;
-        }
-        if (is_numeric($author)) {
-            $test = true;
-        } else if ($author === false) {
-            $test = true;
-        }
+    function checkNumeric($attribute, $element) {
+        $item = $element->$attribute;            
+        $test = (is_numeric($item) or $item === false);
         return $test;
     }
 
     function test_feedAuthor() {
-        $this->assertTrue($this->checkString('author'));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $this->assertTrue($this->checkString('author', $feed), "Failed for $file");
+      }
     }
 
     function test_feedContributor()
     {
-        $this->assertTrue($this->checkString('contributor'));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $this->assertTrue($this->checkString('contributor', $feed), "Failed for $file");
+      }
     }
 
     function test_feedIcon() {
-        $this->assertTrue($this->checkString('icon'));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $this->assertTrue($this->checkString('icon', $feed), "Failed for $file");
+      }
     }
     
     function test_feedId() {
-        $this->assertTrue($this->checkString('id'));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $this->assertTrue($this->checkString('id', $feed), "Failed for $file");
+      }
     }
     
     function test_feedRights() {
-        $this->assertTrue($this->checkString('rights'));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $this->assertTrue($this->checkString('rights', $feed), "Failed for $file");
+      }
     }
     
     function test_feedTitle() {
-        $this->assertTrue($this->checkString('title'));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $this->assertTrue($this->checkString('title', $feed), "Failed for $file");
+      }
     }
     
     function test_feedSubtitle() {
-        $this->assertTrue($this->checkString('subtitle'));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $this->assertTrue($this->checkString('subtitle', $feed), "Failed for $file");
+      }
     }
     
     function test_feedUpdated() {
-        $this->assertTrue($this->checkNumeric('updated'));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $this->assertTrue($this->checkNumeric('updated', $feed), "Failed for $file");
+      }
     }
     
     function test_feedLink() {
-        $this->assertTrue($this->checkString('link'));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $this->assertTrue($this->checkString('link', $feed), "Failed for $file");
+      }
     }
     
     function test_entryAuthor() {
-        $this->assertTrue($this->checkString('author', true));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $entry = $feed->getEntryByOffset(0);
+        $this->assertTrue($this->checkString('author', $entry), "Failed for $file");
+      }
     }
 
     function test_entryContributor()
     {
-        $this->assertTrue($this->checkString('contributor', true));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $entry = $feed->getEntryByOffset(0);
+        $this->assertTrue($this->checkString('contributor', $entry), "Failed for $file");
+      }
     }
 
     function test_entryId() {
-        $this->assertTrue($this->checkString('id', true));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $entry = $feed->getEntryByOffset(0);
+        $this->assertTrue($this->checkString('id', $entry), "Failed for $file");
+      }
     }
     
     function test_entryPublished() {
-        $this->assertTrue($this->checkNumeric('published', true));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $entry = $feed->getEntryByOffset(0);
+        $this->assertTrue($this->checkNumeric('published', $entry), "Failed for $file");
+      }
     }
     
     function testEntryTitle() {
-        $this->assertTrue($this->checkString('title', true));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $entry = $feed->getEntryByOffset(0);
+        $this->assertTrue($this->checkString('title', $entry), "Failed for $file");
+      }
     }
     
     function testEntryRights() {
-        $this->assertTrue($this->checkString('rights', true));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $entry = $feed->getEntryByOffset(0);
+        $this->assertTrue($this->checkString('rights', $entry), "Failed for $file");
+      }
     }
     
     function testEntrySummary() {
-        $this->assertTrue($this->checkString('summary', true));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $entry = $feed->getEntryByOffset(0);
+        $this->assertTrue($this->checkString('summary', $entry), "Failed for $file");
+      }
     }
     
     function testEntryContent() {
-        $this->assertTrue($this->checkString('content', true));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $entry = $feed->getEntryByOffset(0);
+        $this->assertTrue($this->checkString('content', $entry), "Failed for $file");
+      }
     }
     
     function testEntryLink() {
-        $this->assertTrue($this->checkString('link', true));
+      foreach ($this->files as $file) {
+        $contents = file_get_contents($this->sample_dir . DIRECTORY_SEPARATOR . $file);
+        $feed = new XML_Feed_Parser($contents);
+        $entry = $feed->getEntryByOffset(0);
+        $this->assertTrue($this->checkString('link', $entry), "Failed for $file");
+      }
     }
 }
 
-class XML_Feed_Parser_AtomCompat2_TestCase extends XML_Feed_Parser_AtomCompat1_TestCase
-{
-    function __construct($name)
-    {
-        $this->PHPUnit_TestCase($name);
-        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
-        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'atom10-example2.xml');
-        $this->parser = new XML_Feed_Parser($this->file);
-        $this->entry = $this->parser->getEntryByOffset(0);
-    }
-}
-
-class XML_Feed_Parser_AtomCompat3_TestCase extends XML_Feed_Parser_AtomCompat1_TestCase
-{
-    function __construct($name)
-    {
-        $this->PHPUnit_TestCase($name);
-        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
-        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'rss10-example1.xml');
-        $this->parser = new XML_Feed_Parser($this->file);
-        $this->entry = $this->parser->getEntryByOffset(0);
-    }
-}
-
-class XML_Feed_Parser_AtomCompat4_TestCase extends XML_Feed_Parser_AtomCompat1_TestCase
-{
-    function __construct($name)
-    {
-        $this->PHPUnit_TestCase($name);
-        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
-        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'rss10-example2.xml');
-        $this->parser = new XML_Feed_Parser($this->file);
-        $this->entry = $this->parser->getEntryByOffset(0);
-    }
-}
-
-class XML_Feed_Parser_AtomCompat5_TestCase extends XML_Feed_Parser_AtomCompat1_TestCase
-{
-    function __construct($name)
-    {
-        $this->PHPUnit_TestCase($name);
-        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
-        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'rss2sample.xml');
-        $this->parser = new XML_Feed_Parser($this->file);
-        $this->entry = $this->parser->getEntryByOffset(0);
-    }
-}
-
-class XML_Feed_Parser_AtomCompat6_TestCase extends XML_Feed_Parser_AtomCompat1_TestCase
-{
-    function __construct($name)
-    {
-        $this->PHPUnit_TestCase($name);
-        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
-        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'delicious.feed');
-        $this->parser = new XML_Feed_Parser($this->file);
-        $this->entry = $this->parser->getEntryByOffset(0);
-    }
-}
-
-class XML_Feed_Parser_AtomCompat7_TestCase extends XML_Feed_Parser_AtomCompat1_TestCase
-{
-    function __construct($name)
-    {
-        $this->PHPUnit_TestCase($name);
-        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
-        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'technorati.feed');
-        $this->parser = new XML_Feed_Parser($this->file);
-        $this->entry = $this->parser->getEntryByOffset(0);
-    }
-}
-
-class XML_Feed_Parser_AtomCompat8_TestCase extends XML_Feed_Parser_AtomCompat1_TestCase
-{
-    function __construct($name)
-    {
-        $this->PHPUnit_TestCase($name);
-        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
-        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'grwifi-atom.xml');
-        $this->parser = new XML_Feed_Parser($this->file);
-        $this->entry = $this->parser->getEntryByOffset(0);
-    }
-}
-
-$suite = new PHPUnit_TestSuite;
-$suite->addTestSuite('XML_Feed_Parser_AtomCompat1_TestCase');
-$suite->addTestSuite('XML_Feed_Parser_AtomCompat2_TestCase');
-$suite->addTestSuite('XML_Feed_Parser_AtomCompat3_TestCase');
-$suite->addTestSuite('XML_Feed_Parser_AtomCompat4_TestCase');
-$suite->addTestSuite('XML_Feed_Parser_AtomCompat5_TestCase');
-$suite->addTestSuite('XML_Feed_Parser_AtomCompat6_TestCase');
-$suite->addTestSuite('XML_Feed_Parser_AtomCompat7_TestCase');
-$suite->addTestSuite('XML_Feed_Parser_AtomCompat8_TestCase');
-$result = PHPUnit::run($suite, '123');
-echo $result->toString();
-?>

@@ -7,20 +7,8 @@ require_once 'XML_Feed_Parser_TestCase.php';
  * particular we check that it throws an exception if we hand in an
  * illegal feed type.
  */
-class XML_Feed_Parser_ThrowErrors_TestCase extends XML_Feed_Parser_TestCase
+class errors extends XML_Feed_Parser_TestCase
 {
-    
-    function __construct($name)
-    {
-        $this->PHPUnit_TestCase($name);
-    }
-    
-    function setUp() {
-    }
-    
-    function tearDown() {
-    }
-    
     function test_fakeFeedType()
     {
         $file = "<myfeed><myitem /></myfeed>";
@@ -89,10 +77,5 @@ class XML_Feed_Parser_ThrowErrors_TestCase extends XML_Feed_Parser_TestCase
           $this->assertFalse($entry->enclosure());
     }
 }
-
-$suite = new PHPUnit_TestSuite;
-$suite->addTestSuite("XML_Feed_Parser_ThrowErrors_TestCase");
-$result = PHPUnit::run($suite, "123");
-echo $result->toString();
 
 ?>

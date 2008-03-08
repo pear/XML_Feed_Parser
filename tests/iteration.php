@@ -2,15 +2,11 @@
 
 require_once 'XML_Feed_Parser_TestCase.php';
 
-class XML_Feed_Parser_Iteration_TestCase extends XML_Feed_Parser_TestCase
+class iteration extends XML_Feed_Parser_TestCase
 {
-    function __construct($name)
+    function setUp()
     {
-        $this->PHPUnit_TestCase($name);
         $this->sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
-    }
-    
-    function setUp() {
     }
     
     function tearDown() {
@@ -44,10 +40,5 @@ class XML_Feed_Parser_Iteration_TestCase extends XML_Feed_Parser_TestCase
         $this->assertNotSame($entries[0], $entries[1]);
     }
 }
-
-$suite = new PHPUnit_TestSuite;
-$suite->addTestSuite("XML_Feed_Parser_Iteration_TestCase");
-$result = PHPUnit::run($suite, "123");
-echo $result->toString();
 
 ?>

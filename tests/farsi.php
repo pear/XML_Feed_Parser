@@ -2,11 +2,10 @@
 
 require_once 'XML_Feed_Parser_TestCase.php';
 
-class XML_Feed_Parser_Farsi_TestCase extends XML_Feed_Parser_TestCase
+class farsi extends XML_Feed_Parser_TestCase
 {
-    function __construct($name)
+    function setUp()
     {
-        $this->PHPUnit_TestCase($name);
         $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
         $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'hoder.xml');
         $this->feed = new XML_Feed_Parser($this->file);
@@ -20,8 +19,5 @@ class XML_Feed_Parser_Farsi_TestCase extends XML_Feed_Parser_TestCase
     }
 }
 
-$suite = new PHPUnit_TestSuite('XML_Feed_Parser_Farsi_TestCase');
-$result = PHPUnit::run($suite, '123');
-echo $result->toString();
 
 ?>

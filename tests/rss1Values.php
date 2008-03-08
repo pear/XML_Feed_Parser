@@ -2,19 +2,14 @@
 
 require_once 'XML_Feed_Parser_TestCase.php';
 
-class XML_Feed_Parser_RSS1_valueValidity_TestCase extends XML_Feed_Parser_TestCase
+class rss1Values extends XML_Feed_Parser_TestCase
 {
-    function __construct($name)
+    function setUp()
     {
-        $this->PHPUnit_TestCase($name);
         $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
         $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . "rss10-example2.xml");
         $this->feed = new XML_Feed_Parser($this->file);
         $this->entry = $this->feed->getEntryByOffset(0);
-    }
-
-    function setup()
-    {
     }
 
     function test_feedNumberItems()
@@ -180,10 +175,5 @@ class XML_Feed_Parser_RSS1_valueValidity_TestCase extends XML_Feed_Parser_TestCa
         $this->assertEquals($value, $this->feed->textinput);
     }
 }
-
-$suite = new PHPUnit_TestSuite;
-$suite->addTestSuite("XML_Feed_Parser_RSS1_valueValidity_TestCase");
-$result = PHPUnit::run($suite, "123");
-echo $result->toString();
 
 ?>

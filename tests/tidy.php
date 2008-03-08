@@ -2,20 +2,8 @@
 
 require_once 'XML_Feed_Parser_TestCase.php';
 
-class XML_Feed_Parser_Tidy_TestCase extends XML_Feed_Parser_TestCase
+class tidy extends XML_Feed_Parser_TestCase
 {
-    
-    function __construct($name)
-    {
-        $this->PHPUnit_TestCase($name);
-    }
-    
-    function setUp() {
-    }
-    
-    function tearDown() {
-    }
-
     /**
      * Try to work with this ill-formed feed. If the tidy extension is not installed,
      * it expects parsing to fail. If tidy is installed and parsing fails, the test
@@ -38,10 +26,5 @@ class XML_Feed_Parser_Tidy_TestCase extends XML_Feed_Parser_TestCase
         $this->assertEquals($entry->author, 'Example author');
     }
 }
-
-$suite = new PHPUnit_TestSuite;
-$suite->addTestSuite("XML_Feed_Parser_Tidy_TestCase");
-$result = PHPUnit::run($suite, "123");
-echo $result->toString();
 
 ?>

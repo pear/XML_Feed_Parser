@@ -2,11 +2,10 @@
 
 require_once 'XML_Feed_Parser_TestCase.php';
 
-class XML_Feed_Parser_Japanese_TestCase extends XML_Feed_Parser_TestCase
+class japanese extends XML_Feed_Parser_TestCase
 {
-    function __construct($name)
+    function setUp()
     {
-        $this->PHPUnit_TestCase($name);
         $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
         $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . "sixapart-jp.xml");
         $this->feed = new XML_Feed_Parser($this->file);
@@ -36,9 +35,5 @@ class XML_Feed_Parser_Japanese_TestCase extends XML_Feed_Parser_TestCase
         $this->assertEquals($value, $this->entry->description);
     }
 }
-
-$suite = new PHPUnit_TestSuite("XML_Feed_Parser_Japanese_TestCase");
-$result = PHPUnit::run($suite, "123");
-echo $result->toString();
 
 ?>

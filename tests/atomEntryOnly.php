@@ -2,13 +2,13 @@
 
 require_once 'XML_Feed_Parser_TestCase.php';
 
-class XML_Feed_Parser_AtomEntryOnly_TestCase extends XML_Feed_Parser_TestCase
+class atomEntryOnly extends XML_Feed_Parser_TestCase
 {
-    function __construct($name)
+    function setUp()
     {
-        $this->PHPUnit_TestCase($name);
         $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
-        $this->feed = new XML_Feed_Parser(file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'atom10-entryonly.xml'));
+        $xml = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . 'atom10-entryonly.xml');
+        $this->feed = new XML_Feed_Parser($xml);
         $this->entry = $this->feed->getEntryByOffset(0);
     }
 
@@ -85,9 +85,3 @@ class XML_Feed_Parser_AtomEntryOnly_TestCase extends XML_Feed_Parser_TestCase
     }
 }
 
-$suite = new PHPUnit_TestSuite;
-$suite->addTestSuite('XML_Feed_Parser_AtomEntryOnly_TestCase');
-$result = PHPUnit::run($suite, '123');
-echo $result->toString();
-
-?>

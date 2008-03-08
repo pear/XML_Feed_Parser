@@ -2,22 +2,23 @@
 
 require_once 'XML_Feed_Parser_TestCase.php';
 
-class XML_Feed_Parser_RSS2_valueValidity_TestCase extends XML_Feed_Parser_TestCase
+class rss2Values extends XML_Feed_Parser_TestCase
 {
-    function __construct($name)
-    {
-        $this->PHPUnit_TestCase($name);
-        $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
-        $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . "rss2sample.xml");
-        $this->feed = new XML_Feed_Parser($this->file);
-        $this->entry = $this->feed->getEntryByOffset(2);
-    }
 
+    protected function setUp()
+    {
+      $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+      $this->file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . "rss2sample.xml");
+      $this->feed = new XML_Feed_Parser($this->file);
+      $this->entry = $this->feed->getEntryByOffset(2);
+    }
+    
     function test_feedNumberItems()
     {
         $value = 4;
         $this->assertEquals($value, $this->feed->numberEntries);
     }
+
     function test_feedTitle()
     {
         $value = "Liftoff News";
@@ -132,16 +133,56 @@ class XML_Feed_Parser_RSS2_valueValidity_TestCase extends XML_Feed_Parser_TestCa
         $this->assertEquals($value, $this->entry->id);   
     }
 
-	function test_entryContent()
-	{
-		$value = "<p>Test content</p>";
-		$this->assertEquals($value, $this->entry->content);
-	}
+    function test_entryContent()
+    {
+      $value = "<p>Test content</p>";
+      $this->assertEquals($value, $this->entry->content);
+    }
+    
+    function test_imageNodeInDifferentNamespaces()
+    {
+      $value = '<?xml version="1.0" encoding="utf-8"?>
+      <rss version="2.0"
+      xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+      <channel>
+        <title>Tobbis-Podcast</title>
+        <itunes:image href="http://www.herbertschuette.de/Bilder/logo5.jpg" />
+        <image>
+          <url>http://www.herbertschuette.de/Bilder/logo5.jpg</url>
+          <title>Tobbis-Podcast</title>
+          <link>http://www.tobbis-podcast.de/</link>
+        </image>
+      </channel>
+      </rss>';
+      $parsed = new XML_Feed_Parser($value);
+      $this->assertEquals("http://www.herbertschuette.de/Bilder/logo5.jpg", $parsed->image['url']);
+    }
+    
+    // function test_imageNodeAtDifferentLevels()
+    // {
+    //   $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+    //   $value = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . "rss2sample.xml");
+    //   $parsed = new XML_Feed_Parser($value);
+    //   $this->assertEquals(false, $parsed->image);
+    // }
+    
+    function test_handlesEmptyPubdates()
+    {
+      $value = '<?xml version="1.0" encoding="utf-8"?>
+      <rss version="2.0"
+      xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+      <channel>
+        <title>Tobbis-Podcast</title>
+        <item>
+          <title>Entry</title>
+        </item>
+      </channel>
+      </rss>';
+      $parsed = new XML_Feed_Parser($value);
+      $this->assertEquals(false, $parsed->pubDate);
+      $entry = $parsed->entries(0);
+      $this->assertEquals(false, $entry['pubDate']);
+    }
 }
-
-$suite = new PHPUnit_TestSuite;
-$suite->addTestSuite("XML_Feed_Parser_RSS2_valueValidity_TestCase");
-$result = PHPUnit::run($suite, "123");
-echo $result->toString();
 
 ?>
