@@ -18,7 +18,7 @@ class rss2Values extends XML_Feed_Parser_TestCase
         $value = 4;
         $this->assertEquals($value, $this->feed->numberEntries);
     }
-
+    
     function test_feedTitle()
     {
         $value = "Liftoff News";
@@ -132,7 +132,7 @@ class rss2Values extends XML_Feed_Parser_TestCase
         $value = "http://liftoff.msfc.nasa.gov/2003/05/27.html#item571";
         $this->assertEquals($value, $this->entry->id);   
     }
-
+    
     function test_entryContent()
     {
       $value = "<p>Test content</p>";
@@ -155,16 +155,17 @@ class rss2Values extends XML_Feed_Parser_TestCase
       </channel>
       </rss>';
       $parsed = new XML_Feed_Parser($value);
+
       $this->assertEquals("http://www.herbertschuette.de/Bilder/logo5.jpg", $parsed->image['url']);
     }
     
-    // function test_imageNodeAtDifferentLevels()
-    // {
-    //   $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
-    //   $value = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . "rss2sample.xml");
-    //   $parsed = new XML_Feed_Parser($value);
-    //   $this->assertEquals(false, $parsed->image);
-    // }
+    function test_imageNodeAtDifferentLevels()
+    {
+      $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
+      $value = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . "rss2sample.xml");
+      $parsed = new XML_Feed_Parser($value);
+      $this->assertEquals(false, $parsed->image);
+    }
     
     function test_handlesEmptyPubdates()
     {
