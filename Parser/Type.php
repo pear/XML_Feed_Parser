@@ -307,12 +307,12 @@ abstract class XML_Feed_Parser_Type
         $return = '';
         foreach ($node->attributes as $attribute) {
             if ($attribute->name == 'src' or $attribute->name == 'href') {
-                $attribute->value = $this->addBase($attribute->value, $attribute);
+                $attribute->value = $this->addBase(htmlentities($attribute->value, NULL, 'utf-8'), $attribute);
             }
             if ($attribute->name == 'base') {
                 continue;
             }
-            $return .= $attribute->name . '="' . $attribute->value .'" ';
+            $return .= $attribute->name . '="' . htmlentities($attribute->value, NULL, 'utf-8') .'" ';
         }
         if (! empty($return)) {
             return ' ' . trim($return);
@@ -321,12 +321,24 @@ abstract class XML_Feed_Parser_Type
     }
 
     /**
+     * Convert HTML entities based on the current character set.
+     * 
+     * @param String
+     * @return String
+     */
+    function processEntitiesForNodeValue($value) 
+    {
+        $decoded = html_entity_decode($value, NULL, 'utf-8');
+        return htmlentities($decoded, NULL, 'utf-8');
+    }
+
+    /**
      * Part of our xml:base processing code
      *
      * We need a couple of methods to access XHTML content stored in feeds. 
      * This is because we dereference all xml:base references before returning
      * the element. This method recurs through the tree descending from the node
-     * and builds our string
+     * and builds our string.
      *
      * @param   DOMElement $node    The DOM node we are processing
      * @return   string
@@ -349,7 +361,7 @@ abstract class XML_Feed_Parser_Type
         }
 
         if ($node instanceof DOMText) {
-            $content .= htmlentities($node->nodeValue, NULL, 'UTF-8');
+            $content .= $this->processEntitiesForNodeValue($node->nodeValue);
         }
 
         /* Add the closing of this node to the content */
