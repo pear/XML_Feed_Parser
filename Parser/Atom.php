@@ -263,7 +263,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         switch ($type) {
             case 'text':
             case 'html':
-                return $content->nodeValue;
+                return $content->textContent;
                 break;
             case 'xhtml':
                 $container = $content->getElementsByTagName('div');
