@@ -50,6 +50,11 @@ abstract class XML_Feed_Parser_Type
     public $entries = array();
 
     /**
+     * Store mappings between entry IDs and their position in the feed
+     */
+    public $idMappings = array();
+
+    /**
      * Proxy to allow use of element names as method names
      *
      * We are not going to provide methods for every entry type so this
