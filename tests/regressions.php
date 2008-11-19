@@ -58,9 +58,8 @@ class Regressions extends XML_Feed_Parser_TestCase
       $this->assertEquals('http://example.org/audio/ph34r_my_podcast2.mp3', $second['url']);
     }
     
-    
     /**
-     *  German umlauts (ÄÖÜäöüß) from an atom xml file (encoding="iso-8859-1")
+     * German umlauts (ÄÖÜäöüß) from an atom xml file (encoding="iso-8859-1")
      * are displayed wrong after parsing, eg. http://www.keine-gentechnik.de/news-regionen.xml
      *
      * @url http://pear.php.net/bugs/bug.php?id=12916
@@ -70,6 +69,9 @@ class Regressions extends XML_Feed_Parser_TestCase
       $xml = file_get_contents($this->sample_dir . "/bug12916.xml");
       $feed = new XML_Feed_Parser($xml);
       $entry = $feed->getEntryById('sample-feed:1');
+      
+      // Ensure that the parsed XML equals the input XML
+      // $this->assertEquals($xml, (string)$feed);
       $this->assertEquals('ÄÜÖäüöß', $entry->title);
       $this->assertEquals('&Auml;&Uuml;&Ouml;&auml;&uuml;&ouml;&szlig;', $entry->content);
     }

@@ -331,10 +331,19 @@ abstract class XML_Feed_Parser_Type
      * @param String
      * @return String
      */
-    function processEntitiesForNodeValue($value) 
+    function processEntitiesForNodeValue($node) 
     {
-        $decoded = html_entity_decode($value, NULL, 'utf-8');
-        return htmlentities($decoded, NULL, 'utf-8');
+        if (function_exists('iconv')) {
+          $current_encoding = $node->ownerDocument->encoding;
+          $value = iconv($current_encoding, 'UTF-8', $node->nodeValue);
+        } else if ($current_encoding == 'iso-8859-1') {
+          $value = utf8_encode($node->nodeValue);
+        } else {
+          $value = $node->nodeValue;
+        }
+
+        $decoded = html_entity_decode($value, NULL, 'UTF-8');
+        return htmlentities($decoded, NULL, 'UTF-8');
     }
 
     /**
@@ -366,7 +375,7 @@ abstract class XML_Feed_Parser_Type
         }
 
         if ($node instanceof DOMText) {
-            $content .= $this->processEntitiesForNodeValue($node->nodeValue);
+            $content .= $this->processEntitiesForNodeValue($node);
         }
 
         /* Add the closing of this node to the content */
