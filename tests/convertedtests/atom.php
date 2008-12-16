@@ -144,7 +144,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        //$this->assertEquals(, 1);
     }
 
     function test_entry_content_mode_escaped_0 () { 
@@ -155,7 +155,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        //$this->assertEquals(, 1);
     }
 
     function test_entry_content_type_1 () { 
@@ -397,7 +397,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_entry_summary_content_mode_escaped_0 () { 
@@ -408,7 +408,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_entry_summary_content_type_1 () { 
@@ -540,7 +540,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_entry_title_content_mode_escaped_0 () { 
@@ -551,7 +551,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+ //       $this->assertEquals(, 1);
     }
 
     function test_entry_title_content_type_1 () { 
@@ -837,7 +837,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_feed_copyright_content_mode_escaped_0 () { 
@@ -848,7 +848,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+ //       $this->assertEquals(, 1);
     }
 
     function test_feed_copyright_content_type_1 () { 
@@ -1046,7 +1046,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_feed_info_content_mode_escaped_0 () { 
@@ -1057,7 +1057,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_feed_info_content_type_1 () { 
@@ -1266,7 +1266,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_feed_tagline_content_mode_escaped_0 () { 
@@ -1277,7 +1277,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_feed_tagline_content_type_1 () { 
@@ -1409,7 +1409,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_feed_title_content_mode_escaped_0 () { 
@@ -1420,7 +1420,7 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_feed_title_content_type_1 () { 
@@ -1524,12 +1524,9 @@ class atom_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
     function test_relative_uri_inherit_1 () { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/atom/relative_uri_inherit.xml');
-        try {
+
             $feed = new XML_Feed_Parser($content);
-        } catch (XML_Feed_Parser_Exception $e) {
-            $this->assertTrue(false);
-            return;
-        }
+        
         $this->assertEquals('<div>Example <a href="http://example.com/test/test.html">test</a></div>', $feed->title);
     }
 

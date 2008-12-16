@@ -837,7 +837,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_item_content_encoded_type_1 () { 
@@ -1167,7 +1167,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_item_fullitem_type_1 () { 
@@ -1332,7 +1332,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_item_source_url_0 () { 
@@ -1343,7 +1343,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_item_summary_and_description_1 () { 
@@ -1398,7 +1398,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_item_xhtml_body_type_1 () { 

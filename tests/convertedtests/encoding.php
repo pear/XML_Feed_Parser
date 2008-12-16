@@ -34,7 +34,7 @@ class encoding_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_encoding_attribute_crash_2_0 () { 
@@ -45,7 +45,7 @@ class encoding_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, 1);
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     function test_euc-kr-attribute_1 () { 

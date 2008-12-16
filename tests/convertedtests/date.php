@@ -1170,7 +1170,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
         $this->assertEquals('Thu, 01 Jan 2004 19:48:21 GMT', $feed->getEntryByOffset(0)->date);
     }
 
-    function test_item_pubDate_euc-kr_1 () { 
+    function test_item_pubDate_euc_kr_1 () { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/item_pubDate_euc-kr.xml');
         try {
             $feed = new XML_Feed_Parser($content);
