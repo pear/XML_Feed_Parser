@@ -6,6 +6,8 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
+require_once 'convertedtests/AllTests.php';
+
 require_once 'accessTypes.php';
 require_once 'atomValues.php';
 require_once 'farsi.php';
@@ -47,6 +49,7 @@ class XML_Feed_Parser_AllTests
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('XML_Feed_Parser Tests');
+        $suite->addTest(XML_Feed_Parser_Converted_AllTests::suite());
 
         $suite->addTestSuite('accessTypes');
         $suite->addTestSuite('atomValues');
