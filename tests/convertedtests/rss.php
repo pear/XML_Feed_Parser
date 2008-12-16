@@ -661,7 +661,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(u"Mark's title", $feed->title);
+        $this->assertEquals("Mark's title", $feed->title);
     }
 
     function test_channel_title_gt_1 () { 
@@ -1101,7 +1101,8 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals("""&lt;!' <a href="foo">""", $feed->getEntryByOffset(0)->description);
+        $this->markTestIncomplete("Expected result needs verification");
+        //$this->assertEquals("""&lt;!' <a href="foo">""", $feed->getEntryByOffset(0)->description);
     }
 
     function test_item_enclosure_length_1 () { 
@@ -1211,7 +1212,8 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, $feed->getEntryByOffset(0)->guidislink);
+        $this->markTestIncomplete("Expected result needs verification");
+        //$this->assertEquals(, $feed->getEntryByOffset(0)->guidislink);
     }
 
     function test_item_guid_isPermaLink_conflict_link_1 () { 
@@ -1233,7 +1235,8 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, ! $feed->getEntryByOffset(0)->guidislink);
+        $this->markTestIncomplete("Expected result needs verification");
+        //$this->assertEquals(, ! $feed->getEntryByOffset(0)->guidislink);
     }
 
     function test_item_guid_isPermaLink_guidislink_1 () { 
@@ -1244,7 +1247,8 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, $feed->getEntryByOffset(0)->guidislink);
+        $this->markTestIncomplete("Expected result needs verification");
+        //$this->assertEquals(, $feed->getEntryByOffset(0)->guidislink);
     }
 
     function test_item_guid_isPermaLink_map_link_1 () { 
@@ -1277,7 +1281,8 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, ! $feed->getEntryByOffset(0).has_key(->));
+        $this->markTestIncomplete("Expected result needs verification");
+        //$this->assertEquals(, ! $feed->getEntryByOffset(0).has_key(->));
     }
 
     function test_item_guid_not_permalink_conflict_link_1 () { 
@@ -1299,7 +1304,8 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, ! $feed->getEntryByOffset(0)->guidislink);
+        $this->markTestIncomplete("Expected result needs verification");
+        //$this->assertEquals(, ! $feed->getEntryByOffset(0)->guidislink);
     }
 
     function test_item_guid_not_permalink_not_guidislink_2_1 () { 
@@ -1310,7 +1316,8 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, ! $feed->getEntryByOffset(0)->guidislink);
+        $this->markTestIncomplete("Expected result needs verification");
+        //$this->assertEquals(, ! $feed->getEntryByOffset(0)->guidislink);
     }
 
     function test_item_link_1 () { 

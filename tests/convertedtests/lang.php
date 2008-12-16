@@ -419,7 +419,8 @@ class lang_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(, ! $feed.has_key(->));
+        $this->markTestIncomplete("Expected result needs verification");
+        //$this->assertEquals(, ! $feed.has_key(->));
     }
 
     function test_feed_tagline_xml_lang_1 () { 

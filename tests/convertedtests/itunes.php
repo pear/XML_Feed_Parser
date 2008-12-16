@@ -199,7 +199,7 @@ class itunes_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(1, len(feed->tags));
+        $this->assertEquals(1, len($feed->tags));
     }
 
     function test_itunes_channel_keywords_duplicate_2_1 () { 
@@ -210,7 +210,7 @@ class itunes_TestCase extends XML_Feed_Parser_Converted_TestCase {
             $this->assertTrue(false);
             return;
         }
-        $this->assertEquals(1, len(feed->tags));
+        $this->assertEquals(1, len($feed->tags));
     }
 
     function test_itunes_channel_keywords_multiple_1 () { 
