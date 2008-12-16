@@ -92,9 +92,4 @@ class rdf_TestCase extends XML_Feed_Parser_Converted_TestCase {
         $this->assertEquals('rss10', $feed->version());
     }
 }
-
-$suite = new PHPUnit_TestSuite('rdf_TestCase');
-$result = PHPUnit::run($suite, '123');
-echo $result->toString();
-
 ?>

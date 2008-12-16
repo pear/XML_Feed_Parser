@@ -84,9 +84,4 @@ class cdf_TestCase extends XML_Feed_Parser_Converted_TestCase {
         $this->assertEquals('Example item', $feed->getEntryByOffset(0)->title);
     }
 }
-
-$suite = new PHPUnit_TestSuite('cdf_TestCase');
-$result = PHPUnit::run($suite, '123');
-echo $result->toString();
-
 ?>

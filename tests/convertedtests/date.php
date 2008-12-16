@@ -876,9 +876,4 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
         $this->assertEquals(array(2004, 1, 1, 19, 48, 21, 3, 1, 0), $feed->getEntryByOffset(0)->date_parsed);
     }
 }
-
-$suite = new PHPUnit_TestSuite('date_TestCase');
-$result = PHPUnit::run($suite, '123');
-echo $result->toString();
-
 ?>

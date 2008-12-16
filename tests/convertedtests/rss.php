@@ -1147,9 +1147,4 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
         $this->assertEquals('rss', $feed->version());
     }
 }
-
-$suite = new PHPUnit_TestSuite('rss_TestCase');
-$result = PHPUnit::run($suite, '123');
-echo $result->toString();
-
 ?>

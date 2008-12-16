@@ -1,6 +1,6 @@
 <?php
 
-require_once '../XML_Feed_Parser_TestCase.php';
+require_once 'XML_Feed_Parser_TestCase.php';
 
 class amp_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
@@ -516,9 +516,4 @@ class amp_TestCase extends XML_Feed_Parser_Converted_TestCase {
         $this->assertEquals('<div><strong>&amp;</strong></div>', $feed->getEntryByOffset(0)->title);
     }
 }
-
-$suite = new PHPUnit_TestSuite('amp_TestCase');
-$result = PHPUnit::run($suite, '123');
-echo $result->toString();
-
 ?>

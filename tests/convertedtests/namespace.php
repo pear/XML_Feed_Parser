@@ -68,9 +68,4 @@ class namespace_TestCase extends XML_Feed_Parser_Converted_TestCase {
         $this->assertEquals('correct description', $feed->getEntryByOffset(0)->description);
     }
 }
-
-$suite = new PHPUnit_TestSuite('namespace_TestCase');
-$result = PHPUnit::run($suite, '123');
-echo $result->toString();
-
 ?>

@@ -1723,10 +1723,6 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $this->assertEquals('<div>Example <a href="http://example.com/test/test.html">test</a></div>', $feed->title);
     }
+
 }
-
-$suite = new PHPUnit_TestSuite('atom10_TestCase');
-$result = PHPUnit::run($suite, '123');
-echo $result->toString();
-
 ?>

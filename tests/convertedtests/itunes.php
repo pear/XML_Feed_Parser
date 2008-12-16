@@ -445,8 +445,4 @@ class itunes_TestCase extends XML_Feed_Parser_Converted_TestCase {
     }
 }
 
-$suite = new PHPUnit_TestSuite('itunes_TestCase');
-$result = PHPUnit::run($suite, '123');
-echo $result->toString();
-
 ?>

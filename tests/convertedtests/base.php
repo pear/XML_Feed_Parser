@@ -988,9 +988,4 @@ class base_TestCase extends XML_Feed_Parser_Converted_TestCase {
         $this->assertEquals('http://example.com/test/', $feed->getEntryByOffset(0)->title(0, 'base'));
     }
 }
-
-$suite = new PHPUnit_TestSuite('base_TestCase');
-$result = PHPUnit::run($suite, '123');
-echo $result->toString();
-
 ?>
