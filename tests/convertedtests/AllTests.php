@@ -24,14 +24,15 @@ require_once 'namespace.php';
 require_once 'rss.php';
 
 /**
- * AllTests suite testing Crypt_GPG
+ * AllTests suite testing XML_Feed_Parser; running
+ * unit tests from universal feed parser
  *
- * @category  Encryption
- * @package   Crypt_GPG
- * @author    Michael Gauthier <mike@silverorange.com>
- * @copyright 2008 silverorange
+ * @category  XML
+ * @package   XML_Feed_Parser
+ * @author    Daniel O'Connor <daniel.oconnor@gmail.com>
+ * @copyright 2008 
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
- * @link      http://pear.php.net/package/Crypt_GPG
+ * @link      http://pear.php.net/package/XML_Feed_Parser
  */
 class XML_Feed_Parser_Converted_AllTests
 {
