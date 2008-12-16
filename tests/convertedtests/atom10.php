@@ -529,7 +529,7 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('me@example.com', $feed->getEntryByOffset(0)->source(0, 'author(0, 'email')'));
+        $this->assertEquals('me@example.com', $feed->getEntryByOffset(0)->source(0, "author(0, 'email')"));
     }
 
     function test_entry_source_author_map_author_1() { 
@@ -553,7 +553,7 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('Example author', $feed->getEntryByOffset(0)->source(0, 'author(0, 'name')'));
+        $this->assertEquals('Example author', $feed->getEntryByOffset(0)->source(0, "author(0, 'name')"));
     }
 
     function test_entry_source_author_uri_1() { 
@@ -561,7 +561,7 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('http://example.com/', $feed->getEntryByOffset(0)->source(0, 'author(0, 'url')'));
+        $this->assertEquals('http://example.com/', $feed->getEntryByOffset(0)->source(0, "author(0, 'url')"));
     }
 
     function test_entry_source_category_label_1() { 
@@ -633,7 +633,7 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('Example generator', $feed->getEntryByOffset(0)->source(0, 'generator(0, 'name')'));
+        $this->assertEquals('Example generator', $feed->getEntryByOffset(0)->source(0, "generator(0, 'name')"));
     }
 
     function test_entry_source_generator_uri_1() { 
@@ -641,7 +641,7 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('http://example.com/', $feed->getEntryByOffset(0)->source(0, 'generator(0, 'href')'));
+        $this->assertEquals('http://example.com/', $feed->getEntryByOffset(0)->source(0, "generator(0, 'href')"));
     }
 
     function test_entry_source_generator_version_1() { 
@@ -649,7 +649,7 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('2.65', $feed->getEntryByOffset(0)->source(0, 'generator(0, 'version')'));
+        $this->assertEquals('2.65', $feed->getEntryByOffset(0)->source(0, "generator(0, 'version')"));
     }
 
     function test_entry_source_icon_1() { 
@@ -817,7 +817,7 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('text/plain', $feed->getEntryByOffset(0)->source(0, 'rights(0, 'type')'));
+        $this->assertEquals('text/plain', $feed->getEntryByOffset(0)->source(0, "rights(0, 'type')"));
     }
 
     function test_entry_source_rights_content_type_text_1() { 
@@ -825,7 +825,7 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('text/plain', $feed->getEntryByOffset(0)->source(0, 'rights(0, 'type')'));
+        $this->assertEquals('text/plain', $feed->getEntryByOffset(0)->source(0, "rights(0, 'type')"));
     }
 
     function test_entry_source_rights_content_value_1() { 
@@ -873,7 +873,7 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('text/plain', $feed->getEntryByOffset(0)->source(0, 'subtitle(0, 'type')'));
+        $this->assertEquals('text/plain', $feed->getEntryByOffset(0)->source(0, "subtitle(0, 'type')"));
     }
 
     function test_entry_source_subtitle_1() { 
@@ -905,7 +905,7 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('text/plain', $feed->getEntryByOffset(0)->source(0, 'subtitle(0, 'type')'));
+        $this->assertEquals('text/plain', $feed->getEntryByOffset(0)->source(0, "subtitle(0, 'type')"));
     }
 
     function test_entry_source_subtitle_content_value_1() { 
@@ -977,7 +977,7 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('text/plain', $feed->getEntryByOffset(0)->source(0, 'title(0, 'type')'));
+        $this->assertEquals('text/plain', $feed->getEntryByOffset(0)->source(0, "title(0, 'type')"));
     }
 
     function test_entry_source_title_content_type_text_1() { 
@@ -985,7 +985,7 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('text/plain', $feed->getEntryByOffset(0)->source(0, 'title(0, 'type')'));
+        $this->assertEquals('text/plain', $feed->getEntryByOffset(0)->source(0, "title(0, 'type')"));
     }
 
     function test_entry_source_title_content_value_1() { 
