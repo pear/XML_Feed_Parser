@@ -4,6 +4,12 @@ require_once 'XML_Feed_Parser_TestCase.php';
 
 class amp_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
+    public function setUp() {
+        parent::setUp();
+
+        $this->markTestSkipped('The current behaviour of this package is to treat Atom 0.3 as Atom 1.0 and raise a warning.');
+    }
+
     function test_amp01_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/amp/amp01.xml');
 
