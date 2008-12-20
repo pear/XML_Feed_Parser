@@ -14,6 +14,9 @@ abstract class XML_Feed_Parser_TestCase extends PHPUnit_Framework_TestCase {
 }
 
 abstract class XML_Feed_Parser_Converted_TestCase extends XML_Feed_Parser_TestCase {
+
+    protected $backupGlobals = FALSE;
+
     function setup() {
         $this->fp_test_dir = XML_Feed_Parser_TestCase::getSampleDir() . 
             DIRECTORY_SEPARATOR . 'feedparsertests';
@@ -21,7 +24,7 @@ abstract class XML_Feed_Parser_Converted_TestCase extends XML_Feed_Parser_TestCa
             $this->markTestSkipped('Feed parser tests (http://code.google.com/p/feedparser/downloads/list) must be unpacked into the folder ' . 
                 $this->fp_test_dir);
         }
+
     }
 }
-
 ?>
