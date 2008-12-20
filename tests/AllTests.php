@@ -5,6 +5,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
+require_once 'XML_Feed_Parser_TestCase.php';
 
 require_once 'convertedtests/AllTests.php';
 

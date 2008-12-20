@@ -5,7 +5,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
-
+require_once dirname(dirname(__FILE__)) . '/XML_Feed_Parser_TestCase.php';
 
 require_once 'atom10.php';
 require_once 'base.php';
