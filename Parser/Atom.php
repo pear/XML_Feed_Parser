@@ -39,7 +39,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      * The URI of the RelaxNG schema used to (optionally) validate the feed 
      * @var string
      */
-    private $relax = 'atom.rnc';
+    protected $relax = 'atom.rng';
 
     /**
      * We're likely to use XPath, so let's keep it global 
@@ -117,7 +117,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         $this->model = $model;
 
         if ($strict) {
-            if (! $this->model->relaxNGValidateSource($this->relax)) {
+            if (! $this->relaxNGValidate()) {
                 throw new XML_Feed_Parser_Exception('Failed required validation');
             }
         }

@@ -35,7 +35,7 @@ class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
      * The URI of the RelaxNG schema used to (optionally) validate the feed 
      * @var string
      */
-    private $relax = '';
+    protected $relax = '';
 
     /**
      * We're likely to use XPath, so let's keep it global
@@ -208,6 +208,13 @@ class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
         }
         $link = $links->item($offset);
         return $this->addBase($link->nodeValue, $link);
+    }
+
+    /**
+     * Not implemented - no available validation.
+     */
+    public function relaxNGValidate() {
+        return true;
     }
 }
 

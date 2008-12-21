@@ -462,6 +462,14 @@ abstract class XML_Feed_Parser_Type
         $config = new PEAR_Config;
         return $config->get('data_dir') . '/XML_Feed_Parser/schemas';
     }
+
+    public function relaxNGValidate() {
+        $dir = self::getSchemaDir();
+
+        $path = $dir . '/' . $this->relax;
+
+        return $this->model->relaxNGValidate($path);
+    }
 }
 
 ?>
