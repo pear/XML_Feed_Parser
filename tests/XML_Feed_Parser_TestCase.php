@@ -5,6 +5,9 @@ require_once 'PHPUnit.php';
 require_once 'PHPUnit/Framework.php';
 
 abstract class XML_Feed_Parser_TestCase extends PHPUnit_Framework_TestCase {
+
+    protected $backupGlobals = FALSE;
+
     static function getSampleDir() {
         $config = new PEAR_Config;
         return dirname(__FILE__) . '/../samples';
@@ -13,8 +16,6 @@ abstract class XML_Feed_Parser_TestCase extends PHPUnit_Framework_TestCase {
 }
 
 abstract class XML_Feed_Parser_Converted_TestCase extends XML_Feed_Parser_TestCase {
-
-    protected $backupGlobals = FALSE;
 
     function setup() {
         $this->fp_test_dir = XML_Feed_Parser_TestCase::getSampleDir() . 
