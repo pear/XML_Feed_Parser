@@ -1,5 +1,4 @@
 <?php
-set_include_path('/Users/james/Projects/Personal/PEAR' . PATH_SEPARATOR . get_include_path());
 require_once 'PEAR/Config.php';
 require_once 'XML/Feed/Parser.php';
 require_once 'PHPUnit.php';
@@ -24,7 +23,6 @@ abstract class XML_Feed_Parser_Converted_TestCase extends XML_Feed_Parser_TestCa
             $this->markTestSkipped('Feed parser tests (http://code.google.com/p/feedparser/downloads/list) must be unpacked into the folder ' . 
                 $this->fp_test_dir);
         }
-
     }
 }
 ?>
