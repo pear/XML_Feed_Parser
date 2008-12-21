@@ -4,6 +4,14 @@ require_once dirname(dirname(__FILE__)) . '/XML_Feed_Parser_TestCase.php';
 
 class base_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
+    function setUp() {
+        if (LIBXML_VERSION <= 20632) {
+            $this->markTestSkipped("Unable to test due to http://bugzilla.gnome.org/show_activity.cgi?id=565219");
+        }
+
+        parent::setUp();
+    }
+
     function test_cdf_item_abstract_xml_base_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/base/cdf_item_abstract_xml_base.xml');
 
