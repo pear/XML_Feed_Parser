@@ -33,7 +33,7 @@ class lang_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals(None, $feed->getEntryByOffset(0)->content(0, 'language'));
+        $this->assertEquals("", $feed->getEntryByOffset(0)->content(0, 'language'));
     }
 
     function test_entry_content_xml_lang_blank_2_1() { 
@@ -41,7 +41,7 @@ class lang_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals(None, $feed->getEntryByOffset(0)->content(0, 'language'));
+        $this->assertEquals("", $feed->getEntryByOffset(0)->content(0, 'language'));
     }
 
     function test_entry_content_xml_lang_blank_3_1() { 
@@ -97,7 +97,7 @@ class lang_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals(None, $feed->getEntryByOffset(0)->summary(0, 'language'));
+        $this->assertEquals("", $feed->getEntryByOffset(0)->summary(0, 'language'));
     }
 
     function test_entry_summary_xml_lang_inherit_1() { 
@@ -145,7 +145,7 @@ class lang_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals(None, $feed->getEntryByOffset(0)->title(0, 'language'));
+        $this->assertEquals("", $feed->getEntryByOffset(0)->title(0, 'language'));
     }
 
     function test_entry_title_xml_lang_inherit_1() { 
@@ -193,7 +193,7 @@ class lang_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals(None, $feed->copyright(0, 'language'));
+        $this->assertEquals("", $feed->copyright(0, 'language'));
     }
 
     function test_feed_copyright_xml_lang_inherit_1() { 
@@ -241,7 +241,7 @@ class lang_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals(None, $feed->info(0, 'language'));
+        $this->assertEquals("", $feed->info(0, 'language'));
     }
 
     function test_feed_info_xml_lang_inherit_1() { 
@@ -322,7 +322,7 @@ class lang_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals(None, $feed->tagline(0, 'language'));
+        $this->assertEquals("", $feed->tagline(0, 'language'));
     }
 
     function test_feed_tagline_xml_lang_inherit_1() { 
@@ -370,7 +370,7 @@ class lang_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals(None, $feed->title(0, 'language'));
+        $this->assertEquals("", $feed->title(0, 'language'));
     }
 
     function test_feed_title_xml_lang_inherit_1() { 
