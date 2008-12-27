@@ -439,7 +439,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_entry_created_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/entry_created.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('Thu, 01 Jan 2004 19:48:21 GMT', $feed->getEntryByOffset(0)->created);
     }
@@ -447,7 +447,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_entry_created_w3dtf_utc_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/entry_created_w3dtf_utc.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 31, 10, 14, 55, 2, 365, 0), $feed->getEntryByOffset(0)->created_parsed);
     }
@@ -455,7 +455,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_entry_issued_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/entry_issued.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('Thu, 01 Jan 2004 19:48:21 GMT', $feed->getEntryByOffset(0)->issued);
     }
@@ -463,7 +463,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_entry_issued_w3dtf_utc_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/entry_issued_w3dtf_utc.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 31, 10, 14, 55, 2, 365, 0), $feed->getEntryByOffset(0)->issued_parsed);
     }
@@ -471,7 +471,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_entry_modified_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/entry_modified.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('Thu, 01 Jan 2004 19:48:21 GMT', $feed->getEntryByOffset(0)->modified);
     }
@@ -479,7 +479,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_entry_modified_map_date_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/entry_modified_map_date.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2004, 1, 1, 19, 48, 21, 3, 1, 0), $feed->getEntryByOffset(0)->date_parsed);
     }
@@ -487,7 +487,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_entry_modified_w3dtf_utc_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/entry_modified_w3dtf_utc.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 31, 10, 14, 55, 2, 365, 0), $feed->getEntryByOffset(0)->modified_parsed);
     }
@@ -519,7 +519,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('Thu, 01 Jan 2004 19:48:21 GMT', $feed->modified);
     }
@@ -527,7 +527,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_asctime_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_asctime.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2004, 1, 5, 0, 29, 6, 0, 5, 0), $feed->modified_parsed);
     }
@@ -535,7 +535,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_disney_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_disney.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2004, 1, 26, 21, 31, 0, 0, 26, 0), $feed->date_parsed);
     }
@@ -543,7 +543,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_disney_at_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_disney_at.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2004, 1, 26, 20, 31, 0, 0, 26, 0), $feed->date_parsed);
     }
@@ -551,7 +551,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_disney_ct_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_disney_ct.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2004, 1, 26, 22, 31, 0, 0, 26, 0), $feed->date_parsed);
     }
@@ -559,7 +559,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_disney_mt_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_disney_mt.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2004, 1, 26, 23, 31, 0, 0, 26, 0), $feed->date_parsed);
     }
@@ -567,7 +567,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_disney_pt_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_disney_pt.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2004, 1, 27, 0, 31, 0, 1, 27, 0), $feed->date_parsed);
     }
@@ -575,7 +575,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_iso8601_ym_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_iso8601_ym.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 1, 0, 0, 0, 0, 335, 0), $feed->modified_parsed);
     }
@@ -583,7 +583,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_iso8601_ym_2_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_iso8601_ym_2.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 1, 0, 0, 0, 0, 335, 0), $feed->modified_parsed);
     }
@@ -591,7 +591,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_iso8601_ymd_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_iso8601_ymd.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 31, 0, 0, 0, 2, 365, 0), $feed->modified_parsed);
     }
@@ -599,7 +599,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_iso8601_ymd_2_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_iso8601_ymd_2.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 31, 0, 0, 0, 2, 365, 0), $feed->modified_parsed);
     }
@@ -607,7 +607,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_iso8601_yo_2_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_iso8601_yo_2.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 1, 0, 0, 0, 0, 335, 0), $feed->modified_parsed);
     }
@@ -615,7 +615,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_map_date_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_map_date.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2004, 1, 1, 19, 48, 21, 3, 1, 0), $feed->date_parsed);
     }
@@ -623,7 +623,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_rfc2822_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_rfc2822.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2004, 1, 1, 19, 48, 21, 3, 1, 0), $feed->modified_parsed);
     }
@@ -631,7 +631,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_rfc2822_rollover_june_31_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_rfc2822_rollover_june_31.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2004, 7, 1, 19, 48, 21, 3, 183, 0), $feed->modified_parsed);
     }
@@ -639,7 +639,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_rfc822_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_rfc822.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2004, 1, 1, 19, 48, 21, 3, 1, 0), $feed->modified_parsed);
     }
@@ -647,7 +647,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_w3dtf_rollover_leapyear_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_w3dtf_rollover_leapyear.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2004, 2, 29, 2, 14, 55, 6, 60, 0), $feed->modified_parsed);
     }
@@ -655,7 +655,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_w3dtf_rollover_leapyear400_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_w3dtf_rollover_leapyear400.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2000, 2, 29, 2, 14, 55, 1, 60, 0), $feed->modified_parsed);
     }
@@ -663,7 +663,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_w3dtf_rollover_nonleapyear_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_w3dtf_rollover_nonleapyear.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 3, 1, 2, 14, 55, 5, 60, 0), $feed->modified_parsed);
     }
@@ -671,7 +671,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_w3dtf_sf_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_w3dtf_sf.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 31, 18, 14, 55, 2, 365, 0), $feed->modified_parsed);
     }
@@ -679,7 +679,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_w3dtf_tokyo_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_w3dtf_tokyo.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 31, 10, 14, 55, 2, 365, 0), $feed->modified_parsed);
     }
@@ -687,7 +687,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_w3dtf_utc_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_w3dtf_utc.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 31, 10, 14, 55, 2, 365, 0), $feed->modified_parsed);
     }
@@ -695,7 +695,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_w3dtf_y_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_w3dtf_y.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 1, 1, 0, 0, 0, 2, 1, 0), $feed->modified_parsed);
     }
@@ -703,7 +703,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_w3dtf_ym_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_w3dtf_ym.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 1, 0, 0, 0, 0, 335, 0), $feed->modified_parsed);
     }
@@ -711,7 +711,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_w3dtf_ymd_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_w3dtf_ymd.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 31, 0, 0, 0, 2, 365, 0), $feed->modified_parsed);
     }
@@ -719,7 +719,7 @@ class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_feed_modified_w3dtf_ymd_2_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/feed_modified_w3dtf_ymd_2.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals(array(2003, 12, 31, 0, 0, 0, 2, 365, 0), $feed->modified_parsed);
     }
