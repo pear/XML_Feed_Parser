@@ -65,7 +65,7 @@ class XML_Feed_Parser_RSS1Element extends XML_Feed_Parser_RSS1
     protected $compatMap = array(
         'content' => array('content'),
         'updated' => array('lastBuildDate'),
-        'published' => array('pubdate'),
+        'published' => array('date'),
         'subtitle' => array('description'),
         'updated' => array('date'),
         'author' => array('creator'),
