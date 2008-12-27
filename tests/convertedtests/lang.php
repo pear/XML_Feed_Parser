@@ -445,7 +445,7 @@ class lang_TestCase extends XML_Feed_Parser_Converted_TestCase {
         $this->assertEquals('fr', $feed->language);
     }
 
-    function 2() { 
+    function test_http_content_language_feed_xml_lang_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/lang/http_content_language_feed_xml_lang.xml');
 
         $feed = new XML_Feed_Parser($content, false, true);
