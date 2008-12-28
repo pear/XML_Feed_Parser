@@ -4,54 +4,6 @@ require_once dirname(dirname(__FILE__)) . '/XML_Feed_Parser_TestCase.php';
 
 class date_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
-    function test_cdf_channel_lastmod_map_date_1() { 
-        $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/cdf_channel_lastmod_map_date.xml');
-
-        $feed = new XML_Feed_Parser($content);
-
-        $this->assertEquals('2004-04-06T23:05:43-05:00', $feed->date);
-    }
-
-    function test_cdf_channel_lastmod_map_modified_1() { 
-        $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/cdf_channel_lastmod_map_modified.xml');
-
-        $feed = new XML_Feed_Parser($content);
-
-        $this->assertEquals('2004-04-06T23:05:43-05:00', $feed->modified);
-    }
-
-    function test_cdf_channel_lastmod_map_modified_parsed_1() { 
-        $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/cdf_channel_lastmod_map_modified_parsed.xml');
-
-        $feed = new XML_Feed_Parser($content);
-
-        $this->assertEquals(array(2004, 4, 7, 4, 5, 43, 2, 98, 0), $feed->modified_parsed);
-    }
-
-    function test_cdf_item_lastmod_map_date_1() { 
-        $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/cdf_item_lastmod_map_date.xml');
-
-        $feed = new XML_Feed_Parser($content);
-
-        $this->assertEquals('2004-04-06T23:05:43-05:00', $feed->getEntryByOffset(0)->date);
-    }
-
-    function test_cdf_item_lastmod_map_modified_1() { 
-        $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/cdf_item_lastmod_map_modified.xml');
-
-        $feed = new XML_Feed_Parser($content);
-
-        $this->assertEquals('2004-04-06T23:05:43-05:00', $feed->getEntryByOffset(0)->modified);
-    }
-
-    function test_cdf_item_lastmod_map_modified_parsed_1() { 
-        $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/cdf_item_lastmod_map_modified_parsed.xml');
-
-        $feed = new XML_Feed_Parser($content);
-
-        $this->assertEquals(array(2004, 4, 7, 4, 5, 43, 2, 98, 0), $feed->getEntryByOffset(0)->modified_parsed);
-    }
-
     function test_channel_dc_date_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/date/channel_dc_date.xml');
 

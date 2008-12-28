@@ -16,7 +16,6 @@ require_once 'rdf.php';
 require_once 'sanitize.php';
 require_once 'amp.php';
 require_once 'atom.php';
-require_once 'cdf.php';
 require_once 'date.php';
 require_once 'feedburner.php';
 require_once 'itunes.php';
@@ -58,7 +57,6 @@ class XML_Feed_Parser_Converted_AllTests
         $suite->addTestSuite('sanitize_TestCase');
         $suite->addTestSuite('amp_TestCase');
         $suite->addTestSuite('atom_TestCase');
-        $suite->addTestSuite('cdf_TestCase');
         $suite->addTestSuite('date_TestCase');
         $suite->addTestSuite('feedburner_TestCase');
         $suite->addTestSuite('itunes_TestCase');
