@@ -319,7 +319,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_channel_image_description_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/channel_image_description.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('Available in Netscape RSS 0.91', $feed->image(0, 'description'));
     }
@@ -479,7 +479,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_channel_title_apos_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/channel_title_apos.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals("Mark's title", $feed->title);
     }
@@ -487,7 +487,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_channel_title_gt_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/channel_title_gt.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('2 > 1', $feed->title);
     }
@@ -495,7 +495,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_channel_title_lt_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/channel_title_lt.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('1 < 2', $feed->title);
     }
@@ -799,7 +799,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_item_description_not_a_doctype_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/item_description_not_a_doctype.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->markTestIncomplete("Expected result needs verification");
         //$this->assertEquals("""&lt;!' <a href="foo">""", $feed->getEntryByOffset(0)->description);
@@ -1038,7 +1038,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_rss_namespace_1_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/rss_namespace_1.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('Example description', $feed->description);
     }
@@ -1046,7 +1046,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_rss_namespace_2_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/rss_namespace_2.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('Example description', $feed->description);
     }
@@ -1054,7 +1054,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_rss_namespace_3_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/rss_namespace_3.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('Example description', $feed->description);
     }
@@ -1062,7 +1062,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_rss_namespace_4_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/rss_namespace_4.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('Example description', $feed->description);
     }
@@ -1076,6 +1076,8 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     }
 
     function test_rss_version_091_netscape_1() { 
+        $this->markTestSkipped("RSS 0.91 is not supported");
+
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/rss_version_091_netscape.xml');
 
         $feed = new XML_Feed_Parser($content);
@@ -1084,6 +1086,8 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     }
 
     function test_rss_version_091_userland_1() { 
+        $this->markTestSkipped("RSS 0.91 is not supported");
+
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/rss_version_091_userland.xml');
 
         $feed = new XML_Feed_Parser($content);
@@ -1092,6 +1096,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     }
 
     function test_rss_version_092_1() { 
+        $this->markTestSkipped("RSS 2.0 deprecates this test");
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/rss_version_092.xml');
 
         $feed = new XML_Feed_Parser($content);
@@ -1102,7 +1107,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_rss_version_093_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/rss_version_093.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('rss093', $feed->version());
     }
@@ -1110,7 +1115,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_rss_version_094_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/rss_version_094.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('rss094', $feed->version());
     }
@@ -1126,7 +1131,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_rss_version_201_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/rss_version_201.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('rss20', $feed->version());
     }
@@ -1134,7 +1139,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_rss_version_21_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/rss_version_21.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('rss20', $feed->version());
     }
@@ -1142,7 +1147,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
     function test_rss_version_missing_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/rss/rss_version_missing.xml');
 
-        $feed = new XML_Feed_Parser($content);
+        $feed = new XML_Feed_Parser($content, false, true);
 
         $this->assertEquals('rss', $feed->version());
     }
