@@ -10,18 +10,15 @@ class tidy extends XML_Feed_Parser_TestCase
      * fails. If tidy is installed and it parses, then the test passes.
      */ 
     function test_Tidy() {
+        if (!extension_loaded('tidy')) {
+            $this->markTestSkipped("You need the tidy extension installed to run this test");
+        }
+
         $sample_dir = XML_Feed_Parser_TestCase::getSampleDir();
         $file = file_get_contents($sample_dir . DIRECTORY_SEPARATOR . "illformed_atom10.xml");
-        try {
-            $feed = new XML_Feed_Parser($file, false, true, true);    
-        } catch (XML_Feed_Parser_Exception $e) {
-            if (extension_loaded('tidy')) {
-                $this->assertTrue(false);
-            } else {
-                $this->assertTrue(true);
-            }
-            return;
-        }
+
+        $feed = new XML_Feed_Parser($file, false, true, true);    
+
         $entry = $feed->getEntryByOffset(0);
         $this->assertEquals($entry->author, 'Example author');
     }
