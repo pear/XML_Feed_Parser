@@ -15,7 +15,7 @@ require_once 'farsi.php';
 require_once 'regressions.php';
 require_once 'rss2Values.php';
 require_once 'rss091Values.php';
-require_once 'tidy.php';
+require_once 'MalformedFeedTest.php';
 require_once 'atomCompliance.php';
 require_once 'iteration.php';
 require_once 'rss092Values.php';
@@ -58,7 +58,7 @@ class XML_Feed_Parser_AllTests
         $suite->addTestSuite('regressions');
         $suite->addTestSuite('rss2Values');
         $suite->addTestSuite('rss091Values');
-        $suite->addTestSuite('tidy');
+        $suite->addTestSuite('MalformedFeedTest');
         $suite->addTestSuite('atomCompliance');
         $suite->addTestSuite('iteration');
         $suite->addTestSuite('rss092Values');
