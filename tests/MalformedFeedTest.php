@@ -2,7 +2,7 @@
 
 require_once 'XML_Feed_Parser_TestCase.php';
 
-class tidy extends XML_Feed_Parser_TestCase
+class MalformedFeedTest extends XML_Feed_Parser_TestCase
 {
     /**
      * Try to work with this ill-formed feed. If the tidy extension is not installed,
