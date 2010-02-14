@@ -1,8 +1,7 @@
 <?php
 require_once 'PEAR/Config.php';
 require_once 'XML/Feed/Parser.php';
-require_once 'PHPUnit.php';
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 
 abstract class XML_Feed_Parser_TestCase extends PHPUnit_Framework_TestCase {
 
