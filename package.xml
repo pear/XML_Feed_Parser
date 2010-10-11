@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>XML_Feed_Parser</name>
  <channel>pear.php.net</channel>
  <summary>Providing a unified API for handling Atom/RSS</summary>
@@ -10,10 +10,10 @@
   <email>james@jystewart.net</email>
   <active>yes</active>
  </lead>
- <date>2008-12-21</date>
- <time>12:09:46</time>
+ <date>2010-10-11</date>
+ <time>22:38:10</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,52 +21,16 @@
   <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>Bug fix release. Closes:
-#13215 - Encoding problems
-#12919 - &amp;amp; in ULR&apos;s causes problems
-#12522 - pubDate handler throws warning on empty field
-#12017 - no rss2 image if &lt;itunes:image/&gt; precedes &lt;image&gt;
-#11467 - Escaped HTML in Atom Text Constructs
-#10702 - Indirect modification of overloaded property
-#10336 - Error with encoding handling on xhtml</notes>
+ <notes>
+QA Release
+Bug #15129 Assorted parse errors in tests
+Bug #15309
+Bug #15318
+Bug #15322
+Bug #15365
+ </notes>
  <contents>
-  <dir baseinstalldir="/XML/Feed" name="/">
-   <file baseinstalldir="/XML/Feed" md5sum="0ee31a11814d93ba83fb405f2ed3ad76" name="Parser/Atom.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
-   <file baseinstalldir="/XML/Feed" md5sum="87481fa53196d146d88d32860e523237" name="Parser/AtomElement.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
-   <file baseinstalldir="/XML/Feed" md5sum="92e5d660a43833f50263f8c0dc1d4d8e" name="Parser/Exception.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
-   <file baseinstalldir="/XML/Feed" md5sum="638f30ca25fdb7d931a73d210b448cd9" name="Parser/RSS09.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
-   <file baseinstalldir="/XML/Feed" md5sum="78a4cc5e4ba3bb8415d2e3179bb844fd" name="Parser/RSS09Element.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
-   <file baseinstalldir="/XML/Feed" md5sum="8203385a819a1e1a31216aab66195d55" name="Parser/RSS1.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
-   <file baseinstalldir="/XML/Feed" md5sum="d5dcc25a81de8f3269b4290ff2c74d7c" name="Parser/RSS1Element.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
-   <file baseinstalldir="/XML/Feed" md5sum="f5dcd718f024d8255c1c06d5cd3bab09" name="Parser/RSS2.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
-   <file baseinstalldir="/XML/Feed" md5sum="b8a3a7a03651dd899e926beaaba65388" name="Parser/RSS2Element.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
-   <file baseinstalldir="/XML/Feed" md5sum="ccfcd9f0d4f9942476608384a218a142" name="Parser/RSS11.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
-   <file baseinstalldir="/XML/Feed" md5sum="c793db1a50bcbd08350397727602304d" name="Parser/RSS11Element.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
-   <file baseinstalldir="/XML/Feed" md5sum="ec0241d89660fe2a6a02378eabf98f5d" name="Parser/Type.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
+  <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/XML/Feed" md5sum="defefe366fd8b9cc71ef8a9565e623c5" name="samples/atom10-entryonly.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="0e0f148ad3db6568ced0c264b0d75b11" name="samples/atom10-example1.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="b10d21ba71babd83ae1ec6755912730e" name="samples/atom10-example2.xml" role="data" />
@@ -77,7 +41,7 @@
    <file baseinstalldir="/XML/Feed" md5sum="07adfcbda3a3cb37eea264c54c05c7d7" name="samples/bug12919.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="b6d2bd39187a0b4d52b1f0071c92b1b1" name="samples/bug13215.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="056499ca3927d9d4f22f5e011b321410" name="samples/delicious.feed" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="4d618dba8bce2a3f908701accbb936d9" name="samples/flickr.feed" role="data" />
+   <file baseinstalldir="/XML/Feed" md5sum="a925d93bd4a1410de9395f85eca568c2" name="samples/flickr.feed" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="d63e5a9c90c224f1f23477f949262d7a" name="samples/grwifi-atom.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="a06ad8037cd37c3fbb75110606662e6d" name="samples/hoder.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="e6b294dae4e18251f2b94567279ac069" name="samples/hungarian-iso-8859-2.xml" role="data" />
@@ -97,8 +61,8 @@
    <file baseinstalldir="/XML/Feed" md5sum="316f0ee74877f84efb0095c729ad7d9e" name="samples/technorati.feed" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="7fb3892404aecf84bf2dec860db78359" name="samples/utf8.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="8ae37e9fc1472e86694ef8df460f6f1f" name="samples/xmlbase.xml" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="287b861c3b68057ac7690617ec758709" name="samples/feedparsertests/LICENSE" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="ae33f6df569439141f5c806fc79ffc36" name="samples/feedparsertests/README-TESTS" role="data" />
+   <file baseinstalldir="/XML/Feed" md5sum="4391fa129341130013d57bd48afa8ba7" name="samples/feedparsertests/LICENSE" role="data" />
+   <file baseinstalldir="/XML/Feed" md5sum="7f2cd7d629a1a049e57e8b0ab466f6ce" name="samples/feedparsertests/README-TESTS" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="b1d430c2054ce25ad1acbe84ec60d973" name="samples/feedparsertests/wellformed/amp/amp01.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="511a3ef5f91e553b3fabd06d5e83795f" name="samples/feedparsertests/wellformed/amp/amp02.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="963390c88a6951bf087d38bc03270d0d" name="samples/feedparsertests/wellformed/amp/amp03.xml" role="data" />
@@ -641,16 +605,6 @@
    <file baseinstalldir="/XML/Feed" md5sum="845550e17e235f0e66c9cfff16d09831" name="samples/feedparsertests/wellformed/base/malformed_base.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="751d3c0771e50d546dca216784cff845" name="samples/feedparsertests/wellformed/base/relative_xml_base.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="db9d0ee1bb8c8e3f542170bd0d837b28" name="samples/feedparsertests/wellformed/base/relative_xml_base_2.xml" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="eba78a2899d89dc02b82beb7c61b76d9" name="samples/feedparsertests/wellformed/cdf/channel_abstract_map_description.xml" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="6af48a2a88d1558ab86f695adb62364a" name="samples/feedparsertests/wellformed/cdf/channel_abstract_map_tagline.xml" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="67023e2639b2d94cb6436be3fd23ba79" name="samples/feedparsertests/wellformed/cdf/channel_href_map_link.xml" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="378b9aad20bc1a83a2c26c020ac759fc" name="samples/feedparsertests/wellformed/cdf/channel_href_map_links.xml" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="d0e0ca0fe5e10db78f92c6689813300a" name="samples/feedparsertests/wellformed/cdf/channel_title.xml" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="db57d66b4d0c250c76745858253d1b6b" name="samples/feedparsertests/wellformed/cdf/item_abstract_map_description.xml" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="7e8e35b43ce98362084a5a31772693a8" name="samples/feedparsertests/wellformed/cdf/item_abstract_map_summary.xml" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="ca0c5cec84bb25ba2b4967020a72fe27" name="samples/feedparsertests/wellformed/cdf/item_href_map_link.xml" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="5f99ca546b5116545fc4d978f30be11a" name="samples/feedparsertests/wellformed/cdf/item_href_map_links.xml" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="32ebdb066c816b88b150fe265bea345b" name="samples/feedparsertests/wellformed/cdf/item_title.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="19bf60322faf3ae157869ebdd09c8034" name="samples/feedparsertests/wellformed/date/cdf_channel_lastmod_map_date.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="6f89a1409cdf7c4a133add3fa10817a0" name="samples/feedparsertests/wellformed/date/cdf_channel_lastmod_map_modified.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="8df3a96800741cb4eceb46a28d80331d" name="samples/feedparsertests/wellformed/date/cdf_channel_lastmod_map_modified_parsed.xml" role="data" />
@@ -1668,7 +1622,7 @@
    <file baseinstalldir="/XML/Feed" md5sum="7046c41df613ba9ff11602e1031caeb8" name="schemas/rss11.rng" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="a2dfdf59e176b3349426d74027dffca2" name="schemas/rss20.rng" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="356ef53ecfe84fef28914a5225a68356" name="tests/accessTypes.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="ab1e85cb6dfea04eb4b807e9f77e5be1" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="3aa99ee5ea5a97b73a69b6108dadaf7b" name="tests/AllTests.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="716fb9f7d6e21152861531d62d43f6d5" name="tests/atomCompliance.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="9ff86d16078df032bd90a47eb8c6408b" name="tests/atomEntryOnly.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="9a30885becf4056d7ce60bf649d926a4" name="tests/atomValues.php" role="test" />
@@ -1676,33 +1630,42 @@
    <file baseinstalldir="/XML/Feed" md5sum="57d57af9d44119850d4ce8c2195305e6" name="tests/farsi.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="61830945d040cb4f350e4d94bf18255e" name="tests/iteration.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="635587a56da9837fc9311c243cbb990c" name="tests/japanese.php" role="test" />
+   <file baseinstalldir="/" md5sum="19e5e0e37ff52c782ea22ed1ee366ea0" name="tests/MalformedFeedTest.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="4cb1c10beaa2856ed15e191ff4d87452" name="tests/regressions.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="da5ad0f0bc65fc8f04c443591f49c5c9" name="tests/rss091Values.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="fe6392158a30cc20f3092e4318808014" name="tests/rss092Values.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="f32a03a2722fc81356f63a5920c30605" name="tests/rss1Values.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="fb9b0f02a0aabff932b080f80eb281c0" name="tests/rss2Values.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="e0333a406d2003df0add3e79ff89360f" name="tests/tidy.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="6994727fdaf2a4a812519e120cc82e5b" name="tests/xmlbase.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="288ec02b01fae4b54fc7f3daa70a797b" name="tests/XML_Feed_Parser_TestCase.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="7573d1bef43442701313ce712ecc4a4f" name="tests/convertedtests/AllTests.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="05619dfee380b43e44b2c97b040dceb1" name="tests/XML_Feed_Parser_TestCase.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="8b3d6009f6d09ef966017066e9baf9dd" name="tests/convertedtests/AllTests.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="41ddaa27544c432ee846cc36e8c070a5" name="tests/convertedtests/amp.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="82fe4eb6f29d3c903ed4e9600b77a2d7" name="tests/convertedtests/atom.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="c680b5879be3b9edc16f5637aad8439b" name="tests/convertedtests/atom10.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="e20c17a1da734022132d46de5ba51358" name="tests/convertedtests/base.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="ee818558e1f72716927b4aebe65062c6" name="tests/convertedtests/cdf.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="16afc1c8047811c45e78624a9697ec39" name="tests/convertedtests/date.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="f1768aa2b3f6609d82ebd1a013d5fc33" name="tests/convertedtests/encoding.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="e7eae3b1ea2c00f9f6a27971e29f493d" name="tests/convertedtests/atom10.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="06c0686b4df69e11cdf53f35f4686cf9" name="tests/convertedtests/base.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="0aa6ccf76e61725775537ff5d3c77a04" name="tests/convertedtests/date.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="8d0c93adb97e3616a2695dea79940f1f" name="tests/convertedtests/encoding.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="dc3d080e2f472c3dd7e0366e653aa0d1" name="tests/convertedtests/feedburner.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="0f1fb29f418d6536c8e9f354f8086466" name="tests/convertedtests/http.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="8577f3d71f35a8e959cb642c3441c06c" name="tests/convertedtests/itunes.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="950bdd39b04f4b8b1cfc1cbff4441f60" name="tests/convertedtests/lang.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="9df97cb63d74da4608e57afd2829fe2d" name="tests/convertedtests/itunes.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="a1d2a68064c21cfdc09de38066fca901" name="tests/convertedtests/lang.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="bcd1449e5c25e4e13ebd78da3102ea90" name="tests/convertedtests/namespace.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="693667b7e4225db401982482e4db42eb" name="tests/convertedtests/rdf.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="4299adab4876da994b8b671c5f6b3d78" name="tests/convertedtests/rss.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="2c7d1c266401dedc9bf1bda39525e1de" name="tests/convertedtests/sanitize.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="6278c2d07e6ec3962398e6da0cec5f7d" name="Parser.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
+   <file baseinstalldir="/XML/Feed" md5sum="557ed0bf60d658c5e2c98668d0da31e1" name="tests/convertedtests/rss.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="2bc1674367211989257eb4a07117922f" name="tests/convertedtests/sanitize.php" role="test" />
+   <file baseinstalldir="/" md5sum="008deb42824d04b658b97c6f012dd217" name="XML/Feed/Parser.php" role="php" />
+   <file baseinstalldir="/" md5sum="3ea18be093881beaaa014fe742ae2dda" name="XML/Feed/Parser/Atom.php" role="php" />
+   <file baseinstalldir="/" md5sum="3aff1c388fc0598c33ffb224588e42e8" name="XML/Feed/Parser/AtomElement.php" role="php" />
+   <file baseinstalldir="/" md5sum="0380dae59e21b2f136fff62d1e5b89b7" name="XML/Feed/Parser/Exception.php" role="php" />
+   <file baseinstalldir="/" md5sum="488216a07f54a12615978936dd683ac8" name="XML/Feed/Parser/RSS09.php" role="php" />
+   <file baseinstalldir="/" md5sum="79a3e542427183c448564bba5bf8854d" name="XML/Feed/Parser/RSS09Element.php" role="php" />
+   <file baseinstalldir="/" md5sum="12fcc4284c4a282ac436fcf8f13f924a" name="XML/Feed/Parser/RSS1.php" role="php" />
+   <file baseinstalldir="/" md5sum="edbf5cbf81319156f9d955033d9796bf" name="XML/Feed/Parser/RSS1Element.php" role="php" />
+   <file baseinstalldir="/" md5sum="6d1b693621eef86b2541367530768112" name="XML/Feed/Parser/RSS2.php" role="php" />
+   <file baseinstalldir="/" md5sum="5dbbc84f41019c42409a0e45b57d0f3f" name="XML/Feed/Parser/RSS2Element.php" role="php" />
+   <file baseinstalldir="/" md5sum="5205319bedd073c8f57ae92d935835bb" name="XML/Feed/Parser/RSS11.php" role="php" />
+   <file baseinstalldir="/" md5sum="9cb96ff30c5a5c08d42973b032121465" name="XML/Feed/Parser/RSS11Element.php" role="php" />
+   <file baseinstalldir="/" md5sum="5986851b148bc8e3cfe913871bb53a10" name="XML/Feed/Parser/Type.php" role="php" />
   </dir>
  </contents>
  <dependencies>
@@ -1736,7 +1699,9 @@
    </stability>
    <date>2005-09-03</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Initial rolling</notes>
+   <notes>
+Initial rolling
+   </notes>
   </release>
   <release>
    <version>
@@ -1749,8 +1714,10 @@
    </stability>
    <date>2005-09-07</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Added Enclosures support
-Fixed up getElementById for RSS1</notes>
+   <notes>
+Added Enclosures support
+Fixed up getElementById for RSS1
+   </notes>
   </release>
   <release>
    <version>
@@ -1763,12 +1730,14 @@ Fixed up getElementById for RSS1</notes>
    </stability>
    <date>2005-09-10</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Added support for RSS1/2 &apos;image&apos; and &apos;textinput&apos; elements
+   <notes>
+Added support for RSS1/2 &apos;image&apos; and &apos;textinput&apos; elements
     Added category support (dc:subject) for RSS1
     Added cloud, ttl, skipDays, and skipHours support for RSS2 (completing RSS spec support)
     Added support for the RSS1 syndication and content modules.
     Added partial RSS1 Dublin Core support
-    Added support for atom:source support and reworked atom:author support to work with it</notes>
+    Added support for atom:source support and reworked atom:author support to work with it
+   </notes>
   </release>
   <release>
    <version>
@@ -1781,11 +1750,13 @@ Fixed up getElementById for RSS1</notes>
    </stability>
    <date>2005-09-11</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Made DOMDocuments for feed and entries public to allow for extensions that make use of the DOM
+   <notes>
+Made DOMDocuments for feed and entries public to allow for extensions that make use of the DOM
 Added functions to handle xml:base and applied to link elements
 Some work on API consistency
 Improved handling of content type=&quot;xhtml&quot; for atom feeds
-Fixes to use of __tostring() method</notes>
+Fixes to use of __tostring() method
+   </notes>
   </release>
   <release>
    <version>
@@ -1798,8 +1769,10 @@ Fixes to use of __tostring() method</notes>
    </stability>
    <date>2005-09-14</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Unit tests added
-Various fixes and checks added following testing</notes>
+   <notes>
+Unit tests added
+Various fixes and checks added following testing
+   </notes>
   </release>
   <release>
    <version>
@@ -1812,13 +1785,15 @@ Various fixes and checks added following testing</notes>
    </stability>
    <date>2005-09-22</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Lots of CS fixes.
+   <notes>
+Lots of CS fixes.
 Added @var notes for members, and file level docblocks
 Renamed some member names that were prefixed with underscores
 Cleaned up a few methods&apos; comment blocks
 Moved all require_once calls to appropriate places in Parser.php
 Fix to atom enclosure support
-Added test for entry-only atom feed</notes>
+Added test for entry-only atom feed
+   </notes>
   </release>
   <release>
    <version>
@@ -1831,9 +1806,11 @@ Added test for entry-only atom feed</notes>
    </stability>
    <date>2005-10-02</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Moved to PEAR_Exception
+   <notes>
+Moved to PEAR_Exception
 Fixed RSS1 test to handle entities properly
-Preparing for pepr call for votes</notes>
+Preparing for pepr call for votes
+   </notes>
   </release>
   <release>
    <version>
@@ -1846,9 +1823,11 @@ Preparing for pepr call for votes</notes>
    </stability>
    <date>2005-10-10</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>First release in PEAR
+   <notes>
+First release in PEAR
 Added custom exception class (vote condition)
-Moved to single quotes in most cases (vote condition)</notes>
+Moved to single quotes in most cases (vote condition)
+   </notes>
   </release>
   <release>
    <version>
@@ -1861,10 +1840,12 @@ Moved to single quotes in most cases (vote condition)</notes>
    </stability>
    <date>2005-10-15</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Fixed misplaced single quotes (bug #5677)
+   <notes>
+Fixed misplaced single quotes (bug #5677)
 Added samples of feeds in farsi and japanese, with test cases
 Reworked xml:base support - now applies to all appropriate atom text constructs
-Reworked atom text construct handling to obey &apos;type&apos; attribute</notes>
+Reworked atom text construct handling to obey &apos;type&apos; attribute
+   </notes>
   </release>
   <release>
    <version>
@@ -1877,12 +1858,14 @@ Reworked atom text construct handling to obey &apos;type&apos; attribute</notes>
    </stability>
    <date>2005-10-22</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Added support for RSS0.90, RSS0.91 and RSS0.92
+   <notes>
+Added support for RSS0.90, RSS0.91 and RSS0.92
 Added tests for RSS0.91 and RSS0.92
 Fixed bug meaning that errors weren&apos;t being thrown for unrecognised RSS versions
 Cleared up the main constructor to prevent DOM errors while detecting feed type
 Added code to allow case-insensitive specification of element names as a backup
-Fixed bad check of guid&apos;s &apos;ispermalink&apos; attribute in RSS2Element.php</notes>
+Fixed bad check of guid&apos;s &apos;ispermalink&apos; attribute in RSS2Element.php
+   </notes>
   </release>
   <release>
    <version>
@@ -1895,8 +1878,10 @@ Fixed bad check of guid&apos;s &apos;ispermalink&apos; attribute in RSS2Element.
    </stability>
    <date>2005-10-22</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Fixed bug in __call() meaning arguments in requests for feed-level elements weren&apos;t passed on correctly
-Some extra compatibility maps to improve match with Universal Feed Parser</notes>
+   <notes>
+Fixed bug in __call() meaning arguments in requests for feed-level elements weren&apos;t passed on correctly
+Some extra compatibility maps to improve match with Universal Feed Parser
+   </notes>
   </release>
   <release>
    <version>
@@ -1909,12 +1894,14 @@ Some extra compatibility maps to improve match with Universal Feed Parser</notes
    </stability>
    <date>2005-12-26</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Added atom-specific category handling
+   <notes>
+Added atom-specific category handling
 Added &apos;tags&apos; call in atom which is an alias for categories, to match Universal Feed Parser behaviour
 Added base64 decoding for atom Text and Content
 In atom:link elements, the rel attribute now defaults to &apos;alternate&apos; if none specified
 Added support for atom:logo
-Numerous API fixes and consistency fixes following use of Universal Feed Parser testkit</notes>
+Numerous API fixes and consistency fixes following use of Universal Feed Parser testkit
+   </notes>
   </release>
   <release>
    <version>
@@ -1927,11 +1914,13 @@ Numerous API fixes and consistency fixes following use of Universal Feed Parser 
    </stability>
    <date>2006-01-11</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>First beta release
+   <notes>
+First beta release
 Added support for &apos;content&apos; namespace in RSS2
 Further consistency fixes
 Added prototype conversion script for Universal Feed Parser tests
-Fixed bug in main __call function that led to problems when the same attribute was accessed multiple times</notes>
+Fixed bug in main __call function that led to problems when the same attribute was accessed multiple times
+   </notes>
   </release>
   <release>
    <version>
@@ -1944,13 +1933,15 @@ Fixed bug in main __call function that led to problems when the same attribute w
    </stability>
    <date>2006-07-27</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>First release candidate
+   <notes>
+First release candidate
 Fixed bug #6472 - wrong paths in require_once
 Fixed bug #6473 - missing files (for RSS1.1)
 Fixed bug #7849 - cannot validate RSS2 feeds - by bundling relax ng schemas
 Improved error handling when attributes empty
 Fixed loading of sample files in regression tests
-Implemented hasKey method for basic checking of whether an element exists</notes>
+Implemented hasKey method for basic checking of whether an element exists
+   </notes>
   </release>
   <release>
    <version>
@@ -1963,8 +1954,10 @@ Implemented hasKey method for basic checking of whether an element exists</notes
    </stability>
    <date>2006-11-09</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Improved handling of atom:text construct to allow for more media types (thanks to Mohanaraj Gonpala Krishnan for initial patch)
-Fixed typos and removed duplicate return statements (request #8445)</notes>
+   <notes>
+Improved handling of atom:text construct to allow for more media types (thanks to Mohanaraj Gonpala Krishnan for initial patch)
+Fixed typos and removed duplicate return statements (request #8445)
+   </notes>
   </release>
   <release>
    <version>
@@ -1977,7 +1970,9 @@ Fixed typos and removed duplicate return statements (request #8445)</notes>
    </stability>
    <date>2006-12-26</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>First stable release. No changes from last release candidate</notes>
+   <notes>
+First stable release. No changes from last release candidate
+   </notes>
   </release>
   <release>
    <version>
@@ -1990,8 +1985,10 @@ Fixed typos and removed duplicate return statements (request #8445)</notes>
    </stability>
    <date>2007-01-09</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Fixed bug in atom link handling that was preventing link retrieval
-Changed detection of text content type to avoid false positives</notes>
+   <notes>
+Fixed bug in atom link handling that was preventing link retrieval
+Changed detection of text content type to avoid false positives
+   </notes>
   </release>
   <release>
    <version>
@@ -2004,14 +2001,16 @@ Changed detection of text content type to avoid false positives</notes>
    </stability>
    <date>2007-01-09</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bug fix release. Closes:
+   <notes>
+Bug fix release. Closes:
 #13215 - Encoding problems
 #12919 - &amp;amp; in ULR&apos;s causes problems
 #12522 - pubDate handler throws warning on empty field
 #12017 - no rss2 image if &lt;itunes:image/&gt; precedes &lt;image&gt;
 #11467 - Escaped HTML in Atom Text Constructs
 #10702 - Indirect modification of overloaded property
-#10336 - Error with encoding handling on xhtml</notes>
+#10336 - Error with encoding handling on xhtml
+   </notes>
   </release>
   <release>
    <version>
@@ -2024,14 +2023,36 @@ Changed detection of text content type to avoid false positives</notes>
    </stability>
    <date>2008-12-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Bug fix release. Closes:
+   <notes>
+Bug fix release. Closes:
 #13215 - Encoding problems
 #12919 - &amp;amp; in ULR&apos;s causes problems
 #12522 - pubDate handler throws warning on empty field
 #12017 - no rss2 image if &lt;itunes:image/&gt; precedes &lt;image&gt;
 #11467 - Escaped HTML in Atom Text Constructs
 #10702 - Indirect modification of overloaded property
-#10336 - Error with encoding handling on xhtml</notes>
+#10336 - Error with encoding handling on xhtml
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-10-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+QA Release
+Bug #15129 Assorted parse errors in tests
+Bug #15309
+Bug #15318
+Bug #15322
+Bug #15365
+   </notes>
   </release>
  </changelog>
 </package>
