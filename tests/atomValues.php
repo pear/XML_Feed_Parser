@@ -164,6 +164,29 @@ class atomValues extends XML_Feed_Parser_TestCase
       $this->assertEquals("<P>The &lt;EM&gt; tag emphasizes the content.</P>",
         trim($atom->getEntryByOffset(0)->summary));
     }
+    
+    # According to RFC4287 section 4.2.7.2:
+    # The value "alternate" signifies that the IRI in the value of the
+    # href attribute identifies an alternate version of the resource
+    # described by the containing element.
+    function test_getAlternativeLinkForItem()
+    {
+        $source = '<?xml version="1.0" ?>
+        <entry xmlns="http://www.w3.org/2005/Atom">
+        <link rel="replies" href="http://example.org/2005/04/02/atom/comments" />
+        <link rel="edit" href="http://example.org/2005/04/02/atom/edit"/>
+        <link rel="self" href="http://example.org/2005/04/02/atom/self"/>
+        <link rel="alternate" href="http://example.org/2005/04/02/atom" />
+        </entry>
+        ';
+        $feed = new XML_Feed_Parser($source);
+        $entry = $feed->getEntryByOffset(0);
+
+        // Output
+        $this->assertEquals( "http://example.org/2005/04/02/atom",
+            $entry->link(0, 'href', array()));
+    }
+
 }
 
 ?>
