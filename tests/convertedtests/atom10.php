@@ -17,7 +17,7 @@ class atom10_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('atom10', $feed->version());
+        $this->assertVersionMostlyCorrect('atom10', $feed->version());
     }
 
     function test_entry_author_email_1() { 
