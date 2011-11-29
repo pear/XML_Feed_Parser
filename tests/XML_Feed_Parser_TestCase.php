@@ -24,5 +24,14 @@ abstract class XML_Feed_Parser_Converted_TestCase extends XML_Feed_Parser_TestCa
                 $this->fp_test_dir);
         }
     }
+
+    /**
+     * The python tests expect lowercase strings like 'rss20'
+     * Our (stable) API returns strings like "RSS 2.0"
+     */
+    protected function assertVersionMostlyCorrect($expected, $actual, $message = '') {
+        $mostly_actual = str_replace(array(" ","."), "", strtolower($actual));
+        $this->assertEquals($expected, $mostly_actual, $message);
+    }
 }
 ?>
