@@ -1072,7 +1072,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('rss090', $feed->version());
+        $this->assertVersionMostlyCorrect('rss090', $feed->version());
     }
 
     function test_rss_version_091_netscape_1() { 
@@ -1080,7 +1080,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals('rss20', $feed->version(), "Expected to load RSS 2.0 driver, because 0.92 is deprecated");
+        $this->assertVersionMostlyCorrect('rss20', $feed->version(), "Expected to load RSS 2.0 driver, because 0.92 is deprecated");
     }
 
     function test_rss_version_091_userland_1() { 
@@ -1088,7 +1088,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals('rss20', $feed->version(), "Expected to load RSS 2.0 driver, because 0.91 is deprecated");
+        $this->assertVersionMostlyCorrect('rss20', $feed->version(), "Expected to load RSS 2.0 driver, because 0.91 is deprecated");
     }
 
     function test_rss_version_092_1() { 
@@ -1096,7 +1096,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals('rss20', $feed->version(), "Expected to load RSS 2.0 driver, because 0.92 is deprecated");
+        $this->assertVersionMostlyCorrect('rss20', $feed->version(), "Expected to load RSS 2.0 driver, because 0.92 is deprecated");
     }
 
     function test_rss_version_093_1() { 
@@ -1104,7 +1104,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals('rss20', $feed->version(), "Expected to load RSS 2.0 driver, because 0.93 is deprecated");
+        $this->assertVersionMostlyCorrect('rss20', $feed->version(), "Expected to load RSS 2.0 driver, because 0.93 is deprecated");
     }
 
     function test_rss_version_094_1() { 
@@ -1112,7 +1112,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals('rss20', $feed->version(), "Expected to load RSS 2.0 driver, because 0.94 is deprecated");
+        $this->assertVersionMostlyCorrect('rss20', $feed->version(), "Expected to load RSS 2.0 driver, because 0.94 is deprecated");
     }
 
     function test_rss_version_20_1() { 
@@ -1120,7 +1120,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('rss20', $feed->version());
+        $this->assertVersionMostlyCorrect('rss20', $feed->version());
     }
 
     function test_rss_version_201_1() { 
@@ -1128,7 +1128,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals('rss20', $feed->version());
+        $this->assertVersionMostlyCorrect('rss20', $feed->version());
     }
 
     function test_rss_version_21_1() { 
@@ -1136,7 +1136,7 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals('rss20', $feed->version());
+        $this->assertVersionMostlyCorrect('rss20', $feed->version());
     }
 
     function test_rss_version_missing_1() { 
@@ -1144,7 +1144,6 @@ class rss_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content, false, true);
 
-        $this->assertEquals('rss', $feed->version());
+        $this->assertVersionMostlyCorrect('rss', $feed->version());
     }
 }
-?>
