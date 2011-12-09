@@ -112,6 +112,10 @@ abstract class XML_Feed_Parser_Type
 
     public function setSanitizer(XML_Feed_Parser_Sanitizer $sanitizer) {
         $this->sanitizer = $sanitizer;
+
+        foreach ($this->entries as $entry) {
+            $entry->setSanizier($sanitizer);
+        }
     } 
     public function getSanitizer() {
         return $this->sanitizer;
