@@ -14,7 +14,8 @@ class XML_Feed_Parser_Factory {
      * @param    bool    $suppressWarnings Trigger errors for deprecated feed types?
      * @param    bool    $tidy    Whether or not to try and use the tidy library on input
      */
-    function build($feed, $strict = false, $suppressWarnings = false, $tidy = false)
+    function build($feed, $strict = false, $suppressWarnings = false, $tidy = false) 
+    {
         if (! $this->model->loadXML($feed, $options)) {
             if (extension_loaded('tidy') && $tidy) {
                 $tidy = new tidy;
