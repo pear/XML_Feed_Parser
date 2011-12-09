@@ -93,21 +93,6 @@ class XML_Feed_Parser implements Iterator
             $options |= LIBXML_NOERROR;
         }
         $this->model = new DOMDocument;
-        if (! $this->model->loadXML($feed, $options)) {
-            if (extension_loaded('tidy') && $tidy) {
-                $tidy = new tidy;
-                $tidy->parseString($feed, 
-                    array('input-xml' => true, 'output-xml' => true));
-                $tidy->cleanRepair();
-                if (! $this->model->loadXML((string) $tidy)) {
-                    throw new XML_Feed_Parser_Exception('Invalid input: this is not ' .
-                        'valid XML');
-                }
-            } else {
-                throw new XML_Feed_Parser_Exception('Invalid input: this is not valid XML');
-            }
-        }
-
         $this->initalize($feed, $strict, $suppressWarnings, $tidy);
     }
 
