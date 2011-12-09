@@ -81,7 +81,7 @@ class rdf_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('rss10', $feed->version());
+        $this->assertEquals('RSS 1.0', $feed->version());
     }
 
     function test_rss_version_10_not_default_ns_1() { 
@@ -89,7 +89,7 @@ class rdf_TestCase extends XML_Feed_Parser_Converted_TestCase {
 
         $feed = new XML_Feed_Parser($content);
 
-        $this->assertEquals('rss10', $feed->version());
+        $this->assertEquals('RSS 1.0', $feed->version());
     }
 }
 ?>
