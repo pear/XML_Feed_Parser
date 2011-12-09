@@ -155,8 +155,7 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
 
         $entries = $this->xpath->query("//rss:item[@rdf:about='$id']");
         if ($entries->length > 0) {
-            $classname = $this->itemClass;
-            $entry = new $classname($entries->item(0), $this);
+            $entry = new XML_Feed_Parser_RSS1Element($entries->item(0), $this);
             if (in_array('evaluate', get_class_methods($this->xpath))) {
                 $offset = $this->xpath->evaluate("count(preceding-sibling::rss:item)", $entries->item(0));
                 $this->entries[$offset] = $entry;

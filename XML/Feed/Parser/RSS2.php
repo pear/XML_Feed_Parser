@@ -114,7 +114,7 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
     function __construct(DOMDocument $model, $strict = false)
     {
         $this->model = $model;
-
+        $this->setSanitizer(new XML_Feed_Parser_Unsafe_Sanitizer());
         if ($strict) {
             if (! $this->relaxNGValidate()) {
                 throw new XML_Feed_Parser_Exception('Failed required validation');
@@ -126,7 +126,6 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
             $this->xpath->registerNamespace($key, $value);
         }
         $this->numberEntries = $this->count('item');
-        $this->setSanitizer(new XML_Feed_Parser_Unsafe_Sanitizer());
     }
 
     /**

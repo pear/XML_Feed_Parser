@@ -210,6 +210,8 @@ abstract class XML_Feed_Parser_Type
             $entries = $this->model->getElementsByTagName($this->itemElement);
             if ($entries->length > $offset) {
                 $xmlBase = $entries->item($offset)->baseURI;
+                /** @todo Remove this behaviour - each driver should control this better */
+                /** @todo Try to avoid new here */
                 $this->entries[$offset] = new $this->itemClass(
                     $entries->item($offset), $this, $xmlBase);
                 if ($id = $this->entries[$offset]->id) {

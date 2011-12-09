@@ -150,7 +150,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         if ($entries->length > 0) {
             $xmlBase = $entries->item(0)->baseURI;
             /** @todo Avoid instantiating classes we can't keep track of */
-            $entry = new $this->itemClass($entries->item(0), $this, $xmlBase);
+            $entry = new XML_Feed_Parser_AtomElement($entries->item(0), $this, $xmlBase);
+            $entry->setSanitizer($this->getSanitizer());
             
             if (in_array('evaluate', get_class_methods($this->xpath))) {
                 $offset = $this->xpath->evaluate("count(preceding-sibling::atom:entry)", $entries->item(0));

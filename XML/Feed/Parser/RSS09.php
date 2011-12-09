@@ -105,13 +105,12 @@ class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
     function __construct(DOMDocument $model, $strict = false)
     {
         $this->model = $model;
-
+        $this->setSanitizer(new XML_Feed_Parser_Unsafe_Sanitizer());
         $this->xpath = new DOMXPath($model);
         foreach ($this->namespaces as $key => $value) {
             $this->xpath->registerNamespace($key, $value);
         }            
         $this->numberEntries = $this->count('item');
-        $this->setSanitizer(new XML_Feed_Parser_Unsafe_Sanitizer());
     }
 
     /**
