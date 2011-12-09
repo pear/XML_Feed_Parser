@@ -33,6 +33,7 @@ require_once 'XML/Feed/Parser/Type.php';
  */
 require_once 'XML/Feed/Parser/Exception.php';
 
+require_once 'XML/Feed/Parser/Factory.php';
 /**
  * This is the core of the XML_Feed_Parser package. It identifies feed types 
  * and abstracts access to them. It is an iterator, allowing for easy access 
@@ -112,7 +113,7 @@ class XML_Feed_Parser implements Iterator
      */
     function initialize($feed, $strict = false, $suppressWarnings = false, $tidy = false)
     {
-        $factory = new XML_Feed_Factory();
+        $factory = new XML_Feed_Parser_Factory();
         $this->feed = $factory->build($feed);
     }
 
