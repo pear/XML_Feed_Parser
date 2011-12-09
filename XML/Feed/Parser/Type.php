@@ -345,7 +345,7 @@ abstract class XML_Feed_Parser_Type
         $decoded = html_entity_decode($node->nodeValue);
         $value = htmlentities($decoded, null, strtoupper($current_encoding));
 
-        if (function_exists('iconv') && false) {
+        if (function_exists('iconv')) {
             return $this->sanitizer->sanitize(
                 iconv(
                     strtoupper($current_encoding),
