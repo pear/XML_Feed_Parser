@@ -1,4 +1,6 @@
 <?php
+require_once 'XML/Feed/Parser/Sanitizer.php';
+
 class XML_Feed_Parser_Factory {
     /**
      * A storage space for Namespace URIs.
