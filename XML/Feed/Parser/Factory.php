@@ -16,6 +16,12 @@ class XML_Feed_Parser_Factory {
      */
     function build(DOMDocument $model, $feed, $strict = false, $suppressWarnings = false, $tidy = false) 
     {
+        $options = 0;
+        if ($suppressWarnings) {
+            $options |= LIBXML_NOWARNING;
+            $options |= LIBXML_NOERROR;
+        }
+
         if (! $model->loadXML($feed, $options)) {
             if (extension_loaded('tidy') && $tidy) {
                 $tidy = new tidy;
