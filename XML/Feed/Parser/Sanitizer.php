@@ -70,8 +70,7 @@ class XML_Feed_Parser_StripTags_Sanitizer implements XML_Feed_Parser_Sanitizer {
       'pointer', 'purple', 'red', 'right', 'solid', 'silver', 'teal', 'top',
       'transparent', 'underline', 'white', 'yellow');
 
-    protected $valid_css_values = '^(#[0-9a-f]+|rgb\(\d+%?,\d*%?,?\d*%?\)?|' .
-      '\d{0,2}\.?\d{0,2}(cm|em|ex|in|mm|pc|pt|px|%|,|\))?)$';
+    protected $valid_css_values = '^(#[0-9a-f]+|rgb\(\d+%?,\d*%?,?\d*%?\)?|\d{0,2}\.?\d{0,2}(cm|em|ex|in|mm|pc|pt|px|%|,|\))?)$';
 
     protected $mathml_elements = array('annotation', 'annotation-xml', 'maction', 'math',
       'merror', 'mfenced', 'mfrac', 'mi', 'mmultiscripts', 'mn', 'mo', 'mover', 'mpadded',
