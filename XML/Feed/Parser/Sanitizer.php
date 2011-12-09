@@ -6,7 +6,6 @@ interface XML_Feed_Parser_Sanitizer {
 
 class XML_Feed_Parser_Unsafe_Sanitizer implements XML_Feed_Parser_Sanitizer {
     public function sanitize($input) {
-throw new Exception("Wrong sanitizer");
         return $input;
     }
 }
