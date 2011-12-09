@@ -95,6 +95,7 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
         $this->xmlBase = $xmlBase;
         $this->xpathPrefix = "//atom:entry[atom:id='" . $this->id . "']/";
         $this->xpath = $this->parent->xpath;
+        $this->setSanitizer(new XML_Feed_Parser_Unsafe_Sanitizer());
     }
 
     /**

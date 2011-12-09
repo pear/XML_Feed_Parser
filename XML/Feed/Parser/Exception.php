@@ -39,4 +39,3 @@ class XML_Feed_Parser_Exception extends PEAR_Exception
 
 }
 
-?>

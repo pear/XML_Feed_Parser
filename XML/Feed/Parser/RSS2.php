@@ -126,6 +126,7 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
             $this->xpath->registerNamespace($key, $value);
         }
         $this->numberEntries = $this->count('item');
+        $this->setSanitizer(new XML_Feed_Parser_Unsafe_Sanitizer());
     }
 
     /**

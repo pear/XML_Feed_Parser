@@ -82,6 +82,7 @@ class XML_Feed_Parser_RSS1Element extends XML_Feed_Parser_RSS1
     {
         $this->model = $element;
         $this->parent = $parent;
+        $this->setSanitizer(new XML_Feed_Parser_Unsafe_Sanitizer());
     }
 
     /**

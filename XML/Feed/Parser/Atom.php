@@ -125,6 +125,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         $this->xpath = new DOMXPath($this->model);
         $this->xpath->registerNamespace('atom', 'http://www.w3.org/2005/Atom');
         $this->numberEntries = $this->count('entry');
+        $this->setSanitizer(new XML_Feed_Parser_Unsafe_Sanitizer());
     }
 
     /**
