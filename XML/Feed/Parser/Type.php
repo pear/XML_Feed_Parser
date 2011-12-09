@@ -110,7 +110,7 @@ abstract class XML_Feed_Parser_Type
     }
 
     public function setSanitizer(XML_Feed_Parser_Sanitizer $sanitizer) {
-        $this->sanitizer = $sanitzer;
+        $this->sanitizer = $sanitizer;
     } 
 
     /**
