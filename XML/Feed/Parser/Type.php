@@ -1,5 +1,6 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+require_once 'XML/Feed/Parser/Sanitizer.php'
 
 /**
  * Abstract class providing common methods for XML_Feed_Parser feeds.
@@ -108,7 +109,7 @@ abstract class XML_Feed_Parser_Type
         return false;
     }
 
-    public function setSanitizer(XML_Parser_Sanitizer $sanitizer) {
+    public function setSanitizer(XML_Feed_Parser_Sanitizer $sanitizer) {
         $this->sanitizer = $sanitzer;
     } 
 
