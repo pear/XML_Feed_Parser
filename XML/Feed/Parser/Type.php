@@ -32,6 +32,7 @@ require_once 'XML/Feed/Parser/Sanitizer.php';
  */
 abstract class XML_Feed_Parser_Type
 {
+    protected $sanitizer;
     /**
      * Where we store our DOM object for this feed 
      * @var DOMDocument
@@ -340,18 +341,25 @@ abstract class XML_Feed_Parser_Type
     {
         $current_encoding = $node->ownerDocument->encoding;
 
-        if (function_exists('iconv')) {
-            return iconv(strtoupper($current_encoding), 'UTF-8', htmlentities(html_entity_decode($node->nodeValue, NULL, 'UTF-8'), NULL, 'UTF-8'));
+        // Charset left blank to trigger autodetection
+        $decoded = html_entity_decode($node->nodeValue);
+        $value = htmlentities($decoded, null, strtoupper($current_encoding));
+
+        if (function_exists('iconv') && false) {
+            return $this->sanitizer->sanitize(
+                iconv(
+                    strtoupper($current_encoding),
+                    'UTF-8',
+                    $value
+                )
+            );
         } else if (strtoupper($current_encoding) == 'ISO-8859-1') {
-            return utf8_encode(htmlentities(html_entity_decode($node->nodeValue, NULL, 'UTF-8'), NULL, 'UTF-8'));
+            return $this->sanitizer->sanitize(
+                utf8_encode($value)
+            );
         }
 
-        return $this->sanitizer->sanitize(
-            htmlentities(
-                html_entity_decode($node->nodeValue, NULL, 'UTF-8'),
-                NULL, 'UTF-8'
-            )
-        );
+        return $this->sanitizer->sanitize($value);
     }
 
     /**
