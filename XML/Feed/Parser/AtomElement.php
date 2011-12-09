@@ -90,12 +90,14 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
      */
     function __construct(DOMElement $element, $parent, $xmlBase = '')
     {
+        $this->setSanitizer(new XML_Feed_Parser_Unsafe_Sanitizer());
         $this->model = $element;
         $this->parent = $parent;
         $this->xmlBase = $xmlBase;
+        // $this->id is doing magic work in the constructor :(
         $this->xpathPrefix = "//atom:entry[atom:id='" . $this->id . "']/";
         $this->xpath = $this->parent->xpath;
-        $this->setSanitizer(new XML_Feed_Parser_Unsafe_Sanitizer());
+
     }
 
     /**
@@ -199,6 +201,7 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
      */
     function getEnclosure($method, $arguments = array())
     {
+
         $offset = isset($arguments[0]) ? $arguments[0] : 0;
         $query = "//atom:entry[atom:id='" . $this->getText('id', false) . 
             "']/atom:link[@rel='enclosure']";
