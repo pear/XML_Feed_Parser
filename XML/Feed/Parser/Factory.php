@@ -16,13 +16,13 @@ class XML_Feed_Parser_Factory {
      */
     function build($feed, $strict = false, $suppressWarnings = false, $tidy = false) 
     {
-        if (! $this->model->loadXML($feed, $options)) {
+        if (! $feed->model->loadXML($feed, $options)) {
             if (extension_loaded('tidy') && $tidy) {
                 $tidy = new tidy;
                 $tidy->parseString($feed, 
                     array('input-xml' => true, 'output-xml' => true));
                 $tidy->cleanRepair();
-                if (! $this->model->loadXML((string) $tidy)) {
+                if (! $feed->model->loadXML((string) $tidy)) {
                     throw new XML_Feed_Parser_Exception('Invalid input: this is not ' .
                         'valid XML');
                 }
@@ -33,13 +33,13 @@ class XML_Feed_Parser_Factory {
 
 
         /* detect feed type */
-        $doc_element = $this->model->documentElement;
+        $doc_element = $feed->model->documentElement;
 
 
         $class = $this->determineClass($doc_element, $suppressWarnings);
 
         /* Instantiate feed object */
-        $feed = new $class($this->model, $strict);
+        $feed = new $class($feed->model, $strict);
         $feed->setSanitizer(new XML_Parser_Unsafe_Sanitizer());
 
         return $feed;
