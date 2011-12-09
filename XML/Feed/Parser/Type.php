@@ -247,7 +247,7 @@ abstract class XML_Feed_Parser_Type
         $tags = $this->model->getElementsByTagName($method);
         if ($tags->length > 0) {
             $value = $tags->item(0)->nodeValue;
-            return $this->sanitizer->sanitze($value);
+            return $this->sanitizer->sanitize($value);
         }
         return false;
     }
@@ -279,11 +279,11 @@ abstract class XML_Feed_Parser_Type
         if ($array) {
             $list = array();
             foreach ($categories as $category) {
-                array_push($list, $this->sanitizer->sanitze($category->nodeValue));
+                array_push($list, $this->sanitizer->sanitize($category->nodeValue));
             }
             return $list;
         }
-        return $this->sanitizer->sanitze($categories->item($offset)->nodeValue);
+        return $this->sanitizer->sanitize($categories->item($offset)->nodeValue);
     }
 
     /**
@@ -346,7 +346,7 @@ abstract class XML_Feed_Parser_Type
             return utf8_encode(htmlentities(html_entity_decode($node->nodeValue, NULL, 'UTF-8'), NULL, 'UTF-8'));
         }
 
-        return $this->sanitizer->sanitze(
+        return $this->sanitizer->sanitize(
             htmlentities(
                 html_entity_decode($node->nodeValue, NULL, 'UTF-8'),
                 NULL, 'UTF-8'
@@ -416,7 +416,7 @@ abstract class XML_Feed_Parser_Type
                 $value = '';
                 foreach ($test->item(0)->childNodes as $child) {
                     if ($child instanceof DOMText) {
-                        $value .= $this->sanitizer->sanitze($child->nodeValue);
+                        $value .= $this->sanitizer->sanitize($child->nodeValue);
                     } else {
                         $simple = simplexml_import_dom($child);
                         $value .= $simple->asXML();
@@ -424,7 +424,7 @@ abstract class XML_Feed_Parser_Type
                 }
                 return $value;
             } else if ($test->length > 0) {
-                return $this->sanitizer->sanitze($test->item(0)->nodeValue);
+                return $this->sanitizer->sanitize($test->item(0)->nodeValue);
             }
         }
         return false;
