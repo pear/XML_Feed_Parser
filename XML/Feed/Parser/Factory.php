@@ -1,4 +1,6 @@
 <?php
+require_once 'Log.php';
+require_once 'Log/null.php';
 require_once 'XML/Feed/Parser/Sanitizer.php';
 
 class XML_Feed_Parser_Factory {
@@ -11,6 +13,13 @@ class XML_Feed_Parser_Factory {
             'http://backend.userland.com/rss',
             'http://backend.userland.com/rss2',
             'http://blogs.law.harvard.edu/tech/rss'));
+
+    public function __construct(Log $log = null) {
+        if ($log === null) {
+            $log = new Log_null('', '', array(), null);
+        }
+        $this->log = $log;
+    }
 
    /**
      * Detects feed types and instantiate appropriate objects.
@@ -64,8 +73,6 @@ class XML_Feed_Parser_Factory {
 
     public function determineClass($doc_element, $suppressWarnings = false) 
     {
-        $error = false;
-
         switch (true) { 
             case ($doc_element->namespaceURI == 'http://www.w3.org/2005/Atom'):
                 require_once 'XML/Feed/Parser/Atom.php';
@@ -76,8 +83,9 @@ class XML_Feed_Parser_Factory {
                 require_once 'XML/Feed/Parser/Atom.php';
                 require_once 'XML/Feed/Parser/AtomElement.php';
                 $class = 'XML_Feed_Parser_Atom';
-                $error = 'Atom 0.3 deprecated, using 1.0 parser which won\'t provide ' .
-                    'all options';
+
+                $this->log->warning('Atom 0.3 deprecated, using 1.0 parser which won\'t provide ' .
+                    'all options');
                 break;
             case ($doc_element->namespaceURI == 'http://purl.org/rss/1.0/' || 
                 ($doc_element->hasChildNodes() && $doc_element->childNodes->length > 1 
@@ -106,7 +114,7 @@ class XML_Feed_Parser_Factory {
             case ($doc_element->tagName == 'rss' and
                 $doc_element->hasAttribute('version') && 
                 $doc_element->getAttribute('version') == 0.91):
-                $error = 'RSS 0.91 has been superceded by RSS2.0. Using RSS2.0 parser.';
+                $this->log->warning('RSS 0.91 has been superceded by RSS2.0. Using RSS2.0 parser.');
                 require_once 'XML/Feed/Parser/RSS2.php';
                 require_once 'XML/Feed/Parser/RSS2Element.php';
                 $class = 'XML_Feed_Parser_RSS2';
@@ -114,7 +122,7 @@ class XML_Feed_Parser_Factory {
             case ($doc_element->tagName == 'rss' and
                 $doc_element->hasAttribute('version') && 
                 $doc_element->getAttribute('version') == 0.92):
-                $error = 'RSS 0.92 has been superceded by RSS2.0. Using RSS2.0 parser.';
+                $this->log->warning('RSS 0.92 has been superceded by RSS2.0. Using RSS2.0 parser.');
                 require_once 'XML/Feed/Parser/RSS2.php';
                 require_once 'XML/Feed/Parser/RSS2Element.php';
                 $class = 'XML_Feed_Parser_RSS2';
@@ -123,7 +131,7 @@ class XML_Feed_Parser_Factory {
                 || $doc_element->tagName == 'rss'):
                 if (! $doc_element->hasAttribute('version') || 
                     $doc_element->getAttribute('version') != 2) {
-                    $error = 'RSS version not specified. Parsing as RSS2.0';
+                    $this->log->warning('RSS version not specified. Parsing as RSS2.0');
                 }
                 require_once 'XML/Feed/Parser/RSS2.php';
                 require_once 'XML/Feed/Parser/RSS2Element.php';
@@ -132,10 +140,6 @@ class XML_Feed_Parser_Factory {
             default:
                 throw new XML_Feed_Parser_Exception('Feed type unknown');
                 break;
-        }
-
-        if (! $suppressWarnings && ! empty($error)) {
-            trigger_error($error, E_USER_WARNING);
         }
 
 
