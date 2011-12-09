@@ -149,7 +149,7 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
 
         $entries = $this->xpath->query("//item[guid='$id']");
         if ($entries->length > 0) {
-            $entry = new $this->itemElement($entries->item(0), $this);
+            $entry = new XML_Feed_Parser_RSS2Element($entries->item(0), $this);
             if (in_array('evaluate', get_class_methods($this->xpath))) {
                 $offset = $this->xpath->evaluate("count(preceding-sibling::item)", $entries->item(0));
                 $this->entries[$offset] = $entry;
