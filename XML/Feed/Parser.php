@@ -66,6 +66,7 @@ class XML_Feed_Parser implements Iterator
     /**
      * A storage space for Namespace URIs.
      * @var array
+     * @deprecated This is being moved to the factory for now.
      */
     private $feedNamespaces = array(
         'rss2' => array(
@@ -88,7 +89,7 @@ class XML_Feed_Parser implements Iterator
      */
     function __construct($feed, $strict = false, $suppressWarnings = false, $tidy = false)
     {
-        $this->model = new DOMDocument;
+            $this->model = new DOMDocument;
         $this->initialize($feed, $strict, $suppressWarnings, $tidy);
     }
 

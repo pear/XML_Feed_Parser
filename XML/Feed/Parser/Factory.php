@@ -1,5 +1,14 @@
 <?php
 class XML_Feed_Parser_Factory {
+    /**
+     * A storage space for Namespace URIs.
+     * @var array
+     */
+    private $feedNamespaces = array(
+        'rss2' => array(
+            'http://backend.userland.com/rss',
+            'http://backend.userland.com/rss2',
+            'http://blogs.law.harvard.edu/tech/rss'));
 
    /**
      * Detects feed types and instantiate appropriate objects.
