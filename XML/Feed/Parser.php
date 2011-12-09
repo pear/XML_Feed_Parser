@@ -114,7 +114,7 @@ class XML_Feed_Parser implements Iterator
     function initialize($feed, $strict = false, $suppressWarnings = false, $tidy = false)
     {
         $factory = new XML_Feed_Parser_Factory();
-        $this->feed = $factory->build($feed);
+        $this->feed = $factory->build($this->model, $feed,  $strict = false, $suppressWarnings = false, $tidy = false);
     }
 
 

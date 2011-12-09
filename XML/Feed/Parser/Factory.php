@@ -14,15 +14,15 @@ class XML_Feed_Parser_Factory {
      * @param    bool    $suppressWarnings Trigger errors for deprecated feed types?
      * @param    bool    $tidy    Whether or not to try and use the tidy library on input
      */
-    function build($feed, $strict = false, $suppressWarnings = false, $tidy = false) 
+    function build(DOMDocument $model, $feed, $strict = false, $suppressWarnings = false, $tidy = false) 
     {
-        if (! $feed->model->loadXML($feed, $options)) {
+        if (! $model->loadXML($feed, $options)) {
             if (extension_loaded('tidy') && $tidy) {
                 $tidy = new tidy;
                 $tidy->parseString($feed, 
                     array('input-xml' => true, 'output-xml' => true));
                 $tidy->cleanRepair();
-                if (! $feed->model->loadXML((string) $tidy)) {
+                if (! $model->loadXML((string) $tidy)) {
                     throw new XML_Feed_Parser_Exception('Invalid input: this is not ' .
                         'valid XML');
                 }
@@ -33,7 +33,7 @@ class XML_Feed_Parser_Factory {
 
 
         /* detect feed type */
-        $doc_element = $feed->model->documentElement;
+        $doc_element = $model->documentElement;
 
 
         $class = $this->determineClass($doc_element, $suppressWarnings);
