@@ -112,7 +112,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      * @param    DOMDocument    $xml    A DOM object representing the feed
      * @param    bool (optional) $string    Whether or not to validate this feed
      */
-    function __construct(DOMDocument $model, $strict = false)
+    public function __construct(DOMDocument $model, $strict = false)
     {
         $this->model = $model;
 
@@ -191,7 +191,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         if ($param->length == 0) {
             return false;
         }
-        return $this->sanitize($param->item(0)->nodeValue);
+        return $this->sanitizer->sanitize($param->item(0)->nodeValue);
     }
 
     /**
@@ -219,13 +219,18 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 
         $content = $tags->item($offset);
 
+        if (empty($attribute)) {
+            return $this->parseTextConstruct($content);
+        }
+
         if (! $content->hasAttribute('type')) {
             $content->setAttribute('type', 'text');
         }
         $type = $content->getAttribute('type');
 
-        if (! empty($attribute) and 
-            ! ($method == 'generator' and $attribute == 'name')) {
+
+        if (!($method == 'generator' && $attribute == 'name')) {
+
             if ($content->hasAttribute($attribute)) {
                 return $content->getAttribute($attribute);
             } else if ($attribute == 'href' and $content->hasAttribute('uri')) {
@@ -264,7 +269,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         switch ($type) {
             case 'text':
             case 'html':
-                return $this->sanitize($content->textContent);
+                return $this->sanitizer->sanitize($content->textContent);
                 break;
             case 'xhtml':
                 $container = $content->getElementsByTagName('div');
@@ -289,6 +294,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
                 return base64_decode(trim($content->nodeValue));
                 break;
         }
+
         return false;
     }
     /**
