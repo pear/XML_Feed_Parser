@@ -77,7 +77,7 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
     {
         $this->model = $element;
         $this->parent = $parent;
-        $this->setSanitizer(new XML_Feed_Parser_Unsafe_Sanitizer());
+        $this->setSanitizer($parent->getSanitizer());
     }
 
     /**

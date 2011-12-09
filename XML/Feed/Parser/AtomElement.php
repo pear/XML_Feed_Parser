@@ -90,7 +90,8 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
      */
     function __construct(DOMElement $element, $parent, $xmlBase = '')
     {
-        $this->setSanitizer(new XML_Feed_Parser_Unsafe_Sanitizer());
+
+        $this->setSanitizer($parent->getSanitizer());
         $this->model = $element;
         $this->parent = $parent;
         $this->xmlBase = $xmlBase;
