@@ -89,7 +89,7 @@ class XML_Feed_Parser implements Iterator
      */
     function __construct($feed, $strict = false, $suppressWarnings = false, $tidy = false)
     {
-            $this->model = new DOMDocument;
+        $this->model = new DOMDocument;
         $this->initialize($feed, $strict, $suppressWarnings, $tidy);
     }
 
@@ -110,7 +110,7 @@ class XML_Feed_Parser implements Iterator
     function initialize($feed, $strict = false, $suppressWarnings = false, $tidy = false)
     {
         $factory = new XML_Feed_Parser_Factory();
-        $this->feed = $factory->build($this->model, $feed,  $strict = false, $suppressWarnings = false, $tidy = false);
+        $this->feed = $factory->build($this->model, $feed,  $strict, $suppressWarnings, $tidy);
     }
 
 
