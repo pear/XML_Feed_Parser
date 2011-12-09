@@ -93,7 +93,7 @@ class XML_Feed_Parser implements Iterator
             $options |= LIBXML_NOERROR;
         }
         $this->model = new DOMDocument;
-        $this->initalize($feed, $strict, $suppressWarnings, $tidy);
+        $this->initialize($feed, $strict, $suppressWarnings, $tidy);
     }
 
    /**
