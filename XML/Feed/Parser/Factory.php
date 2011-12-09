@@ -57,7 +57,7 @@ class XML_Feed_Parser_Factory {
 
         /* Instantiate feed object */
         $feed = new $class($model, $strict);
-        $feed->setSanitizer(new XML_Parser_Unsafe_Sanitizer());
+        $feed->setSanitizer(new XML_Feed_Parser_Unsafe_Sanitizer());
 
         return $feed;
     }
