@@ -108,6 +108,10 @@ abstract class XML_Feed_Parser_Type
         return false;
     }
 
+    public function setSanitizer(XML_Parser_Sanitizer $sanitizer) {
+        $this->sanitizer = $sanitzer;
+    } 
+
     /**
      * Proxy to allow use of element names as attribute names
      *
@@ -242,7 +246,7 @@ abstract class XML_Feed_Parser_Type
         $tags = $this->model->getElementsByTagName($method);
         if ($tags->length > 0) {
             $value = $tags->item(0)->nodeValue;
-            return $value;
+            return $this->sanitizer->sanitze($value);
         }
         return false;
     }
@@ -274,11 +278,11 @@ abstract class XML_Feed_Parser_Type
         if ($array) {
             $list = array();
             foreach ($categories as $category) {
-                array_push($list, $category->nodeValue);
+                array_push($list, $this->sanitizer->sanitze($category->nodeValue));
             }
             return $list;
         }
-        return $categories->item($offset)->nodeValue;
+        return $this->sanitizer->sanitze($categories->item($offset)->nodeValue);
     }
 
     /**
@@ -333,17 +337,20 @@ abstract class XML_Feed_Parser_Type
      */
     function processEntitiesForNodeValue($node) 
     {
+        $current_encoding = $node->ownerDocument->encoding;
+
         if (function_exists('iconv')) {
-          $current_encoding = $node->ownerDocument->encoding;
-          $value = iconv($current_encoding, 'UTF-8', $node->nodeValue);
-        } else if ($current_encoding == 'iso-8859-1') {
-          $value = utf8_encode($node->nodeValue);
-        } else {
-          $value = $node->nodeValue;
+            return iconv(strtoupper($current_encoding), 'UTF-8', htmlentities(html_entity_decode($node->nodeValue, NULL, 'UTF-8'), NULL, 'UTF-8'));
+        } else if (strtoupper($current_encoding) == 'ISO-8859-1') {
+            return utf8_encode(htmlentities(html_entity_decode($node->nodeValue, NULL, 'UTF-8'), NULL, 'UTF-8'));
         }
 
-        $decoded = html_entity_decode($value, NULL, 'UTF-8');
-        return htmlentities($decoded, NULL, 'UTF-8');
+        return $this->sanitizer->sanitze(
+            htmlentities(
+                html_entity_decode($node->nodeValue, NULL, 'UTF-8'),
+                NULL, 'UTF-8'
+            )
+        );
     }
 
     /**
@@ -408,7 +415,7 @@ abstract class XML_Feed_Parser_Type
                 $value = '';
                 foreach ($test->item(0)->childNodes as $child) {
                     if ($child instanceof DOMText) {
-                        $value .= $child->nodeValue;
+                        $value .= $this->sanitizer->sanitze($child->nodeValue);
                     } else {
                         $simple = simplexml_import_dom($child);
                         $value .= $simple->asXML();
@@ -416,7 +423,7 @@ abstract class XML_Feed_Parser_Type
                 }
                 return $value;
             } else if ($test->length > 0) {
-                return $test->item(0)->nodeValue;
+                return $this->sanitizer->sanitze($test->item(0)->nodeValue);
             }
         }
         return false;
@@ -471,5 +478,3 @@ abstract class XML_Feed_Parser_Type
         return $this->model->relaxNGValidate($path);
     }
 }
-
-?>

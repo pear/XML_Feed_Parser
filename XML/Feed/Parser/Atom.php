@@ -190,7 +190,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         if ($param->length == 0) {
             return false;
         }
-        return $param->item(0)->nodeValue;
+        return $this->sanitize($param->item(0)->nodeValue);
     }
 
     /**
@@ -263,7 +263,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         switch ($type) {
             case 'text':
             case 'html':
-                return $content->textContent;
+                return $this->sanitize($content->textContent);
                 break;
             case 'xhtml':
                 $container = $content->getElementsByTagName('div');
