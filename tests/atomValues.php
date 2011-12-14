@@ -118,8 +118,7 @@ class atomValues extends XML_Feed_Parser_TestCase
     
     function test_entryAuthorName()
     {
-        $value = 'Mark Pilgrim (f8dy@example.com)
-';
+        $value = 'Mark Pilgrim (f8dy@example.com)';
         $this->assertEquals($value, $this->entry->author);
     }
     
