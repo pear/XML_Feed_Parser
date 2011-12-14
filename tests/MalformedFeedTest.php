@@ -20,7 +20,7 @@ class MalformedFeedTest extends XML_Feed_Parser_TestCase
         $feed = new XML_Feed_Parser($file, false, true, true);    
 
         $entry = $feed->getEntryByOffset(0);
-        $this->assertEquals($entry->author, 'Example author');
+        $this->assertEquals($entry->author, 'Example author (me@example.com)');
     }
 }
 
