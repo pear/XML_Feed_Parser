@@ -193,6 +193,14 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         if ($param->length == 0) {
             return false;
         }
+
+        $email = $section->item($offset)->getElementsByTagName('email');
+        if ($email->length > 0 && $parameter == 'name') {
+            $email_sanitized = $this->sanitizer->sanitize($email->item(0)->nodeValue);
+            $person_sanitized = $this->sanitizer->sanitize($param->item(0)->nodeValue);
+            return $person_sanitized . ' (' . $email_sanitized . ')';
+        }
+
         return $this->sanitizer->sanitize($param->item(0)->nodeValue);
     }
 
