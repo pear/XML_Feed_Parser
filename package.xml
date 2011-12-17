@@ -1679,6 +1679,11 @@ Bug #15365
    <extension>
     <name>xml</name>
    </extension>
+   <package>
+    <name>Log</name>
+    <channel>pear.php.net</channel>
+    <min>1.7</min>
+   </package>
   </required>
   <optional>
    <extension>

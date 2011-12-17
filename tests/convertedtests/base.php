@@ -12,14 +12,6 @@ class base_TestCase extends XML_Feed_Parser_Converted_TestCase {
         parent::setUp();
     }
 
-    function test_cdf_item_abstract_xml_base_1() { 
-        $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/base/cdf_item_abstract_xml_base.xml');
-
-        $feed = new XML_Feed_Parser($content, true, true);
-
-        $this->assertEquals('http://base.example.org/', $feed->getEntryByOffset(0)->summary(0, 'base'));
-    }
-
     function test_entry_content_xml_base_1() { 
         $content = file_get_contents($this->fp_test_dir . DIRECTORY_SEPARATOR . 'wellformed/base/entry_content_xml_base.xml');
 
