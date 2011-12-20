@@ -42,6 +42,10 @@ class XML_Feed_Parser_Factory {
             $options |= LIBXML_NOERROR;
         }
 
+        if (empty($feed)) {
+            throw new XML_Feed_Parser_Exception('Invalid input: file is empty');
+        }
+
         if (! $model->loadXML($feed, $options)) {
             if (extension_loaded('tidy') && $tidy) {
                 $tidy = new tidy;
