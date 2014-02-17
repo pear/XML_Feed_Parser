@@ -8,7 +8,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "XML_Feed_Parser": "./"
+            "XML": "./"
         }
     },
     "description": "More info available on: http://pear.php.net/package/XML_Feed_Parser",
@@ -26,7 +26,8 @@
         "ext-tidy": "May require the tidy PHP extension"
     },
     "require": {
-        "pear/pear_exception": "*"
+        "pear/pear_exception": "*",
+        "pear/log": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
