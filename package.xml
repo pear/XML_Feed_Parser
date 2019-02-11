@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>XML_Feed_Parser</name>
  <channel>pear.php.net</channel>
  <summary>Providing a unified API for handling Atom/RSS</summary>
@@ -10,10 +10,10 @@
   <email>james@jystewart.net</email>
   <active>yes</active>
  </lead>
- <date>2010-10-11</date>
- <time>22:38:10</time>
+ <date>2012-01-27</date>
+ <time>14:26:46</time>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,12 +22,12 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-QA Release
-Bug #15129 Assorted parse errors in tests
-Bug #15309
-Bug #15318
-Bug #15322
-Bug #15365
+QA release
+Bug #16416 atom:link causes getLink to fail for RSS2.php
+Bug #16986 Fatal error on XML_Feed_Parser_RSS2::getEntryById()
+Bug #19086 RSS block picks the wrong links for articles
+Bug #19089 constructor doesn&apos;t respect $suppressWarnings flags
+Bug #19091 Warnings when image element has no title, link, or url attribute
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -46,7 +46,7 @@ Bug #15365
    <file baseinstalldir="/XML/Feed" md5sum="a06ad8037cd37c3fbb75110606662e6d" name="samples/hoder.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="e6b294dae4e18251f2b94567279ac069" name="samples/hungarian-iso-8859-2.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="cb93c2e518b4789d67d4e04862864f4f" name="samples/hungarian.xml" role="data" />
-   <file baseinstalldir="/XML/Feed" md5sum="32ab2403cb5bcf9b405c7aee906a52b8" name="samples/illformed_atom10.xml" role="data" />
+   <file baseinstalldir="/XML/Feed" md5sum="305e587095b38f5ee18d0ec4aeec35d6" name="samples/illformed_atom10.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="99583d06cbe42eaba5ffbb401cd93c30" name="samples/image-nodes.xml" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="214c456af473ee9aeded3a244aa8b69f" name="samples/ongoing.atom" role="data" />
    <file baseinstalldir="/XML/Feed" md5sum="4cddbf445d4ec9f02d2acd543f142b3d" name="samples/otherlanguage.xml" role="data" />
@@ -1625,24 +1625,24 @@ Bug #15365
    <file baseinstalldir="/XML/Feed" md5sum="3aa99ee5ea5a97b73a69b6108dadaf7b" name="tests/AllTests.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="716fb9f7d6e21152861531d62d43f6d5" name="tests/atomCompliance.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="9ff86d16078df032bd90a47eb8c6408b" name="tests/atomEntryOnly.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="9a30885becf4056d7ce60bf649d926a4" name="tests/atomValues.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="c6fd74c1c8176764b3d9120586ea6d41" name="tests/atomValues.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="f4cd0bf0c804ce24134b028439811fdf" name="tests/errors.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="57d57af9d44119850d4ce8c2195305e6" name="tests/farsi.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="61830945d040cb4f350e4d94bf18255e" name="tests/iteration.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="635587a56da9837fc9311c243cbb990c" name="tests/japanese.php" role="test" />
-   <file baseinstalldir="/" md5sum="19e5e0e37ff52c782ea22ed1ee366ea0" name="tests/MalformedFeedTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="850466071ef59743018e3bcb570b60fa" name="tests/MalformedFeedTest.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="4cb1c10beaa2856ed15e191ff4d87452" name="tests/regressions.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="da5ad0f0bc65fc8f04c443591f49c5c9" name="tests/rss091Values.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="fe6392158a30cc20f3092e4318808014" name="tests/rss092Values.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="f32a03a2722fc81356f63a5920c30605" name="tests/rss1Values.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="fb9b0f02a0aabff932b080f80eb281c0" name="tests/rss2Values.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="6994727fdaf2a4a812519e120cc82e5b" name="tests/xmlbase.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="05619dfee380b43e44b2c97b040dceb1" name="tests/XML_Feed_Parser_TestCase.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="c49f1764ca22c252b7c12dd9df513d42" name="tests/XML_Feed_Parser_TestCase.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="8b3d6009f6d09ef966017066e9baf9dd" name="tests/convertedtests/AllTests.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="41ddaa27544c432ee846cc36e8c070a5" name="tests/convertedtests/amp.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="82fe4eb6f29d3c903ed4e9600b77a2d7" name="tests/convertedtests/atom.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="e7eae3b1ea2c00f9f6a27971e29f493d" name="tests/convertedtests/atom10.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="06c0686b4df69e11cdf53f35f4686cf9" name="tests/convertedtests/base.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="fec85e7069978e8a5e0f1af49c3be6ce" name="tests/convertedtests/atom10.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="d2d53762ea6bd7730538732b4cb93c1d" name="tests/convertedtests/base.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="0aa6ccf76e61725775537ff5d3c77a04" name="tests/convertedtests/date.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="8d0c93adb97e3616a2695dea79940f1f" name="tests/convertedtests/encoding.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="dc3d080e2f472c3dd7e0366e653aa0d1" name="tests/convertedtests/feedburner.php" role="test" />
@@ -1650,22 +1650,26 @@ Bug #15365
    <file baseinstalldir="/XML/Feed" md5sum="9df97cb63d74da4608e57afd2829fe2d" name="tests/convertedtests/itunes.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="a1d2a68064c21cfdc09de38066fca901" name="tests/convertedtests/lang.php" role="test" />
    <file baseinstalldir="/XML/Feed" md5sum="bcd1449e5c25e4e13ebd78da3102ea90" name="tests/convertedtests/namespace.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="693667b7e4225db401982482e4db42eb" name="tests/convertedtests/rdf.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="557ed0bf60d658c5e2c98668d0da31e1" name="tests/convertedtests/rss.php" role="test" />
-   <file baseinstalldir="/XML/Feed" md5sum="2bc1674367211989257eb4a07117922f" name="tests/convertedtests/sanitize.php" role="test" />
-   <file baseinstalldir="/" md5sum="008deb42824d04b658b97c6f012dd217" name="XML/Feed/Parser.php" role="php" />
-   <file baseinstalldir="/" md5sum="3ea18be093881beaaa014fe742ae2dda" name="XML/Feed/Parser/Atom.php" role="php" />
-   <file baseinstalldir="/" md5sum="3aff1c388fc0598c33ffb224588e42e8" name="XML/Feed/Parser/AtomElement.php" role="php" />
-   <file baseinstalldir="/" md5sum="0380dae59e21b2f136fff62d1e5b89b7" name="XML/Feed/Parser/Exception.php" role="php" />
-   <file baseinstalldir="/" md5sum="488216a07f54a12615978936dd683ac8" name="XML/Feed/Parser/RSS09.php" role="php" />
-   <file baseinstalldir="/" md5sum="79a3e542427183c448564bba5bf8854d" name="XML/Feed/Parser/RSS09Element.php" role="php" />
-   <file baseinstalldir="/" md5sum="12fcc4284c4a282ac436fcf8f13f924a" name="XML/Feed/Parser/RSS1.php" role="php" />
-   <file baseinstalldir="/" md5sum="edbf5cbf81319156f9d955033d9796bf" name="XML/Feed/Parser/RSS1Element.php" role="php" />
-   <file baseinstalldir="/" md5sum="6d1b693621eef86b2541367530768112" name="XML/Feed/Parser/RSS2.php" role="php" />
-   <file baseinstalldir="/" md5sum="5dbbc84f41019c42409a0e45b57d0f3f" name="XML/Feed/Parser/RSS2Element.php" role="php" />
-   <file baseinstalldir="/" md5sum="5205319bedd073c8f57ae92d935835bb" name="XML/Feed/Parser/RSS11.php" role="php" />
-   <file baseinstalldir="/" md5sum="9cb96ff30c5a5c08d42973b032121465" name="XML/Feed/Parser/RSS11Element.php" role="php" />
-   <file baseinstalldir="/" md5sum="5986851b148bc8e3cfe913871bb53a10" name="XML/Feed/Parser/Type.php" role="php" />
+   <file baseinstalldir="/XML/Feed" md5sum="10ecbbe032313ed4d2a113a69fe294e0" name="tests/convertedtests/rdf.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="1053f531739c7b94958cc97abbea4652" name="tests/convertedtests/rss.php" role="test" />
+   <file baseinstalldir="/XML/Feed" md5sum="707969a40fa354edbe8cdaefe07e2802" name="tests/convertedtests/sanitize.php" role="test" />
+   <file baseinstalldir="/" md5sum="b139bdba5fcaec8afeb1c1345a573587" name="XML/Feed/Parser.php" role="php" />
+   <file baseinstalldir="/" md5sum="675241f445e83a5ce1d66cbf027182ab" name="XML/Feed/Parser2.php" role="php" />
+   <file baseinstalldir="/" md5sum="b52821d5ba138c63d54a519475e6fb9b" name="XML/Feed/Parser/Atom.php" role="php" />
+   <file baseinstalldir="/" md5sum="b8478f40dcb2b33440388f789d3b4b5c" name="XML/Feed/Parser/AtomElement.php" role="php" />
+   <file baseinstalldir="/" md5sum="23d29c34871003b037387c840e24ed12" name="XML/Feed/Parser/Exception.php" role="php" />
+   <file baseinstalldir="/" md5sum="76af1c278cb97612e3ee69fe915a1c2f" name="XML/Feed/Parser/Factory.php" role="php" />
+   <file baseinstalldir="/" md5sum="c9f0f5f04806658d6146cbf4163ad136" name="XML/Feed/Parser/RSS09.php" role="php" />
+   <file baseinstalldir="/" md5sum="5b17fd05425ce61048168a4a27a53a34" name="XML/Feed/Parser/RSS09Element.php" role="php" />
+   <file baseinstalldir="/" md5sum="003fb4781d44c455b06b29aa1f7d8b51" name="XML/Feed/Parser/RSS1.php" role="php" />
+   <file baseinstalldir="/" md5sum="fb7de5173f10d99d323551384d4b27b4" name="XML/Feed/Parser/RSS1Element.php" role="php" />
+   <file baseinstalldir="/" md5sum="937e4678f0e07944bbb2c18ab33f6e4e" name="XML/Feed/Parser/RSS2.php" role="php" />
+   <file baseinstalldir="/" md5sum="72111a395ca6eeff42ea46f48e3e6a2f" name="XML/Feed/Parser/RSS2Element.php" role="php" />
+   <file baseinstalldir="/" md5sum="5dba8f7670d16a063d8cc6e624228b97" name="XML/Feed/Parser/RSS11.php" role="php" />
+   <file baseinstalldir="/" md5sum="37f63bd291cba9973c2625f675326ca3" name="XML/Feed/Parser/RSS11Element.php" role="php" />
+   <file baseinstalldir="/" md5sum="4c4e6365d734db228ad17df3e1f785af" name="XML/Feed/Parser/Sanitizer.php" role="php" />
+   <file baseinstalldir="/" md5sum="f81aab05e1b7075345023119704d167a" name="XML/Feed/Parser/Type.php" role="php" />
+   <file baseinstalldir="/" md5sum="aae14176ba593ccb5f2f1159a63e90df" name="README" role="data" />
   </dir>
  </contents>
  <dependencies>
@@ -1676,14 +1680,13 @@ Bug #15365
    <pearinstaller>
     <min>1.4.0b1</min>
    </pearinstaller>
-   <extension>
-    <name>xml</name>
-   </extension>
    <package>
     <name>Log</name>
     <channel>pear.php.net</channel>
-    <min>1.7</min>
    </package>
+   <extension>
+    <name>xml</name>
+   </extension>
   </required>
   <optional>
    <extension>
@@ -2057,6 +2060,26 @@ Bug #15309
 Bug #15318
 Bug #15322
 Bug #15365
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2012-01-28</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+QA release
+Bug #16416 atom:link causes getLink to fail for RSS2.php
+Bug #16986 Fatal error on XML_Feed_Parser_RSS2::getEntryById()
+Bug #19086 RSS block picks the wrong links for articles
+Bug #19089 constructor doesn&apos;t respect $suppressWarnings flags
+Bug #19091 Warnings when image element has no title, link, or url attribute
    </notes>
   </release>
  </changelog>
